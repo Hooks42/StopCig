@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FB4F6F942C57D955000DDD59 /* SmokingRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4F6F932C57D955000DDD59 /* SmokingRoutine.swift */; };
+		FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */; };
+		FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DC2C53E87800B8B709 /* HelloView.swift */; };
+		FB52D8DF2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DE2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift */; };
+		FB52D8E12C550BE100B8B709 /* Smoker_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */; };
+		FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */; };
+		FBB8AB132C5E279400141E4E /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB8AB122C5E279400141E4E /* Functions.swift */; };
+		FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB8AB142C5FC84C00141E4E /* Structs.swift */; };
+		FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */; };
+		FBE09E952C50E4F800BC80F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09E942C50E4F800BC80F6 /* ContentView.swift */; };
+		FBE09E992C50E4FA00BC80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE09E982C50E4FA00BC80F6 /* Assets.xcassets */; };
+		FBE09E9C2C50E4FA00BC80F6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE09E9B2C50E4FA00BC80F6 /* Preview Assets.xcassets */; };
+		FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09EA22C50E5CB00BC80F6 /* Plus tard.swift */; };
+		FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09EA42C50E63400BC80F6 /* VideoBackgroundView.swift */; };
+		FBE09EAB2C522DB300BC80F6 /* Smoke.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FBE09EAA2C522DB300BC80F6 /* Smoke.mp4 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FB4F6F932C57D955000DDD59 /* SmokingRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokingRoutine.swift; sourceTree = "<group>"; };
+		FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherKindOfCigaretView.swift; sourceTree = "<group>"; };
+		FB52D8DC2C53E87800B8B709 /* HelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloView.swift; sourceTree = "<group>"; };
+		FB52D8DE2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatKindOfCigaretsView.swift; sourceTree = "<group>"; };
+		FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smoker_Model.swift; sourceTree = "<group>"; };
+		FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
+		FB6B7E0E2C5396E7001D9131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FBB8AB122C5E279400141E4E /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		FBB8AB142C5FC84C00141E4E /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
+		FBE09E8F2C50E4F800BC80F6 /* StopCig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopCig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopCigApp.swift; sourceTree = "<group>"; };
+		FBE09E942C50E4F800BC80F6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FBE09E982C50E4FA00BC80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FBE09E9B2C50E4FA00BC80F6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FBE09EA22C50E5CB00BC80F6 /* Plus tard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plus tard.swift"; sourceTree = "<group>"; };
+		FBE09EA42C50E63400BC80F6 /* VideoBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBackgroundView.swift; sourceTree = "<group>"; };
+		FBE09EAA2C522DB300BC80F6 /* Smoke.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Smoke.mp4; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FBE09E8C2C50E4F800BC80F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB4F6F902C57C882000DDD59 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FB4F6F912C57C893000DDD59 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FBE09EA42C50E63400BC80F6 /* VideoBackgroundView.swift */,
+				FB52D8DC2C53E87800B8B709 /* HelloView.swift */,
+				FB52D8DE2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift */,
+				FB4F6F932C57D955000DDD59 /* SmokingRoutine.swift */,
+				FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FB4F6F922C57C8C6000DDD59 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		FBB8AB112C5E277900141E4E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8AB122C5E279400141E4E /* Functions.swift */,
+				FBB8AB142C5FC84C00141E4E /* Structs.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FBE09E862C50E4F800BC80F6 = {
+			isa = PBXGroup;
+			children = (
+				FBE09EAA2C522DB300BC80F6 /* Smoke.mp4 */,
+				FBE09E912C50E4F800BC80F6 /* StopCig */,
+				FBE09E902C50E4F800BC80F6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FBE09E902C50E4F800BC80F6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FBE09E8F2C50E4F800BC80F6 /* StopCig.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FBE09E912C50E4F800BC80F6 /* StopCig */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8AB112C5E277900141E4E /* Utils */,
+				FB4F6F922C57C8C6000DDD59 /* Fonts */,
+				FB4F6F902C57C882000DDD59 /* Model */,
+				FB4F6F912C57C893000DDD59 /* Views */,
+				FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */,
+				FBE09E942C50E4F800BC80F6 /* ContentView.swift */,
+				FBE09E982C50E4FA00BC80F6 /* Assets.xcassets */,
+				FBE09E9A2C50E4FA00BC80F6 /* Preview Content */,
+				FBE09EA22C50E5CB00BC80F6 /* Plus tard.swift */,
+				FB6B7E0E2C5396E7001D9131 /* Info.plist */,
+			);
+			path = StopCig;
+			sourceTree = "<group>";
+		};
+		FBE09E9A2C50E4FA00BC80F6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FBE09E9B2C50E4FA00BC80F6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FBE09E8E2C50E4F800BC80F6 /* StopCig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE09E9F2C50E4FA00BC80F6 /* Build configuration list for PBXNativeTarget "StopCig" */;
+			buildPhases = (
+				FBE09E8B2C50E4F800BC80F6 /* Sources */,
+				FBE09E8C2C50E4F800BC80F6 /* Frameworks */,
+				FBE09E8D2C50E4F800BC80F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StopCig;
+			productName = StopCig;
+			productReference = FBE09E8F2C50E4F800BC80F6 /* StopCig.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FBE09E872C50E4F800BC80F6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					FBE09E8E2C50E4F800BC80F6 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = FBE09E8A2C50E4F800BC80F6 /* Build configuration list for PBXProject "StopCig" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FBE09E862C50E4F800BC80F6;
+			productRefGroup = FBE09E902C50E4F800BC80F6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FBE09E8E2C50E4F800BC80F6 /* StopCig */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FBE09E8D2C50E4F800BC80F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBE09E9C2C50E4FA00BC80F6 /* Preview Assets.xcassets in Resources */,
+				FBE09E992C50E4FA00BC80F6 /* Assets.xcassets in Resources */,
+				FBE09EAB2C522DB300BC80F6 /* Smoke.mp4 in Resources */,
+				FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FBE09E8B2C50E4F800BC80F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB52D8E12C550BE100B8B709 /* Smoker_Model.swift in Sources */,
+				FBE09E952C50E4F800BC80F6 /* ContentView.swift in Sources */,
+				FB52D8DF2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift in Sources */,
+				FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */,
+				FBB8AB132C5E279400141E4E /* Functions.swift in Sources */,
+				FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */,
+				FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */,
+				FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */,
+				FB4F6F942C57D955000DDD59 /* SmokingRoutine.swift in Sources */,
+				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
+				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FBE09E9D2C50E4FA00BC80F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FBE09E9E2C50E4FA00BC80F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FBE09EA02C50E4FA00BC80F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StopCig/Preview Content\"";
+				DEVELOPMENT_TEAM = A43D89MKY2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StopCig/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hook.StopCig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FBE09EA12C50E4FA00BC80F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StopCig/Preview Content\"";
+				DEVELOPMENT_TEAM = A43D89MKY2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StopCig/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Hook.StopCig;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FBE09E8A2C50E4F800BC80F6 /* Build configuration list for PBXProject "StopCig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE09E9D2C50E4FA00BC80F6 /* Debug */,
+				FBE09E9E2C50E4FA00BC80F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE09E9F2C50E4FA00BC80F6 /* Build configuration list for PBXNativeTarget "StopCig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE09EA02C50E4FA00BC80F6 /* Debug */,
+				FBE09EA12C50E4FA00BC80F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FBE09E872C50E4F800BC80F6 /* Project object */;
+}
