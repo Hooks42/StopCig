@@ -108,5 +108,3 @@ struct OtherKindOfCigaretView: View {
 #Preview {
     OtherKindOfCigaretView(smokerModel: .constant(SmokerModel(firstOpening: true, cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0), numberOfCigaretProgrammedThisDay: 0, cigaretSmoked: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0), cigaretSaved: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0))), textFieldForCigaret: .constant(false))
 }
-
-// Ceci est un test pour voir si le commit fonctionne bien
