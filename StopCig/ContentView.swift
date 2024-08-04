@@ -54,6 +54,9 @@ struct ContentView: View {
                     if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
                         WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
                     }
+                    if isKindOfCigaretSelected {
+                        Text("To be continued...")
+                    }
                 }
             } else {
                 Text("Already initialized")

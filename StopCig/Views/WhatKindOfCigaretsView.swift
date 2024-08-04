@@ -42,7 +42,7 @@ struct WhatKindOfCigaretsView: View {
                     .position(x: geo.size.width / 2, y: 0)
                 }
                 if textFieldForCigaret {
-                    OtherKindOfCigaretView(smokerModel: $smokerModel, textFieldForCigaret: $textFieldForCigaret)
+                    OtherKindOfCigaretView(smokerModel: $smokerModel, textFieldForCigaret: $textFieldForCigaret, isKindOfCigaretSelected: $isKindOfCigaretSelected)
                 }
                 if buttonForCigaret {
                     Button(action: {

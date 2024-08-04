@@ -6,6 +6,7 @@ struct OtherKindOfCigaretView: View {
     @Environment(\.modelContext) private var modelContext
     @Binding var smokerModel: SmokerModel?
     @Binding var textFieldForCigaret: Bool
+    @Binding var isKindOfCigaretSelected: Bool
     @FocusState private var isFocused: Bool
     @State private var pricePhase = false
     @State private var selectedOtherCigaret = ""
@@ -74,8 +75,10 @@ struct OtherKindOfCigaretView: View {
                                 if smokerModel != nil {
                                     smokerModel!.cigaretInfo.priceOfCigaret = Double(selectedOtherCigaret) ?? 0.0
                                     saveInSmokerDb(modelContext)
-                                    withAnimation(.easeInOut(duration: 1)){
-                                        textFieldForCigaret = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        withAnimation(.easeInOut(duration: 1)){
+                                            isKindOfCigaretSelected = true
+                                        }
                                     }
                                 }
                             }
@@ -103,8 +106,4 @@ struct OtherKindOfCigaretView: View {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: selectedOtherCigaret)
     }
-}
-
-#Preview {
-    OtherKindOfCigaretView(smokerModel: .constant(SmokerModel(firstOpening: true, cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0), numberOfCigaretProgrammedThisDay: 0, cigaretSmoked: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0), cigaretSaved: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0))), textFieldForCigaret: .constant(false))
 }
