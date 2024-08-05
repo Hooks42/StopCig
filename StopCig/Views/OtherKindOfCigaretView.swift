@@ -71,10 +71,13 @@ struct OtherKindOfCigaretView: View {
                         }
                     } else {
                         Button(action: {
+                            selectedOtherCigaret = selectedOtherCigaret.replacingOccurrences(of: ",", with: ".")
                             if checkIfInputIsOk() {
                                 if smokerModel != nil {
                                     smokerModel!.cigaretInfo.priceOfCigaret = Double(selectedOtherCigaret) ?? 0.0
+                                    print("var = \(selectedOtherCigaret) | doubleCast = \(Double(selectedOtherCigaret) ?? 0.00) | in db = \(smokerModel!.cigaretInfo.priceOfCigaret)")
                                     saveInSmokerDb(modelContext)
+                                    isFocused = false
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         withAnimation(.easeInOut(duration: 1)){
                                             isKindOfCigaretSelected = true
@@ -97,7 +100,6 @@ struct OtherKindOfCigaretView: View {
                 }
             }
         }
-
     }
     
     private func checkIfInputIsOk() -> Bool {

@@ -33,7 +33,7 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @State private var isAcceptPressed = true
+    @State private var isAcceptPressed = false
     @State private var isKindOfCigaretSelected = false
     
     @Query private var smokerModels: [SmokerModel]
@@ -46,6 +46,8 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             if smokerModel != nil && !smokerModel!.firstOpening {
                 VStack {
+                    Text("cigaret = \(smokerModel!.cigaretInfo.kindOfCigaret) AND price = \(smokerModel!.cigaretInfo.priceOfCigaret)")
+                        .position(x: 200, y: 0)
                     if !isAcceptPressed {
                         HelloView(isAcceptPressed: $isAcceptPressed)
                     }
@@ -55,7 +57,7 @@ struct ContentView: View {
                         WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
                     }
                     if isKindOfCigaretSelected {
-                        Text("To be continued...")
+                        Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
                     }
                 }
             } else {
