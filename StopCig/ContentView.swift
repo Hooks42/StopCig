@@ -35,6 +35,7 @@ struct ContentView: View {
     
     @State private var isAcceptPressed = false
     @State private var isKindOfCigaretSelected = false
+    @State private var isRoutineSet = false
     
     @Query private var smokerModels: [SmokerModel]
     @State private var smokerModel: SmokerModel!
@@ -60,10 +61,18 @@ struct ContentView: View {
                         Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
                     }
                 }
+                VStack {
+                    if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
+                        Text("hey")
+                    }
+                    if isRoutineSet {
+                        Text("L'utilisateur fume \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced) cigarettes par jour")
+                    }
+                }
             } else {
                 Text("Already initialized")
+            }
         }
-    }
         .onAppear() {
             initializeSmokerModel()
         }
