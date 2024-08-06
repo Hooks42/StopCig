@@ -41,35 +41,60 @@ struct HowManyCigaretsSmokedView: View {
                     .pickerStyle(.inline)
                     .position(x: geo.size.width / 2, y: 0)
                 }
-            }
-        }
-        .onAppear() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation(.easeInOut(duration: 1)){
-                    questionForRoutine = true
+                
+                if buttonForRoutine {
+                    Button(action : {
+                        if !selectedRoutine.isEmpty && smokerModel != nil {
+                            smokerModel!.cigaretInfo.numberOfCigaretAnnounced = selectedRoutine.first!.value
+                            saveInSmokerDb(modelContext)
+                            print("Routine set with value : \(selectedRoutine.first!.value)")
+                        }
+                    }) {
+                        Text("Continuer")
+                            .foregroundColor(.black)
+                            .font(.system(size: 19))
+                            .padding(13)
+                            .bold()
+                            .background(
+                                Color(.white)
+                            )
+                            .cornerRadius(20)
+                    }
                 }
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation(.easeInOut(duration: 1)){
-                    pickerForRoutine = true
+            .onAppear() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    withAnimation(.easeInOut(duration: 1)){
+                        questionForRoutine = true
+                    }
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation(.easeInOut(duration: 1)){
+                        pickerForRoutine = true
+                    }
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation(.easeInOut(duration: 1)){
+                        buttonForRoutine = true
+                    }
                 }
             }
         }
     }
-    
     static private func fillArray() -> [String : Int] {
         
         var numberOfCigaretsSmoked : [String : Int] = [:]
         
         for i in 10...60 {
             switch i {
-                case 20: numberOfCigaretsSmoked["1 paquet"] = i
-                case 30: numberOfCigaretsSmoked["1 paquet et demi"] = i
-                case 40: numberOfCigaretsSmoked["2 paquets"] = i
-                case 50: numberOfCigaretsSmoked["2 paquets et demi"] = i
-                case 60: numberOfCigaretsSmoked["3 paquets"] = i
-                default: numberOfCigaretsSmoked["\(i) cigarettes"] = i
+            case 20: numberOfCigaretsSmoked["1 paquet"] = i
+            case 30: numberOfCigaretsSmoked["1 paquet et demi"] = i
+            case 40: numberOfCigaretsSmoked["2 paquets"] = i
+            case 50: numberOfCigaretsSmoked["2 paquets et demi"] = i
+            case 60: numberOfCigaretsSmoked["3 paquets"] = i
+            default: numberOfCigaretsSmoked["\(i) cigarettes"] = i
             }
         }
         return numberOfCigaretsSmoked
