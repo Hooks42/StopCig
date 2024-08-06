@@ -66,7 +66,7 @@ struct ContentView: View {
                         Text("hey")
                     }
                     if isRoutineSet {
-                        Text("L'utilisateur fume \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced) cigarettes par jour")
+                        Text("L'utilisateur fume des \(smokerModel!.cigaretInfo.kindOfCigaret) au prix de \(smokerModel!.cigaretInfo.priceOfCigaret) € par paquet et fume \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced) cigarettes par jour")
                     }
                 }
             } else {

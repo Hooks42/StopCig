@@ -31,7 +31,7 @@ struct WhatKindOfCigaretsView: View {
                         .position(x: geo.size.width / 2, y: geo.size.height * 0.15)
                 }
                 if pickerForCigaret {
-                    Picker(selection: $selectedCigaret, label: Text("Marque de cigarette")) {
+                    Picker("Marque de cigarette", selection: $selectedCigaret) {
                         ForEach(self.cigaretsMap) { item in
                             Text(item.name)
                                 .foregroundColor(.white)
