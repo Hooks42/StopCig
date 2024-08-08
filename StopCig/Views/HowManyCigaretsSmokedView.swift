@@ -10,7 +10,7 @@ struct HowManyCigaretsSmokedView: View {
     @State private var pickerForRoutine = false
     @State private var buttonForRoutine = false
     @State private var numberOfCigaretsSmoked : [String : Int] = HowManyCigaretsSmokedView.fillArray()
-    @State private var selectedRoutine : [String : Int] = [:]
+    @State private var selectedRoutine : String = "10 cigarettes"
     
     var body: some View {
         ZStack {
@@ -37,10 +37,11 @@ struct HowManyCigaretsSmokedView: View {
                 
                 if buttonForRoutine {
                     Button(action : {
+                        print("Routine got value : \(selectedRoutine)")
                         if !selectedRoutine.isEmpty && smokerModel != nil {
-                            smokerModel!.cigaretInfo.numberOfCigaretAnnounced = selectedRoutine.first!.value
+                            smokerModel!.cigaretInfo.numberOfCigaretAnnounced = numberOfCigaretsSmoked[selectedRoutine] ?? 0
                             saveInSmokerDb(modelContext)
-                            print("Routine set with value : \(selectedRoutine.first!.value)")
+                            print("Routine set with value : \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced)")
                         }
                     }) {
                         Text("Continuer")

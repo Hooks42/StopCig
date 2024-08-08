@@ -33,8 +33,8 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @State private var isAcceptPressed = false
-    @State private var isKindOfCigaretSelected = false
+    @State private var isAcceptPressed = true
+    @State private var isKindOfCigaretSelected = true
     @State private var isRoutineSet = false
     
     @Query private var smokerModels: [SmokerModel]
