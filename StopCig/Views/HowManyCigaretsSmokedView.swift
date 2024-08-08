@@ -1,10 +1,3 @@
-//
-//  HowManyCigaretsSmokedView.swift
-//  StopCig
-//
-//  Created by Hook on 05/08/2024.
-//
-
 import SwiftUI
 
 struct HowManyCigaretsSmokedView: View {
@@ -20,15 +13,15 @@ struct HowManyCigaretsSmokedView: View {
     @State private var selectedRoutine : [String : Int] = [:]
     
     var body: some View {
+        ZStack {
         GeometryReader { geo in
             VStack {
                 if questionForRoutine {
-                    Text("Choisis ta marque de cigarette")
+                    Text("Combien en fumes-tu par jour ?")
                         .font(.custom("Quicksand-Light", size: 22))
                         .foregroundColor(.white)
                         .position(x: geo.size.width / 2, y: geo.size.height * 0.15)
                 }
-                
                 if pickerForRoutine {
                     Picker("Nombre de cigarettes", selection: $selectedRoutine) {
                         let sortedCigaretTypes = numberOfCigaretsSmoked.sorted { $0.value < $1.value }
@@ -62,6 +55,7 @@ struct HowManyCigaretsSmokedView: View {
                     }
                 }
             }
+            
             .onAppear() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation(.easeInOut(duration: 1)){
@@ -83,6 +77,7 @@ struct HowManyCigaretsSmokedView: View {
             }
         }
     }
+}
     static private func fillArray() -> [String : Int] {
         
         var numberOfCigaretsSmoked : [String : Int] = [:]

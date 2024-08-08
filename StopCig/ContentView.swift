@@ -47,8 +47,6 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             if smokerModel != nil && !smokerModel!.firstOpening {
                 VStack {
-                    Text("cigaret = \(smokerModel!.cigaretInfo.kindOfCigaret) AND price = \(smokerModel!.cigaretInfo.priceOfCigaret)")
-                        .position(x: 200, y: 0)
                     if !isAcceptPressed {
                         HelloView(isAcceptPressed: $isAcceptPressed)
                     }
@@ -58,12 +56,12 @@ struct ContentView: View {
                         WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
                     }
                     if isKindOfCigaretSelected {
-                        Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
+                        //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
                     }
                 }
                 VStack {
                     if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
-                        Text("hey")
+                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet)
                     }
                     if isRoutineSet {
                         Text("L'utilisateur fume des \(smokerModel!.cigaretInfo.kindOfCigaret) au prix de \(smokerModel!.cigaretInfo.priceOfCigaret) € par paquet et fume \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced) cigarettes par jour")

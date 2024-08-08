@@ -109,3 +109,12 @@ struct OtherKindOfCigaretView: View {
         return predicate.evaluate(with: selectedOtherCigaret)
     }
 }
+
+
+#Preview {
+    OtherKindOfCigaretView(
+        smokerModel: .constant(nil),
+        textFieldForCigaret: .constant(false),
+        isKindOfCigaretSelected: .constant(false)
+    )
+}
