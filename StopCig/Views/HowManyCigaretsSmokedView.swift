@@ -17,10 +17,15 @@ struct HowManyCigaretsSmokedView: View {
         GeometryReader { geo in
             VStack {
                 if questionForRoutine {
-                    Text("Combien en fumes-tu par jour ?")
-                        .font(.custom("Quicksand-Light", size: 22))
-                        .foregroundColor(.white)
-                        .position(x: geo.size.width / 2, y: geo.size.height * 0.15)
+                    VStack {
+                        Text("Combien en fumes-tu par jour ?")
+                            .font(.custom("Quicksand-Light", size: 22))
+                            .foregroundColor(.white)
+                        Text("( Si tu ne sais pas compte et reviens demain ! )")
+                            .font(.custom("Quicksand-Light", size: 12))
+                            .foregroundColor(.white)
+                    }
+                    .position(x: geo.size.width / 2, y: geo.size.height * 0.15)
                 }
                 if pickerForRoutine {
                     Picker("Nombre de cigarettes", selection: $selectedRoutine) {
@@ -42,6 +47,7 @@ struct HowManyCigaretsSmokedView: View {
                             smokerModel!.cigaretInfo.numberOfCigaretAnnounced = numberOfCigaretsSmoked[selectedRoutine] ?? 0
                             saveInSmokerDb(modelContext)
                             print("Routine set with value : \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced)")
+                            isRoutineSet = true
                         }
                     }) {
                         Text("Continuer")
