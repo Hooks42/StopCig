@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
+		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
 		FB1F24F82C6171DB00735E06 /* HowManyCigaretsSmokedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */; };
 		FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */; };
 		FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DC2C53E87800B8B709 /* HelloView.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
 		FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowManyCigaretsSmokedView.swift; sourceTree = "<group>"; };
 		FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherKindOfCigaretView.swift; sourceTree = "<group>"; };
 		FB52D8DC2C53E87800B8B709 /* HelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloView.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		FB0403E32C6662DD00DFA078 /* MainApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB0403E62C666A4D00DFA078 /* MainBoardView.swift */,
 				FB0403E42C66630400DFA078 /* CircleView.swift */,
 			);
 			path = MainApp;
@@ -235,6 +238,7 @@
 				FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */,
 				FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */,
 				FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */,
+				FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */,
 				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
 				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
 			);

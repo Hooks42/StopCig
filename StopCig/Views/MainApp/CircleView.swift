@@ -1,5 +1,5 @@
 //
-//  MainBoardView.swift
+//  CircleView.swift
 //  StopCig
 //
 //  Created by Hook on 09/08/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainBoardView: View {
+struct CircleView: View {
     
     @State private var nextStep: CGFloat = 0.0
     
@@ -39,5 +39,5 @@ struct MainBoardView: View {
 }
 
 #Preview {
-    MainBoardView()
+    CircleView()
 }
