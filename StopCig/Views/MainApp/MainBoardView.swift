@@ -22,6 +22,30 @@ struct MainBoardView: View {
                     .edgesIgnoringSafeArea(.all)
                 CircleView(nextStep: $nextStep)
                 GainAndLossView(gain: $gain, loss: $loss)
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        self.nextStep = 0.9999999
+                    }) {
+                        Text("Next Step")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(Color(.nightBlue))
+                            .padding()
+                            .background(Color(.myRed))
+                            .cornerRadius(10)
+                    }
+                    Button(action: {
+                        self.nextStep = 0.2
+                    }) {
+                        Text("Next Step")
+                    }
+                    Image("Xmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .padding(.trailing, 210)
+                }
             }
         }
     }

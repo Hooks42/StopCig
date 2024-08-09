@@ -15,7 +15,7 @@ struct GainAndLossView: View {
     var body: some View {
         HStack {
             VStack {
-                Text("267 ")
+                Text("\(gain.formatted()) ")
                     .font(.title)
                     .bold()
                     .foregroundColor(.green) +
@@ -28,7 +28,7 @@ struct GainAndLossView: View {
             .padding(.bottom, 650)
                 Spacer()
             VStack {
-                Text("18 ")
+                Text("\(loss.formatted()) ")
                     .font(.title)
                     .bold()
                     .foregroundColor(.red) +
@@ -45,5 +45,5 @@ struct GainAndLossView: View {
 }
 
 #Preview {
-    GainAndLossView(gain: .constant(267), loss: .constant(18))
+    GainAndLossView(gain: .constant(267.34), loss: .constant(18.23))
 }
