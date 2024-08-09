@@ -9,22 +9,20 @@ import SwiftUI
 
 struct CircleView: View {
     
-    @State private var nextStep: CGFloat = 0.0
+    @Binding var nextStep: CGFloat
     
     var body: some View {
         ZStack {
-            Color(.nightBlue)
-                .edgesIgnoringSafeArea(.all)
             Circle()
-                .stroke(Color(.myPurple), lineWidth: 3)
-                .frame(width: 200, height: 200)
+                .stroke(Color(.nightBlue), lineWidth: 3)
+                .frame(width: 280, height: 280)
             Circle()
-                .stroke(Color(.myPurple), lineWidth: 3)
-                .frame(width: 150, height: 150)
+                .stroke(Color(.nightBlue), lineWidth: 3)
+                .frame(width: 240, height: 240)
             Circle()
                 .trim(from: 0, to: nextStep)
-                .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round))
-                .foregroundColor(Color(.yellow)).frame(width: 175, height: 175) // Taille intermédiaire entre les deux cercles
+                .stroke(style: StrokeStyle(lineWidth: 17, lineCap: .round, lineJoin: .round))
+                .foregroundColor(Color(.myPurple)).frame(width: 260, height: 260)// Taille intermédiaire entre les deux cercles
                 .rotationEffect(.degrees(-90))
             Text("10")
                 .font(.custom("Quicksand-Light", size: 50))
@@ -32,12 +30,12 @@ struct CircleView: View {
         }
         .onAppear {
             withAnimation(.linear(duration: 2)) {
-                nextStep = 0.3
+                nextStep = 0.9
             }
         }
     }
 }
 
 #Preview {
-    CircleView()
+    CircleView(nextStep: .constant(0.3))
 }
