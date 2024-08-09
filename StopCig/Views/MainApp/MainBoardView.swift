@@ -10,6 +10,8 @@ import SwiftUI
 struct MainBoardView: View {
     
     @State var nextStep: CGFloat = 0.0
+    @State var gain :Double = 0
+    @State var loss :Double = 0
     
     @Binding var smokerModel: SmokerModel?
     
@@ -19,18 +21,7 @@ struct MainBoardView: View {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
                 CircleView(nextStep: $nextStep)
-                    .padding(.bottom, 240)
-                VStack {
-                    Text("267 ")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(.green) +
-                    Text("EUR")
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .bold()
-                }
-                .position(x: geo.size.width * 0.2, y: geo.size.height * 0.080)
+                GainAndLossView(gain: $gain, loss: $loss)
             }
         }
     }
