@@ -27,12 +27,14 @@ final class SmokerModel {
     var numberOfCigaretProgrammedThisDay: Int
     var cigaretSmoked : CigaretCount
     var cigaretSaved : CigaretCount
+    var gain: Double
     
-    init(firstOpening: Bool, cigaretInfo: CigaretInfos, numberOfCigaretProgrammedThisDay: Int, cigaretSmoked: CigaretCount, cigaretSaved: CigaretCount) {
+    init(firstOpening: Bool, cigaretInfo: CigaretInfos, numberOfCigaretProgrammedThisDay: Int, cigaretSmoked: CigaretCount, cigaretSaved: CigaretCount, gain: Double) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
         self.numberOfCigaretProgrammedThisDay = numberOfCigaretProgrammedThisDay
         self.cigaretSmoked = cigaretSmoked
         self.cigaretSaved = cigaretSaved
+        self.gain = gain
     }
 }
