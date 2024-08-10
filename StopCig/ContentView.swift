@@ -81,9 +81,10 @@ struct ContentView: View {
             let newSmokerModel = SmokerModel(
                 firstOpening: false,
                 cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
+                cigaretCountThisDay: CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
+                cigaretTotalCount: CigaretTotalCount(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
                 numberOfCigaretProgrammedThisDay: 0,
-                cigaretSmoked: CigaretDayCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
-                gain: 0.0,
+                daySinceFirstOpening: 0,
                 needToReset: false
             )
             modelContext.insert(newSmokerModel)

@@ -14,28 +14,40 @@ struct CigaretInfos : Codable {
     var numberOfCigaretAnnounced: Int
 }
 
-struct CigaretDayCount : Codable {
-    var thisDay: Int
-    var thisWeek: Int
-    var thisMonth: Int
+struct CigaretCountThisDay : Codable {
+    var cigaretSmoked : Int
+    var cigaretSaved : Int
+    var gain : Int
+    var lost : Int
 }
+
+struct CigaretTotalCount : Codable {
+    var cigaretSmoked : Int
+    var cigaretSaved : Int
+    var gain : Int
+    var lost : Int
+}
+
 
 @Model
 final class SmokerModel {
     var firstOpening : Bool
     var cigaretInfo : CigaretInfos
+    var cigaretCountThisDay : CigaretCountThisDay
+    var cigaretTotalCount : CigaretTotalCount
     var numberOfCigaretProgrammedThisDay: Int
-    var cigaretSmoked : CigaretDayCount
-    var gain: Double
+    var daySinceFirstOpening: Int
     var needToReset: Bool
     
-    init(firstOpening: Bool, cigaretInfo: CigaretInfos, numberOfCigaretProgrammedThisDay: Int, cigaretSmoked: CigaretDayCount,
-        gain: Double, needToReset: Bool) {
+    init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDay: CigaretCountThisDay,
+         cigaretTotalCount: CigaretTotalCount, numberOfCigaretProgrammedThisDay: Int,
+         daySinceFirstOpening: Int, needToReset: Bool) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
+        self.cigaretCountThisDay = cigaretCountThisDay
+        self.cigaretTotalCount = cigaretTotalCount
         self.numberOfCigaretProgrammedThisDay = numberOfCigaretProgrammedThisDay
-        self.cigaretSmoked = cigaretSmoked
-        self.gain = gain
+        self.daySinceFirstOpening = daySinceFirstOpening
         self.needToReset = needToReset
     }
 }

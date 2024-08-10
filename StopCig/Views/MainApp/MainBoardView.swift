@@ -15,7 +15,7 @@ struct MainBoardView: View {
     
     init(smokerModel: Binding<SmokerModel?>) {
         self._smokerModel = smokerModel
-        self._gain = State(initialValue: smokerModel.wrappedValue?.gain ?? 0)
+        
     }
     
     
@@ -64,13 +64,6 @@ struct MainBoardView: View {
 }
 
 #Preview {
-    MainBoardView(smokerModel: .constant(SmokerModel(
-        firstOpening: false,
-        cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
-        numberOfCigaretProgrammedThisDay: 0,
-        cigaretSmoked: CigaretDayCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
-        gain: 0.0,
-        needToReset: false
-    ))
+    MainBoardView(smokerModel: .constant(nil)
     )
 }
