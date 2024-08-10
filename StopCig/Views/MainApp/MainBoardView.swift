@@ -9,19 +9,31 @@ import SwiftUI
 
 struct MainBoardView: View {
     
-    @State var nextStep: CGFloat = 0.0
-    @State var gain :Double = 0
-    @State var loss :Double = 0
-    
     @Binding var smokerModel: SmokerModel?
+    @State var nextStep: CGFloat = 0
+    @State var gain :Double = 0
+    
+    init(smokerModel: Binding<SmokerModel?>) {
+        self._smokerModel = smokerModel
+        self._gain = State(initialValue: smokerModel.wrappedValue?.gain ?? 0)
+    }
+    
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
-                CircleView(nextStep: $nextStep)
-                GainAndLossView(gain: $gain, loss: $loss)
+                VStack {
+                    CircleView(nextStep: $nextStep)
+                }
+                .padding(.bottom, 50)
+                    
+                VStack {
+                    GainAndLossView(gain: $gain)
+                }
+                .padding(.bottom, 600)
+                    
                 VStack {
                     Spacer()
                     Button(action: {
@@ -30,8 +42,8 @@ struct MainBoardView: View {
                         Text("Next Step")
                             .font(.title)
                             .bold()
-                            .foregroundColor(Color(.nightBlue))
                             .padding()
+                            .foregroundColor(Color(.nightBlue))
                             .background(Color(.myRed))
                             .cornerRadius(10)
                     }
@@ -57,7 +69,9 @@ struct MainBoardView: View {
         cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
         numberOfCigaretProgrammedThisDay: 0,
         cigaretSmoked: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
-        cigaretSaved: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0)
+        cigaretSaved: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
+        gain: 0.0,
+        needToReset: false
     ))
     )
 }

@@ -10,40 +10,20 @@ import SwiftUI
 struct GainAndLossView: View {
     
     @Binding var gain: Double
-    @Binding var loss: Double
     
     var body: some View {
-        HStack {
-            VStack {
-                Text("\(gain.formatted()) ")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.green) +
-                Text("EUR")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.white)
-            }
-            .padding(.leading, 20)
-            .padding(.bottom, 650)
-                Spacer()
-            VStack {
-                Text("\(loss.formatted()) ")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.red) +
-                Text("EUR")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.white)
-            }
-            .padding(.trailing, 20)
-            .padding(.bottom, 650)
+        if gain >= 0 {
+            Text("\(gain.formatted()) €")
+                .font(.system(size: 50))
+                .foregroundColor(Color(.myGreen))
+        } else {
+            Text("\(gain.formatted()) €")
+                .font(.system(size: 50))
+                .foregroundColor(Color(.myRed))
         }
-
     }
 }
 
 #Preview {
-    GainAndLossView(gain: .constant(267.34), loss: .constant(18.23))
+    GainAndLossView(gain: .constant(-267.34))
 }
