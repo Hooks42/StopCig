@@ -68,8 +68,7 @@ struct MainBoardView: View {
         firstOpening: false,
         cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
         numberOfCigaretProgrammedThisDay: 0,
-        cigaretSmoked: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
-        cigaretSaved: CigaretCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
+        cigaretSmoked: CigaretDayCount(thisDay: 0, thisWeek: 0, thisMonth: 0),
         gain: 0.0,
         needToReset: false
     ))
