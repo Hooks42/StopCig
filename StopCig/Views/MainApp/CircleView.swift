@@ -10,6 +10,7 @@ import SwiftUI
 struct CircleView: View {
     
     @Binding var nextStep: CGFloat
+    @Binding var totalCigForThisDay: Int
     @State private var nextStepAnimation: CGFloat = 0.0
     
     var body: some View {
@@ -43,7 +44,7 @@ struct CircleView: View {
                     .rotationEffect(.degrees(-90))
                     .animation(.linear(duration: 2), value: nextStep)
             }
-            Text("10")
+            Text("\(totalCigForThisDay)")
                 .font(.system(size: 60))
                 .bold()
                 .foregroundColor(Color(.myGreen))
@@ -57,5 +58,5 @@ struct CircleView: View {
 }
 
 #Preview {
-    CircleView(nextStep: .constant(0.3))
+    CircleView(nextStep: .constant(0.3), totalCigForThisDay: .constant(0))
 }

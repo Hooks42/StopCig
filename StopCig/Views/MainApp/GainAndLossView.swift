@@ -15,7 +15,7 @@ struct GainAndLossView: View {
         if gain >= 0 {
             Text("\(gain.formatted()) €")
                 .font(.system(size: 50))
-                .foregroundColor(Color(.myGreen))
+                .foregroundColor(Color(.green))
         } else {
             Text("\(gain.formatted()) €")
                 .font(.system(size: 50))

@@ -12,10 +12,18 @@ struct MainBoardView: View {
     @Binding var smokerModel: SmokerModel?
     @State var nextStep: CGFloat = 0
     @State var gain :Double = 0
+    @State var totalCigForThisDay = 0
     
     init(smokerModel: Binding<SmokerModel?>) {
         self._smokerModel = smokerModel
         
+        let initialCigCount = smokerModel.wrappedValue?.cigaretInfo.numberOfCigaretAnnounced ?? 0
+        let cigPercentage = Int(floor(Double(initialCigCount) * 0.20))
+        self._totalCigForThisDay = State(initialValue: initialCigCount - cigPercentage)
+        
+        let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
+        let cigPrice = Double(cigPackPrice) / 20
+        self._gain = State(initialValue: Double(cigPrice) * Double(totalCigForThisDay))
     }
     
     
@@ -25,7 +33,7 @@ struct MainBoardView: View {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    CircleView(nextStep: $nextStep)
+                    CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay)
                 }
                 .padding(.bottom, 50)
                     
@@ -33,6 +41,7 @@ struct MainBoardView: View {
                     GainAndLossView(gain: $gain)
                 }
                 .padding(.bottom, 600)
+                .padding(.trailing, 200)
                     
                 VStack {
                     Spacer()
@@ -64,6 +73,5 @@ struct MainBoardView: View {
 }
 
 #Preview {
-    MainBoardView(smokerModel: .constant(nil)
-    )
+    MainBoardView(smokerModel: .constant(nil))
 }
