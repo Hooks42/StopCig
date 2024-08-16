@@ -36,29 +36,8 @@ struct RectangleSelecterView: View {
                 print(value)
             }
             .onChange(of: scrollOffset) { _, _ in
-                if scrollOffset < 765 && scrollOffset > 764 {
-                    rectangleIndex = 0
-                }
-                else if scrollOffset < 427 && scrollOffset > 396 {
-                    rectangleIndex = 1
-                }
-                else if scrollOffset < 100 && scrollOffset > 45 {
-                    rectangleIndex = 2
-                }
-                
-                if rectangleIndex == 0 {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        rectangleDimensionArray = [bigY, littleY, littleY]
-                    }
-                } else if rectangleIndex == 1 {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        rectangleDimensionArray = [littleY, bigY, littleY]
-                    }
-                } else if rectangleIndex == 2 {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        rectangleDimensionArray = [littleY, littleY, bigY]
-                    }
-                }
+                rectangleIndex = getRectangleIndex(scrollOffset: scrollOffset)
+                modifyRectangleHeight(rectangleIndex: rectangleIndex)
             }
         }
     }
@@ -69,6 +48,39 @@ struct RectangleSelecterView: View {
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
             value = nextValue()
         }
+    }
+    
+    private func getRectangleIndex(scrollOffset: CGFloat) -> Int {
+        if scrollOffset < 765 && scrollOffset > 764 {
+            return 0
+        }
+        else if scrollOffset < 427 && scrollOffset > 396 {
+            return 1
+        }
+        else if scrollOffset < 100 && scrollOffset > 45 {
+            return 2
+        }
+        return -1
+    }
+    
+    private func modifyRectangleHeight(rectangleIndex: Int) {
+        switch rectangleIndex {
+        case 0:
+            withAnimation(.easeInOut(duration: 0.2)) {
+                rectangleDimensionArray = [bigY, littleY, littleY]
+            }
+        case 1:
+            withAnimation(.easeInOut(duration: 0.2)) {
+                rectangleDimensionArray = [littleY, bigY, littleY]
+            }
+        case 2:
+            withAnimation(.easeInOut(duration: 0.2)) {
+                rectangleDimensionArray = [littleY, littleY, bigY]
+            }
+        default:
+            break
+        }
+            
     }
 }
 
