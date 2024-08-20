@@ -16,44 +16,29 @@ struct CircleView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color(.nightBlue), lineWidth: 3)
+                .stroke(Color(.white), lineWidth: 3)
                 .frame(width: 280, height: 280)
             Circle()
-                .stroke(Color(.nightBlue), lineWidth: 3)
+                .stroke(Color(.white), lineWidth: 3)
                 .frame(width: 240, height: 240)
-            if nextStep >= 1.0 {
-                Circle()
-                    .trim(from: 0, to: nextStep)
-                    .stroke(style: StrokeStyle(lineWidth: 17, lineCap: .round, lineJoin: .round))
-                    .foregroundColor(Color(.myRed)).frame(width: 260, height: 260)// Taille intermédiaire entre les deux cercles
-                    .rotationEffect(.degrees(-90))
-                    .animation(.linear(duration: 2), value: nextStep)
-            } else {
-                Circle()
-                    .trim(from: 0.014, to: nextStep)
-                    .stroke(
-                    AngularGradient(
-                        gradient: Gradient(colors: [Color(.myGreen), Color(.myYellow), Color(.myRed)]),
-                        center: .center,
-                        startAngle: .degrees(0),
-                        endAngle: .degrees(360)
-                    ),
-                    style: StrokeStyle(lineWidth: 25, lineCap: .round)
-                )
-                    .foregroundColor(Color(.myRed)).frame(width: 260, height: 260)// Taille intermédiaire entre les deux cercles
-                    .rotationEffect(.degrees(-90))
-                    .animation(.linear(duration: 2), value: nextStep)
-            }
+            
+            Circle()
+                .stroke(Color(.myLightBlue), lineWidth: 25) // Cercle jaune très sombre
+                .frame(width: 260, height: 260)
+            
+            Circle()
+                .trim(from: 0.014, to: nextStep)
+                .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round))
+                .foregroundColor(Color(.nightBlue))
+                .frame(width: 260, height: 260) // Taille intermédiaire entre les deux cercles
+                .rotationEffect(.degrees(-90))
+                .animation(.linear(duration: 2), value: nextStep)
+            
             Text("\(totalCigForThisDay)")
-                .font(.system(size: 60))
+                .font(.custom("Quicksand-Light", size:60))
                 .bold()
                 .foregroundColor(Color(.myGreen))
         }
-//        .onAppear {
-//            withAnimation(.linear(duration: 2)) {
-//                nextStepAnimation = nextStep
-//            }
-//        }
     }
 }
 

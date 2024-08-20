@@ -14,11 +14,11 @@ struct GainAndLossView: View {
     var body: some View {
         if gain >= 0 {
             Text("\(gain.formatted()) €")
-                .font(.system(size: 40))
+                .font(.custom("Quicksand-Light", size: 40))
                 .foregroundColor(Color(.green))
         } else {
             Text("\(gain.formatted()) €")
-                .font(.system(size: 40))
+                .font(.custom("Quicksand-Light", size: 40))
                 .foregroundColor(Color(.myRed))
         }
     }

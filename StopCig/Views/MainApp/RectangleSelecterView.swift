@@ -55,13 +55,13 @@ struct RectangleSelecterView: View {
     }
     
     private func getRectangleIndex(scrollOffset: CGFloat) -> Int {
-        if scrollOffset >= 600 && scrollOffset <= 700 {
+        if scrollOffset >= 550 && scrollOffset <= 700 {
             return 0
         }
-        else if scrollOffset >= 300 && scrollOffset <= 600 {
+        else if scrollOffset >= 150 && scrollOffset <= 650 {
             return 1
         }
-        else if scrollOffset >= 0 && scrollOffset <= 300 {
+        else if scrollOffset >= 0 && scrollOffset <= 350 {
             return 2
         }
         return -1
@@ -70,15 +70,15 @@ struct RectangleSelecterView: View {
     private func modifyRectangleHeight(rectangleIndex: Int) {
         switch rectangleIndex {
         case 0:
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeInOut(duration: 0.15)) {
                 rectangleDimensionArray = [bigY, littleY, littleY]
             }
         case 1:
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeInOut(duration: 0.15)) {
                 rectangleDimensionArray = [littleY, bigY, littleY]
             }
         case 2:
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeInOut(duration: 0.15)) {
                 rectangleDimensionArray = [littleY, littleY, bigY]
             }
         default:
