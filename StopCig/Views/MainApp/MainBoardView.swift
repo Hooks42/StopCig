@@ -13,6 +13,7 @@ struct MainBoardView: View {
     @State var nextStep: CGFloat = 0
     @State var gain :Double = 0
     @State var totalCigForThisDay = 0
+    @State var currentPage = 0
     
     init(smokerModel: Binding<SmokerModel?>) {
         self._smokerModel = smokerModel
@@ -30,18 +31,16 @@ struct MainBoardView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Color(.nightBlue)
+                Color(.white)
                     .edgesIgnoringSafeArea(.all)
+                VStack {
+                    RectangleSelecterView(currentPage: $currentPage)
+                }
+                .padding(.top, 25)
                 VStack {
                     CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay)
                 }
                 .padding(.bottom, 50)
-                    
-                VStack {
-                    GainAndLossView(gain: $gain)
-                }
-                .padding(.bottom, 600)
-                .padding(.trailing, 200)
                     
                 VStack {
                     Spacer()

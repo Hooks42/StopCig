@@ -11,20 +11,24 @@ struct RectangleSelecterView: View {
     @State private var rectangleDimensionArray: [CGFloat] = [0.19, 0.15, 0.15]
     @State private var rectangleIndex : Int = 0
     @State private var rectanglePrevIndex : Int  = 0
+    @State private var rectangleColor : [Color] = [Color(.myLightBlue), Color(.myYellow), Color(.myOrange)]
     
     var body: some View {
         GeometryReader { geo in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     ForEach(0..<rectangleDimensionArray.count, id: \.self) { index in
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(.nightBlue))
-                            .frame(width: geo.size.width * 0.80, height: geo.size.height * rectangleDimensionArray[index])
-                            .background(
-                                GeometryReader { innerGeo in
-                                    Color.clear.preference(key: ScrollOffsetKey.self, value: innerGeo.frame(in: .global).minX)
-                                }
-                            )
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(rectangleColor[index])
+                                .frame(width: geo.size.width * 0.80, height: geo.size.height * rectangleDimensionArray[index])
+                                .background(
+                                    GeometryReader { innerGeo in
+                                        Color.clear.preference(key: ScrollOffsetKey.self, value: innerGeo.frame(in: .global).minX)
+                                    }
+                                )
+                            getViewForIndex(index: index)
+                        }
                     }
                 }
                 .scrollTargetLayout()
@@ -81,6 +85,39 @@ struct RectangleSelecterView: View {
             break
         }
             
+    }
+    
+    private func getViewForIndex(index: Int) -> some View {
+        switch index {
+        case 0:
+            AnyView(
+                VStack (spacing: 45) {
+                    Text("Argent économisé :")
+                        .font(.custom("Quicksand", size: 30))
+                        .foregroundColor(.black)
+                    GainAndLossView(gain: .constant(-267.34))
+                        .padding(.bottom, 20)
+                }
+            )
+        case 1:
+            AnyView(
+                VStack (spacing: 45) {
+                    Text("A la semaine :")
+                        .font(.custom("Quicksand", size: 30))
+                        .foregroundColor(.black)
+                }
+            )
+        case 2:
+            AnyView(
+                VStack (spacing: 45) {
+                    Text("Au mois :")
+                        .font(.custom("Quicksand", size: 30))
+                        .foregroundColor(.black)
+                }
+            )
+        default:
+            AnyView(EmptyView())
+        }
     }
 }
 
