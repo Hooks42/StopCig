@@ -51,13 +51,13 @@ struct RectangleSelecterView: View {
     }
     
     private func getRectangleIndex(scrollOffset: CGFloat) -> Int {
-        if scrollOffset < 765 && scrollOffset > 764 {
+        if scrollOffset >= 600 && scrollOffset <= 700 {
             return 0
         }
-        else if scrollOffset < 427 && scrollOffset > 396 {
+        else if scrollOffset >= 300 && scrollOffset <= 600 {
             return 1
         }
-        else if scrollOffset < 100 && scrollOffset > 45 {
+        else if scrollOffset >= 0 && scrollOffset <= 300 {
             return 2
         }
         return -1
