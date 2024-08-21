@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB0333BA2C763B4200D0679B /* Credit.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB0333B92C763B4200D0679B /* Credit.txt */; };
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
 		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
 		FB0403E92C66B80700DFA078 /* GainAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E82C66B80700DFA078 /* GainAndLossView.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB0333B92C763B4200D0679B /* Credit.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Credit.txt; sourceTree = "<group>"; };
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
 		FB0403E82C66B80700DFA078 /* GainAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GainAndLossView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				FBB8AB122C5E279400141E4E /* Functions.swift */,
 				FBB8AB142C5FC84C00141E4E /* Structs.swift */,
+				FB0333B92C763B4200D0679B /* Credit.txt */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				FBE09E9C2C50E4FA00BC80F6 /* Preview Assets.xcassets in Resources */,
 				FBFD1FAD2C761C6E00C46B54 /* Quicksand-SemiBold.ttf in Resources */,
 				FBE09E992C50E4FA00BC80F6 /* Assets.xcassets in Resources */,
+				FB0333BA2C763B4200D0679B /* Credit.txt in Resources */,
 				FBE09EAB2C522DB300BC80F6 /* Smoke.mp4 in Resources */,
 				FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */,
 			);

@@ -25,7 +25,8 @@ struct MainBoardView: View {
         
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         let cigPrice = Double(cigPackPrice) / 20
-        self._gain = State(initialValue: Double(cigPrice) * Double(totalCigForThisDay))
+        //self._gain = State(initialValue: Double(cigPrice) * Double(totalCigForThisDay))
+        self._gain = State(initialValue: 273.27)
     }
     
     
@@ -35,40 +36,39 @@ struct MainBoardView: View {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("PorteFeuille: ")
-                        .font(.custom("Quicksand-SemiBold", size: 20))
+                    Text("Wallet: \(gain.formatted()) €")
+                        .font(.custom("Quicksand-SemiBold", size: 28))
 //                    RectangleSelecterView(currentPage: $currentPage)
                 }
-                .padding(.top, 25)
+                .padding(.bottom, 750)
+                .padding(.trailing, 280)
                 VStack {
                     CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay)
                 }
                 .padding(.bottom, 50)
                     
-                VStack {
-                    Spacer()
+                HStack (spacing: 20) {
                     Button(action: {
-                        self.nextStep = 0.9999999
+                        if self.nextStep > 0 {
+                            self.nextStep -= 0.2
+                        }
                     }) {
-                        Text("Next Step")
-                            .font(.title)
-                            .bold()
-                            .padding()
-                            .foregroundColor(Color(.nightBlue))
-                            .background(Color(.myRed))
-                            .cornerRadius(10)
+                        Image("xmark")
+                            .resizable()
+                            .frame(width: 45, height: 45)
                     }
                     Button(action: {
-                        self.nextStep = 0.2
+                        if self.nextStep < 1 {
+                            self.nextStep += 0.2
+                        }
                     }) {
-                        Text("Next Step")
+                        Image("checkmark")
+                            .resizable()
+                            .frame(width: 40, height: 40)
                     }
-                    Image("Xmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
-                        .padding(.trailing, 210)
                 }
+                .padding(.top, 480)
+                
             }
         }
     }
