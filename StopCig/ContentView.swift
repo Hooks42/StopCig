@@ -44,7 +44,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            RectangleSelecterView(currentPage: .constant(1))
+            MainBoardView(smokerModel: $smokerModel)
             //            PlayerView(videoName: "Smoke")
             //                .edgesIgnoringSafeArea(.all)
             //            if smokerModel != nil && !smokerModel!.firstOpening {

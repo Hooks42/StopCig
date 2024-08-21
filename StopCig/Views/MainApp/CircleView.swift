@@ -11,37 +11,32 @@ struct CircleView: View {
     
     @Binding var nextStep: CGFloat
     @Binding var totalCigForThisDay: Int
+    @Binding var cigaretSmokedThisDay: Int
     @State private var nextStepAnimation: CGFloat = 0.0
     
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color(.white), lineWidth: 3)
-                .frame(width: 280, height: 280)
-            Circle()
-                .stroke(Color(.white), lineWidth: 3)
-                .frame(width: 240, height: 240)
+                .stroke(Color(.gray), lineWidth: 3)
+                .frame(width: 380, height: 380)
             
             Circle()
-                .stroke(Color(.myLightBlue), lineWidth: 25) // Cercle jaune très sombre
-                .frame(width: 260, height: 260)
-            
-            Circle()
-                .trim(from: 0.014, to: nextStep)
+                .trim(from: 0.0, to: nextStep)
                 .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round))
-                .foregroundColor(Color(.nightBlue))
-                .frame(width: 260, height: 260) // Taille intermédiaire entre les deux cercles
+                .foregroundColor(Color(.myYellow))
+                .frame(width: 380, height: 380) // Taille intermédiaire entre les deux cercles
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 2), value: nextStep)
-            
-            Text("\(totalCigForThisDay)")
-                .font(.custom("Quicksand-Light", size:60))
-                .bold()
-                .foregroundColor(Color(.myGreen))
+            VStack {
+                Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
+                    .font(.custom("Quicksand-Light", size:30))
+                    .bold()
+                    .foregroundColor(Color(.myYellow))
+            }
         }
     }
 }
 
 #Preview {
-    CircleView(nextStep: .constant(0.3), totalCigForThisDay: .constant(0))
+    CircleView(nextStep: .constant(1), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0))
 }
