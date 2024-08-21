@@ -22,7 +22,7 @@ struct CircleView: View {
             
             Circle()
                 .trim(from: 0.0, to: nextStep)
-                .stroke(style: StrokeStyle(lineWidth: 25, lineCap: .round))
+                .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
                 .foregroundColor(Color(.myYellow))
                 .frame(width: 380, height: 380) // Taille intermédiaire entre les deux cercles
                 .rotationEffect(.degrees(-90))
@@ -30,7 +30,6 @@ struct CircleView: View {
             VStack {
                 Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
                     .font(.custom("Quicksand-Light", size:30))
-                    .bold()
                     .foregroundColor(Color(.myYellow))
             }
         }
@@ -38,5 +37,5 @@ struct CircleView: View {
 }
 
 #Preview {
-    CircleView(nextStep: .constant(1), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0))
+    CircleView(nextStep: .constant(0.5), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0))
 }

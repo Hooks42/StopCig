@@ -26,6 +26,7 @@
 		FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09EA22C50E5CB00BC80F6 /* Plus tard.swift */; };
 		FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09EA42C50E63400BC80F6 /* VideoBackgroundView.swift */; };
 		FBE09EAB2C522DB300BC80F6 /* Smoke.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FBE09EAA2C522DB300BC80F6 /* Smoke.mp4 */; };
+		FBFD1FAD2C761C6E00C46B54 /* Quicksand-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBFD1FAC2C761C6E00C46B54 /* Quicksand-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		FBE09EA22C50E5CB00BC80F6 /* Plus tard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plus tard.swift"; sourceTree = "<group>"; };
 		FBE09EA42C50E63400BC80F6 /* VideoBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBackgroundView.swift; sourceTree = "<group>"; };
 		FBE09EAA2C522DB300BC80F6 /* Smoke.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Smoke.mp4; sourceTree = "<group>"; };
+		FBFD1FAC2C761C6E00C46B54 /* Quicksand-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		FB4F6F922C57C8C6000DDD59 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				FBFD1FAC2C761C6E00C46B54 /* Quicksand-SemiBold.ttf */,
 				FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */,
 			);
 			path = Fonts;
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBE09E9C2C50E4FA00BC80F6 /* Preview Assets.xcassets in Resources */,
+				FBFD1FAD2C761C6E00C46B54 /* Quicksand-SemiBold.ttf in Resources */,
 				FBE09E992C50E4FA00BC80F6 /* Assets.xcassets in Resources */,
 				FBE09EAB2C522DB300BC80F6 /* Smoke.mp4 in Resources */,
 				FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */,

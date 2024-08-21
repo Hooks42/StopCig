@@ -35,7 +35,9 @@ struct MainBoardView: View {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    RectangleSelecterView(currentPage: $currentPage)
+                    Text("PorteFeuille: ")
+                        .font(.custom("Quicksand-SemiBold", size: 20))
+//                    RectangleSelecterView(currentPage: $currentPage)
                 }
                 .padding(.top, 25)
                 VStack {
