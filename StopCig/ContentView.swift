@@ -44,64 +44,63 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            MainBoardView(smokerModel: $smokerModel)
-            //            PlayerView(videoName: "Smoke")
-            //                .edgesIgnoringSafeArea(.all)
-            //            if smokerModel != nil && !smokerModel!.firstOpening {
-            //                VStack {
-            //                    if !isAcceptPressed {
-            //                        HelloView(isAcceptPressed: $isAcceptPressed)
-            //                    }
-            //                }
-            //                VStack {
-            //                    if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
-            //                        WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
-            //                    }
-            //                    if isKindOfCigaretSelected {
-            //                        //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
-            //                    }
-            //                }
-            //                VStack {
-            //                    if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
-            //                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet)
-            //                    }
-            //                    if isRoutineSet {
-            //                        MainBoardView(smokerModel: $smokerModel)
-            //                    }
-            //                }
-            //            } else {
-            //                Text("Already initialized")
-            //            }
-            //        }
-            //        .onAppear() {
-            //            initializeSmokerModel()
-            //        }
+            if smokerModel != nil && smokerModel.firstOpening {
+                MainBoardView(smokerModel: $smokerModel)
+            }
+            if smokerModel != nil && !smokerModel!.firstOpening {
+                PlayerView(videoName: "Smoke")
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    if !isAcceptPressed {
+                        HelloView(isAcceptPressed: $isAcceptPressed)
+                    }
+                }
+                VStack {
+                    if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
+                        WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
+                    }
+                    if isKindOfCigaretSelected {
+                        //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
+                    }
+                }
+                VStack {
+                    if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
+                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet)
+                    }
+                    if isRoutineSet {
+                        MainBoardView(smokerModel: $smokerModel)
+                    }
+                }
+            }
         }
+        .onAppear() {
+            initializeSmokerModel()
+        }
+    }
         
-        //    private func initializeSmokerModel(){
-        //        if smokerModels.isEmpty {
-        //            let newSmokerModel = SmokerModel(
-        //                firstOpening: false,
-        //                cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
-        //                cigaretCountThisDay: CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
-        //                cigaretTotalCount: CigaretTotalCount(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
-        //                numberOfCigaretProgrammedThisDay: 0,
-        //                daySinceFirstOpening: 0,
-        //                needToReset: false
-        //            )
-        //            modelContext.insert(newSmokerModel)
-        //            do {
-        //                try modelContext.save()
-        //            } catch {
-        //                print("db already initialized")
-        //            }
-        //        }
-        //        smokerModel = smokerModels.first
-        //    }
+            private func initializeSmokerModel(){
+                if smokerModels.isEmpty {
+                    let newSmokerModel = SmokerModel(
+                        firstOpening: false,
+                        cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
+                        cigaretCountThisDay: CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
+                        cigaretTotalCount: CigaretTotalCount(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
+                        numberOfCigaretProgrammedThisDay: 0,
+                        daySinceFirstOpening: 0,
+                        needToReset: false
+                    )
+                    modelContext.insert(newSmokerModel)
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        print("db already initialized")
+                    }
+                }
+                smokerModel = smokerModels.first
+            }
     }
     
-    //#Preview {
-    //    ContentView()
-    //        .modelContainer(for: SmokerModel.self, inMemory: true)
-    //}
-}
+    #Preview {
+        ContentView()
+            .modelContainer(for: SmokerModel.self, inMemory: true)
+    }

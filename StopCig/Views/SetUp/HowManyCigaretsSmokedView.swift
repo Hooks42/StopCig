@@ -45,6 +45,7 @@ struct HowManyCigaretsSmokedView: View {
                         print("Routine got value : \(selectedRoutine)")
                         if !selectedRoutine.isEmpty && smokerModel != nil {
                             smokerModel!.cigaretInfo.numberOfCigaretAnnounced = numberOfCigaretsSmoked[selectedRoutine] ?? 0
+                            smokerModel!.firstOpening = true
                             saveInSmokerDb(modelContext)
                             print("Routine set with value : \(smokerModel!.cigaretInfo.numberOfCigaretAnnounced)")
                             isRoutineSet = true

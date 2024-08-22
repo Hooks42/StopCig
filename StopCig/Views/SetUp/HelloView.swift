@@ -39,16 +39,12 @@ struct HelloView: View {
                     }
                     }) {
                     Text("Je veux arrêter de fumer")
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .font(.system(size: 28))
                         .bold()
                         .padding(40)
                         .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color("nightBlue"), Color("myPurple"), Color("nightBlue")]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
+                            .white
                         )
                         .cornerRadius(20)
                 }
