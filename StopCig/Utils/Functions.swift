@@ -20,3 +20,19 @@ func saveInSmokerDb(_ context: ModelContext)
     }
 }
 
+func findKeyByVal<K: Hashable, V: Equatable>(dictionnary: [K : V], value: V) -> K? {
+    for (key, val) in dictionnary {
+        if val == value {
+            return key
+        }
+    }
+    return nil
+}
+
+func getDecimalPartAsInt(from number: Double) -> Int {
+    let shiftedNumber = number * 100
+    
+    let decimalPart = shiftedNumber.truncatingRemainder(dividingBy: 100)
+    
+    return Int(decimalPart)
+}

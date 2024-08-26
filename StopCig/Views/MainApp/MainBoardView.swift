@@ -10,12 +10,15 @@ import SwiftUI
 struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
+    
     @State var nextStep: CGFloat = 0
     @State var gain :Double = 0
     @State var totalCigForThisDay = 0
     @State var cigaretSmokedThisDay = 0
     @State var currentPage = 0
-    @State var showSettings = false
+    @State var showSettings = true
+    @State var CigPerDay = 0
+    @State var packPrice = 0.0
     
     init(smokerModel: Binding<SmokerModel?>) {
         self._smokerModel = smokerModel
@@ -42,10 +45,10 @@ struct MainBoardView: View {
                         //                    RectangleSelecterView(currentPage: $currentPage)
                         Text("\(gain.formatted()) €")
                             .font(.custom("Quicksand-SemiBold", size: 28))
-                            .padding(.leading, 5)
+                            .padding(.leading, geo.size.width * 0.025)
                     }
-                    .padding(.bottom, 720)
-                    .padding(.trailing, 260)
+                    .padding(.bottom, geo.size.height * 0.85)
+                    .padding(.trailing, geo.size.width * 0.60)
                     VStack {
                         Button(action: {
                             showSettings.toggle()
@@ -56,19 +59,19 @@ struct MainBoardView: View {
                                 .sheet(isPresented: $showSettings) {
                                     ZStack {
                                         Color(.nightBlue)
-                                        Text("Ceci sera les settings de l'app")
+                                        SettingsView(smokerModel: $smokerModel)
                                     }
-                                    .presentationDetents([.fraction(0.35)])
+                                    .presentationDetents([.fraction(geo.size.height * 0.0005)])
                                     .edgesIgnoringSafeArea(.all)
                                 }
                         }
                     }
-                    .padding(.bottom, 720)
-                    .padding(.leading, 280)
+                    .padding(.bottom, geo.size.height * 0.85)
+                    .padding(.leading, geo.size.width * 0.65)
                     VStack {
                         CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay)
                     }
-                    .padding(.bottom, 50)
+                    .padding(.bottom, geo.size.height * 0.05)
                     
                     HStack (spacing: 20) {
                         Button(action: {
@@ -90,7 +93,7 @@ struct MainBoardView: View {
                                 .frame(width: 40, height: 40)
                         }
                     }
-                    .padding(.top, 480)
+                    .padding(.top, geo.size.height * 0.5)
             }
         }
     }

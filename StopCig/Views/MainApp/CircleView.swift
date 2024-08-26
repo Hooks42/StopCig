@@ -15,27 +15,30 @@ struct CircleView: View {
     @State private var nextStepAnimation: CGFloat = 0.0
     
     var body: some View {
-        ZStack {
-            Circle()
-                .stroke(Color(.gray), lineWidth: 3)
-                .frame(width: 380, height: 380)
-            
-            Circle()
-                .trim(from: 0.0, to: nextStep)
-                .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
-                .foregroundColor(Color(.myYellow))
-                .frame(width: 380, height: 380) // Taille intermédiaire entre les deux cercles
-                .rotationEffect(.degrees(-90))
-                .animation(.linear(duration: 2), value: nextStep)
-            VStack {
-                Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
-                    .font(.custom("Quicksand-Light", size:30))
+        GeometryReader { geo in
+            ZStack {
+                Circle()
+                    .stroke(Color(.gray), lineWidth: 3)
+                    .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.90)
+                
+                Circle()
+                    .trim(from: 0.0, to: nextStep)
+                    .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
                     .foregroundColor(Color(.myYellow))
+                    .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.90) // Taille intermédiaire entre les deux cercles
+                    .rotationEffect(.degrees(-90))
+                    .animation(.linear(duration: 2), value: nextStep)
+                VStack {
+                    Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
+                        .font(.custom("Quicksand-Light", size:30))
+                        .foregroundColor(Color(.myYellow))
+                }
             }
+            .padding(.leading, geo.size.width * 0.05)
         }
     }
 }
 
 #Preview {
-    CircleView(nextStep: .constant(0.5), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0))
+    CircleView(nextStep: .constant(1), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0))
 }

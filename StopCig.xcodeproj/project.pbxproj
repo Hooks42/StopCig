@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB0333BA2C763B4200D0679B /* Credit.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB0333B92C763B4200D0679B /* Credit.txt */; };
+		FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0333BB2C78C87100D0679B /* SettingsView.swift */; };
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
 		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
 		FB0403E92C66B80700DFA078 /* GainAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E82C66B80700DFA078 /* GainAndLossView.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		FB0333B92C763B4200D0679B /* Credit.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Credit.txt; sourceTree = "<group>"; };
+		FB0333BB2C78C87100D0679B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
 		FB0403E82C66B80700DFA078 /* GainAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GainAndLossView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				FB0403E42C66630400DFA078 /* CircleView.swift */,
 				FB0403E82C66B80700DFA078 /* GainAndLossView.swift */,
 				FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */,
+				FB0333BB2C78C87100D0679B /* SettingsView.swift */,
 			);
 			path = MainApp;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				FB0403E52C66630400DFA078 /* CircleView.swift in Sources */,
 				FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */,
 				FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */,
+				FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */,
 				FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */,
 				FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */,
 				FB0403E92C66B80700DFA078 /* GainAndLossView.swift in Sources */,
