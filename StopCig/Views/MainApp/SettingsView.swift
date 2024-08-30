@@ -26,9 +26,9 @@ struct SettingsView: View {
                 Text("Réglages")
                     .foregroundColor(.white)
                     .font(.title)
-                    .padding(.bottom, geo.size.height * 0.40)
+                    .padding(.bottom, geo.size.height * 0.55)
                     .frame(maxWidth: .infinity, alignment: .center)
-                VStack (spacing: 60) {
+                VStack (spacing: geo.size.height * 0.15) {
                     HStack {
                         Text("Prix du paquet")
                             .foregroundColor(.white)
