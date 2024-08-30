@@ -30,7 +30,6 @@ struct MainBoardView: View {
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         let cigPrice = Double(cigPackPrice) / 20
         self._gain = State(initialValue: Double(cigPrice) * Double(totalCigForThisDay))
-        self._gain = State(initialValue: 273.27)
     }
     
     
@@ -42,10 +41,12 @@ struct MainBoardView: View {
                     VStack {
                         Text("Wallet: ")
                             .font(.custom("Quicksand-SemiBold", size: 28))
+                            .foregroundColor(.white)
                         //                    RectangleSelecterView(currentPage: $currentPage)
                         Text("\(gain.formatted()) €")
                             .font(.custom("Quicksand-SemiBold", size: 28))
                             .padding(.leading, geo.size.width * 0.025)
+                            .foregroundColor(.white)
                     }
                     .padding(.bottom, geo.size.height * 0.85)
                     .padding(.trailing, geo.size.width * 0.60)

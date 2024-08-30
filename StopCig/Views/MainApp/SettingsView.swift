@@ -36,6 +36,7 @@ struct SettingsView: View {
                         Picker(selection: $selectedOptionUnit, label: Text("Select an option")) {
                             ForEach(0..<pickerUnit.count, id: \.self) { index in
                                 Text(String(self.pickerUnit[index])).tag(index)
+                                    .foregroundColor(.white)
                             }
                         }
                         .pickerStyle(.wheel)
@@ -50,6 +51,7 @@ struct SettingsView: View {
                         {
                             ForEach(0..<pickerDec.count, id: \.self) { index in
                                 Text(String(self.pickerDec[index])).tag(index)
+                                    .foregroundColor(.white)
                             }
                         }
                         .pickerStyle(.wheel)
@@ -86,7 +88,7 @@ struct SettingsView: View {
         .onAppear() {
             if let smokerModel = smokerModel {
                 selectedOptionUnit = Int(smokerModel.cigaretInfo.priceOfCigaret)
-                selectedOptionDec = getDecimalPartAsInt(from: smokerModel.cigaretInfo.priceOfCigaret)
+                selectedOptionDec = pickerDec.firstIndex(of: getDecimalPartAsInt(from: smokerModel.cigaretInfo.priceOfCigaret)) ?? 0
                 selectedOptionCigPerDay = findKeyByVal(dictionnary: pickerCigPerDay, value: smokerModel.cigaretInfo.numberOfCigaretAnnounced)
                 print("Price of cigarets : \(selectedOptionUnit) DEC : \(selectedOptionDec) AND cig per day : \(selectedOptionCigPerDay ?? "0")")
             }
