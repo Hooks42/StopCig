@@ -27,7 +27,7 @@ struct RectangleSelecterView: View {
                                         Color.clear.preference(key: ScrollOffsetKey.self, value: innerGeo.frame(in: .global).minX)
                                     }
                                 )
-                            getViewForIndex(index: index)
+                            //getViewForIndex(index: index)
                         }
                     }
                 }
@@ -87,38 +87,38 @@ struct RectangleSelecterView: View {
             
     }
     
-    private func getViewForIndex(index: Int) -> some View {
-        switch index {
-        case 0:
-            AnyView(
-                VStack (spacing: 45) {
-                    Text("Argent économisé :")
-                        .font(.custom("Quicksand", size: 30))
-                        .foregroundColor(.black)
-                    GainAndLossView(gain: .constant(-267.34))
-                        .padding(.bottom, 20)
-                }
-            )
-        case 1:
-            AnyView(
-                VStack (spacing: 45) {
-                    Text("A la semaine :")
-                        .font(.custom("Quicksand", size: 30))
-                        .foregroundColor(.black)
-                }
-            )
-        case 2:
-            AnyView(
-                VStack (spacing: 45) {
-                    Text("Au mois :")
-                        .font(.custom("Quicksand", size: 30))
-                        .foregroundColor(.black)
-                }
-            )
-        default:
-            AnyView(EmptyView())
-        }
-    }
+//    private func getViewForIndex(index: Int) -> some View {
+//        switch index {
+//        case 0:
+//            AnyView(
+//                VStack (spacing: 45) {
+//                    Text("Argent économisé :")
+//                        .font(.custom("Quicksand", size: 30))
+//                        .foregroundColor(.black)
+//                    GainAndLossView(gain: .constant(-267.34))
+//                        .padding(.bottom, 20)
+//                }
+//            )
+//        case 1:
+//            AnyView(
+//                VStack (spacing: 45) {
+//                    Text("A la semaine :")
+//                        .font(.custom("Quicksand", size: 30))
+//                        .foregroundColor(.black)
+//                }
+//            )
+//        case 2:
+//            AnyView(
+//                VStack (spacing: 45) {
+//                    Text("Au mois :")
+//                        .font(.custom("Quicksand", size: 30))
+//                        .foregroundColor(.black)
+//                }
+//            )
+//        default:
+//            AnyView(EmptyView())
+//        }
+//    }
 }
 
 #Preview {

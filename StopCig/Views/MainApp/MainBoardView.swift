@@ -10,26 +10,30 @@ import SwiftUI
 struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
+    @Environment(\.modelContext) private var modelContext
+    
+    @State private var timer: Timer?
     
     @State var nextStep: CGFloat = 0
     @State var gain :Double = 0
     @State var totalCigForThisDay = 0
     @State var cigaretSmokedThisDay = 0
     @State var currentPage = 0
-    @State var showSettings = true
+    @State var showSettings = false
     @State var CigPerDay = 0
     @State var packPrice = 0.0
+    private let cigPrice : Double
     
     init(smokerModel: Binding<SmokerModel?>) {
         self._smokerModel = smokerModel
         
-        let initialCigCount = smokerModel.wrappedValue?.cigaretInfo.numberOfCigaretAnnounced ?? 0
-        let cigPercentage = Int(floor(Double(initialCigCount) * 0.20))
-        self._totalCigForThisDay = State(initialValue: initialCigCount - cigPercentage)
+        self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
+        self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDay.cigaretSmoked ?? 0)
         
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
-        let cigPrice = Double(cigPackPrice) / 20
-        self._gain = State(initialValue: Double(cigPrice) * Double(totalCigForThisDay))
+        self.cigPrice = Double(cigPackPrice) / 20
+        
+        self._gain = State(initialValue: smokerModel.wrappedValue?.cigaretTotalCount.gain ?? 0)
     }
     
     
@@ -43,7 +47,7 @@ struct MainBoardView: View {
                             .font(.custom("Quicksand-SemiBold", size: 28))
                             .foregroundColor(.white)
                         //                    RectangleSelecterView(currentPage: $currentPage)
-                        Text("\(gain.formatted()) €")
+                        Text(String(format: "%.2f", gain) + " €")
                             .font(.custom("Quicksand-SemiBold", size: 28))
                             .padding(.leading, geo.size.width * 0.025)
                             .foregroundColor(.white)
@@ -76,8 +80,16 @@ struct MainBoardView: View {
                     
                     HStack (spacing: 20) {
                         Button(action: {
-                            if self.nextStep > 0 {
-                                self.nextStep -= 0.2
+                            print("xmark nextstep : \(nextStep)")
+                            if self.cigaretSmokedThisDay > 0 {
+                                self.nextStep -= 1 / CGFloat(totalCigForThisDay)
+                                self.cigaretSmokedThisDay -= 1
+                                IncrementingAnim(increment: false, targetValue: cigPrice)
+                                if smokerModel != nil {
+                                    smokerModel!.cigaretTotalCount.gain = gain
+                                    smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
+                                    saveInSmokerDb(modelContext)
+                                }
                             }
                         }) {
                             Image("xmark")
@@ -85,8 +97,15 @@ struct MainBoardView: View {
                                 .frame(width: 45, height: 45)
                         }
                         Button(action: {
-                            if self.nextStep < 1 {
-                                self.nextStep += 0.2
+                            if self.cigaretSmokedThisDay < totalCigForThisDay {
+                                self.nextStep += 1 / CGFloat(totalCigForThisDay)
+                                self.cigaretSmokedThisDay += 1
+                                IncrementingAnim(increment: true, targetValue: cigPrice)
+                                if smokerModel != nil {
+                                    smokerModel!.cigaretTotalCount.gain = gain
+                                    smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
+                                    saveInSmokerDb(modelContext)
+                                }
                             }
                         }) {
                             Image("checkmark")
@@ -95,6 +114,36 @@ struct MainBoardView: View {
                         }
                     }
                     .padding(.top, geo.size.height * 0.5)
+            }
+        }
+    }
+    private func IncrementingAnim(increment: Bool, targetValue: Double) {
+        let targetGain : Double
+        if increment == true {
+            targetGain = self.gain + targetValue
+        } else {
+            targetGain = self.gain - targetValue
+        }
+        timer?.invalidate() // Sert a stoper les autres timer si ils sont deja en cours
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            withAnimation {
+                if increment == true {
+                    if self.gain < targetGain {
+                        self.gain += 0.1
+                        if self.gain >= targetGain {
+                            self.gain = targetGain
+                            self.timer?.invalidate()
+                        }
+                    }
+                } else {
+                    if self.gain > targetGain {
+                        self.gain -= 0.1
+                        if self.gain <= targetGain {
+                            self.gain = targetGain
+                            self.timer?.invalidate()
+                        }
+                    }
+                }
             }
         }
     }

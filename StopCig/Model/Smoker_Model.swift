@@ -17,15 +17,15 @@ struct CigaretInfos : Codable {
 struct CigaretCountThisDay : Codable {
     var cigaretSmoked : Int
     var cigaretSaved : Int
-    var gain : Int
-    var lost : Int
+    var gain : Double
+    var lost : Double
 }
 
 struct CigaretTotalCount : Codable {
     var cigaretSmoked : Int
     var cigaretSaved : Int
-    var gain : Int
-    var lost : Int
+    var gain : Double
+    var lost : Double
 }
 
 

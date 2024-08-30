@@ -27,7 +27,7 @@ struct CircleView: View {
                     .foregroundColor(Color(.myYellow))
                     .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.90) // Taille intermédiaire entre les deux cercles
                     .rotationEffect(.degrees(-90))
-                    .animation(.linear(duration: 2), value: nextStep)
+                    .animation(.linear(duration: 1), value: nextStep)
                 VStack {
                     Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
                         .font(.custom("Quicksand-Light", size:30))
