@@ -26,8 +26,9 @@ struct SettingsView: View {
                 Text("Réglages")
                     .foregroundColor(.white)
                     .font(.title)
-                    .padding(.bottom, geo.size.height * 0.45)
-                VStack (spacing: 30) {
+                    .padding(.bottom, geo.size.height * 0.40)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                VStack (spacing: 60) {
                     HStack {
                         Text("Prix du paquet")
                             .foregroundColor(.white)
@@ -58,11 +59,11 @@ struct SettingsView: View {
                             .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
                     }
                     .padding(.top, geo.size.height * 0.15)
-                    HStack (spacing: geo.size.width * 0.1){
+                    HStack (spacing: geo.size.width * 0.01){
                         Text("Conso")
                             .foregroundColor(.white)
                             .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
-                            .padding(.leading, geo.size.width * 0.1)
+                            .padding(.leading, geo.size.width * 0.025)
                         Picker("Nombre de cigarettes", selection: Binding(
                             get: { selectedOptionCigPerDay ?? "1 paquet" },
                             set: { selectedOptionCigPerDay = $0 }
@@ -76,10 +77,10 @@ struct SettingsView: View {
                         }
                         .padding(.leading, geo.size.width * 0.09)
                         .pickerStyle(.inline)
-                        .frame(width: geo.size.width * 0.6, height: geo.size.height * 0.17)
+                        .frame(width: geo.size.width * 0.6, height: geo.size.height * 0.12)
                     }
                 }
-                .padding(.top, geo.size.height * 0.2)
+                .padding(.top, geo.size.height * 0.15)
             }
         }
         .onAppear() {
@@ -88,9 +89,6 @@ struct SettingsView: View {
                 selectedOptionDec = getDecimalPartAsInt(from: smokerModel.cigaretInfo.priceOfCigaret)
                 selectedOptionCigPerDay = findKeyByVal(dictionnary: pickerCigPerDay, value: smokerModel.cigaretInfo.numberOfCigaretAnnounced)
                 print("Price of cigarets : \(selectedOptionUnit) DEC : \(selectedOptionDec) AND cig per day : \(selectedOptionCigPerDay ?? "0")")
-            }
-            else {
-                print("Error")
             }
         }
     }
