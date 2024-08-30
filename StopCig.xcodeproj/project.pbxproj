@@ -11,7 +11,6 @@
 		FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0333BB2C78C87100D0679B /* SettingsView.swift */; };
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
 		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
-		FB0403E92C66B80700DFA078 /* GainAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E82C66B80700DFA078 /* GainAndLossView.swift */; };
 		FB1F24F82C6171DB00735E06 /* HowManyCigaretsSmokedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */; };
 		FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */; };
 		FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DC2C53E87800B8B709 /* HelloView.swift */; };
@@ -36,7 +35,6 @@
 		FB0333BB2C78C87100D0679B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
-		FB0403E82C66B80700DFA078 /* GainAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GainAndLossView.swift; sourceTree = "<group>"; };
 		FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowManyCigaretsSmokedView.swift; sourceTree = "<group>"; };
 		FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherKindOfCigaretView.swift; sourceTree = "<group>"; };
 		FB52D8DC2C53E87800B8B709 /* HelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloView.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 			children = (
 				FB0403E62C666A4D00DFA078 /* MainBoardView.swift */,
 				FB0403E42C66630400DFA078 /* CircleView.swift */,
-				FB0403E82C66B80700DFA078 /* GainAndLossView.swift */,
 				FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */,
 				FB0333BB2C78C87100D0679B /* SettingsView.swift */,
 			);
@@ -257,7 +254,6 @@
 				FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */,
 				FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */,
 				FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */,
-				FB0403E92C66B80700DFA078 /* GainAndLossView.swift in Sources */,
 				FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */,
 				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
 				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
