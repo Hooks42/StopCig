@@ -14,8 +14,10 @@ struct MainBoardView: View {
     
     @State private var timer: Timer?
     
+    
+
     @State var nextStep: CGFloat = 0
-    @State var gain :Double = 0
+    @State var gain : Double = 0
     @State var totalCigForThisDay = 0
     @State var cigaretSmokedThisDay = 0
     @State var currentPage = 0
@@ -32,6 +34,8 @@ struct MainBoardView: View {
         
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         self.cigPrice = Double(cigPackPrice) / 20
+        
+        self._nextStep = State(initialValue: 1 / CGFloat(totalCigForThisDay) * CGFloat(cigaretSmokedThisDay))
         
         self._gain = State(initialValue: smokerModel.wrappedValue?.cigaretTotalCount.gain ?? 0)
     }
@@ -82,16 +86,20 @@ struct MainBoardView: View {
                         Button(action: {
                             print("xmark nextstep : \(nextStep)")
                             if self.cigaretSmokedThisDay > 0 {
+                                print("CigaretSmokedThisDay --> \(cigaretSmokedThisDay)")
                                 self.nextStep -= 1 / CGFloat(totalCigForThisDay)
                                 self.cigaretSmokedThisDay -= 1
-                                IncrementingAnim(increment: false, targetValue: cigPrice)
+                                withAnimation(.spring()) {
+                                    self.gain += cigPrice
+                                }
                                 if smokerModel != nil {
                                     smokerModel!.cigaretTotalCount.gain = gain
                                     smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
                                     saveInSmokerDb(modelContext)
                                 }
                             }
-                        }) {
+                        })
+                        {
                             Image("xmark")
                                 .resizable()
                                 .frame(width: 45, height: 45)
@@ -100,7 +108,9 @@ struct MainBoardView: View {
                             if self.cigaretSmokedThisDay < totalCigForThisDay {
                                 self.nextStep += 1 / CGFloat(totalCigForThisDay)
                                 self.cigaretSmokedThisDay += 1
-                                IncrementingAnim(increment: true, targetValue: cigPrice)
+                                withAnimation(.easeInOut(duration: 1)) {
+                                    self.gain -= cigPrice
+                                }
                                 if smokerModel != nil {
                                     smokerModel!.cigaretTotalCount.gain = gain
                                     smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
@@ -115,33 +125,12 @@ struct MainBoardView: View {
                     }
                     .padding(.top, geo.size.height * 0.5)
             }
-        }
-    }
-    private func IncrementingAnim(increment: Bool, targetValue: Double) {
-        let targetGain : Double
-        if increment == true {
-            targetGain = self.gain + targetValue
-        } else {
-            targetGain = self.gain - targetValue
-        }
-        timer?.invalidate() // Sert a stoper les autres timer si ils sont deja en cours
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            withAnimation {
-                if increment == true {
-                    if self.gain < targetGain {
-                        self.gain += 0.1
-                        if self.gain >= targetGain {
-                            self.gain = targetGain
-                            self.timer?.invalidate()
-                        }
-                    }
-                } else {
-                    if self.gain > targetGain {
-                        self.gain -= 0.1
-                        if self.gain <= targetGain {
-                            self.gain = targetGain
-                            self.timer?.invalidate()
-                        }
+            .onAppear() {
+                let i = self.nextStep
+                if nextStep != 0 {
+                    withAnimation {
+                        nextStep = 0
+                        nextStep = i
                     }
                 }
             }
