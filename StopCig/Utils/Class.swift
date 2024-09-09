@@ -23,4 +23,9 @@ class NetworkMonitor: ObservableObject {
         }
         monitor.start(queue: queue)
     }
+    
+    func checkConnection() -> Bool {
+        let path = monitor.currentPath
+        return path.status == .satisfied
+    }
 }

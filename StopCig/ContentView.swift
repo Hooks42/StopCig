@@ -112,7 +112,11 @@ struct ContentView: View {
                 title: Text("Une connexion Internet est requise"),
                 message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
                 dismissButton: .default(Text("OK"), action: {
-                    UIApplication.shared.quit()
+                    if !networkMonitor.checkConnection() {
+                        UIApplication.shared.quit()
+                    } else {
+                        showAlert = false
+                    }
                 })
             )
         }

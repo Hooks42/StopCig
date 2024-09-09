@@ -39,6 +39,8 @@ func getDecimalPartAsInt(from number: Double) -> Int {
 
 extension UIApplication {
     func quit() {
-        exit(0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            exit(0)
+        }
     }
 }
