@@ -116,6 +116,7 @@ struct ContentView: View {
                         UIApplication.shared.quit()
                     } else {
                         showAlert = false
+                        self.updateCurrentDateTime()
                     }
                 })
             )
@@ -152,7 +153,10 @@ struct ContentView: View {
                 DispatchQueue.main.async {
                     self.currentDate = date
                     self.test = date.description
+                    smokerModel.lastOpening = currentDate
+                    saveInSmokerDb(modelContext)
                     print("App is back in the foreground, current date and time updated: \(self.currentDate)")
+                    print("Date in DB is --> \(smokerModel.lastOpening)")
                 }
             } else {
                 print("error")
