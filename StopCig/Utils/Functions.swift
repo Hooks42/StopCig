@@ -36,3 +36,9 @@ func getDecimalPartAsInt(from number: Double) -> Int {
     
     return Int(decimalPart)
 }
+
+extension UIApplication {
+    func quit() {
+        exit(0)
+    }
+}

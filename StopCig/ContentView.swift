@@ -102,6 +102,20 @@ struct ContentView: View {
                 }
             self.updateCurrentDateTime()
         }
+        .onChange(of: networkMonitor.isConnected) {
+            if !networkMonitor.isConnected {
+                showAlert = true
+            }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Une connexion Internet est requise"),
+                message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
+                dismissButton: .default(Text("OK"), action: {
+                    UIApplication.shared.quit()
+                })
+            )
+        }
     }
     
     private func initializeSmokerModel(){
@@ -190,6 +204,7 @@ struct ContentView: View {
             }
         }.resume() // Fonctionne comme un .start() pour lancer la requete les lignes au dessus sont la config avant de start
     }
+    
 }
     
     #Preview {
