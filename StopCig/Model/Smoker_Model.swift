@@ -38,10 +38,11 @@ final class SmokerModel {
     var numberOfCigaretProgrammedThisDay: Int
     var daySinceFirstOpening: Int
     var needToReset: Bool
+    var lastOpening: Date
     
     init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDay: CigaretCountThisDay,
          cigaretTotalCount: CigaretTotalCount, numberOfCigaretProgrammedThisDay: Int,
-         daySinceFirstOpening: Int, needToReset: Bool) {
+         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
         self.cigaretCountThisDay = cigaretCountThisDay
@@ -49,5 +50,6 @@ final class SmokerModel {
         self.numberOfCigaretProgrammedThisDay = numberOfCigaretProgrammedThisDay
         self.daySinceFirstOpening = daySinceFirstOpening
         self.needToReset = needToReset
+        self.lastOpening = lastOpening
     }
 }

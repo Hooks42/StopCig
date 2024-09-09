@@ -107,16 +107,7 @@ struct HowManyCigaretsSmokedView: View {
         if smokerModel != nil {
             smokerModel!.firstOpening = true
             smokerModel!.numberOfCigaretProgrammedThisDay = Int(Double(numberOfCigaretsSmoked[selectedRoutine] ?? 0) - Double((numberOfCigaretsSmoked[selectedRoutine] ?? 0)) * 0.2)
-            smokerModel!.cigaretCountThisDay.cigaretSmoked = 0
-            smokerModel!.cigaretCountThisDay.cigaretSaved = 0
-            smokerModel!.cigaretCountThisDay.gain = 0.0
-            smokerModel!.cigaretCountThisDay.lost = 0.0
-            smokerModel!.cigaretTotalCount.cigaretSmoked = 0
-            smokerModel!.cigaretTotalCount.cigaretSaved = 0
             smokerModel!.cigaretTotalCount.gain = smokerModel!.cigaretInfo.priceOfCigaret / 20 * Double(smokerModel!.numberOfCigaretProgrammedThisDay)
-            smokerModel!.cigaretTotalCount.lost = 0.0
-            smokerModel!.needToReset = false
-            smokerModel!.daySinceFirstOpening = 0
         }
     }
 }

@@ -18,6 +18,7 @@
 		FB52D8E12C550BE100B8B709 /* Smoker_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */; };
 		FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */; };
 		FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */; };
+		FBA99FD32C8F22D200F04582 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA99FD22C8F22D200F04582 /* Class.swift */; };
 		FBB8AB132C5E279400141E4E /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB8AB122C5E279400141E4E /* Functions.swift */; };
 		FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB8AB142C5FC84C00141E4E /* Structs.swift */; };
 		FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */; };
@@ -43,6 +44,7 @@
 		FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
 		FB6B7E0E2C5396E7001D9131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleSelecterView.swift; sourceTree = "<group>"; };
+		FBA99FD22C8F22D200F04582 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
 		FBB8AB122C5E279400141E4E /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		FBB8AB142C5FC84C00141E4E /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		FBE09E8F2C50E4F800BC80F6 /* StopCig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopCig.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 				FBB8AB122C5E279400141E4E /* Functions.swift */,
 				FBB8AB142C5FC84C00141E4E /* Structs.swift */,
 				FB0333B92C763B4200D0679B /* Credit.txt */,
+				FBA99FD22C8F22D200F04582 /* Class.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */,
 				FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */,
 				FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */,
+				FBA99FD32C8F22D200F04582 /* Class.swift in Sources */,
 				FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */,
 				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
 				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
