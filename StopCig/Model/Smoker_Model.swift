@@ -33,23 +33,25 @@ struct CigaretTotalCount : Codable {
 final class SmokerModel {
     var firstOpening : Bool
     var cigaretInfo : CigaretInfos
-    var cigaretCountThisDay : CigaretCountThisDay
+    var cigaretCountThisDayMap : [Date:CigaretCountThisDay]
     var cigaretTotalCount : CigaretTotalCount
     var numberOfCigaretProgrammedThisDay: Int
     var daySinceFirstOpening: Int
     var needToReset: Bool
     var lastOpening: Date
+    var firstOpeningDate: Date
     
-    init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDay: CigaretCountThisDay,
+    init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDayMap: [Date:CigaretCountThisDay],
          cigaretTotalCount: CigaretTotalCount, numberOfCigaretProgrammedThisDay: Int,
-         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date) {
+         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date, firstOpeningDate: Date) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
-        self.cigaretCountThisDay = cigaretCountThisDay
+        self.cigaretCountThisDayMap = cigaretCountThisDayMap
         self.cigaretTotalCount = cigaretTotalCount
         self.numberOfCigaretProgrammedThisDay = numberOfCigaretProgrammedThisDay
         self.daySinceFirstOpening = daySinceFirstOpening
         self.needToReset = needToReset
         self.lastOpening = lastOpening
+        self.firstOpeningDate = firstOpeningDate
     }
 }

@@ -30,7 +30,7 @@ struct MainBoardView: View {
         self._smokerModel = smokerModel
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
-        self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDay.cigaretSmoked ?? 0)
+        self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[Date()]?.cigaretSmoked ?? 0)
         
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         self.cigPrice = Double(cigPackPrice) / 20
@@ -94,7 +94,7 @@ struct MainBoardView: View {
                                 }
                                 if smokerModel != nil {
                                     smokerModel!.cigaretTotalCount.gain = gain
-                                    smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
+                                    smokerModel!.cigaretCountThisDayMap[Date()]?.cigaretSmoked = cigaretSmokedThisDay
                                     saveInSmokerDb(modelContext)
                                 }
                             }
@@ -113,7 +113,7 @@ struct MainBoardView: View {
                                 }
                                 if smokerModel != nil {
                                     smokerModel!.cigaretTotalCount.gain = gain
-                                    smokerModel!.cigaretCountThisDay.cigaretSmoked = cigaretSmokedThisDay
+                                    smokerModel!.cigaretCountThisDayMap[Date()]?.cigaretSmoked = cigaretSmokedThisDay
                                     saveInSmokerDb(modelContext)
                                 }
                             }

@@ -50,6 +50,8 @@ struct ContentView: View {
     @StateObject private var networkMonitor = NetworkMonitor()
     @State private var showAlert = false
     
+    @State private var needToReset = false
+    
     
     var body: some View {
         ZStack {
@@ -58,14 +60,14 @@ struct ContentView: View {
                 MainBoardView(smokerModel: $smokerModel)
                 Text(test)
                     .foregroundColor(.white)
-                    .font(.system(size: 70))
+                    .font(.system(size: 40))
                 Button(action: {
-                    self.updateCurrentDateTime()
+                    self.updateCurrentDateTime(true)
                 }) {
-                    Text("Update")
+                    Text("TEST")
                         .foregroundColor(.white)
-                        .font(.system(size: 70))
-                        .position(x: 200, y: 750)
+                        .font(.system(size: 40))
+                        .padding(.top, 300)
                 }
             }
             if smokerModel != nil && !smokerModel!.firstOpening {
@@ -96,15 +98,22 @@ struct ContentView: View {
         }
         .onAppear() {
             initializeSmokerModel()
+            print("firstOpening : \(smokerModel.firstOpening)")
             cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
                 .sink { _ in
-                    self.updateCurrentDateTime()
+                    self.updateCurrentDateTime(false)
                 }
-            self.updateCurrentDateTime()
+            self.updateCurrentDateTime(false)
         }
         .onChange(of: networkMonitor.isConnected) {
             if !networkMonitor.isConnected {
                 showAlert = true
+            }
+        }
+        .onChange(of: needToReset) {
+            if needToReset == true {
+                print("CA MARCHE PUTAIN DE MERDE")
+                needToReset = false
             }
         }
         .alert(isPresented: $showAlert) {
@@ -116,24 +125,26 @@ struct ContentView: View {
                         UIApplication.shared.quit()
                     } else {
                         showAlert = false
-                        self.updateCurrentDateTime()
+                        self.updateCurrentDateTime(false)
                     }
                 })
             )
         }
     }
-    
+        
     private func initializeSmokerModel(){
         if smokerModels.isEmpty {
+            
             let newSmokerModel = SmokerModel(
                 firstOpening: false,
                 cigaretInfo: CigaretInfos(kindOfCigaret: "", priceOfCigaret: 0.0, numberOfCigaretAnnounced: 0),
-                cigaretCountThisDay: CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
+                cigaretCountThisDayMap: [:],
                 cigaretTotalCount: CigaretTotalCount(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0),
                 numberOfCigaretProgrammedThisDay: 0,
                 daySinceFirstOpening: 0,
                 needToReset: false,
-                lastOpening: Date()
+                lastOpening: Date(),
+                firstOpeningDate: Date()
             )
             modelContext.insert(newSmokerModel)
             do {
@@ -141,18 +152,66 @@ struct ContentView: View {
             } catch {
                 print("db already initialized")
             }
+            print("je passe par l'init")
         }
         smokerModel = smokerModels.first
+        if smokerModel == nil {
+            print("smokerModel is nil")
+        } else {
+            print("smokerModel is not nil")
+        }
     }
     
-    private func updateCurrentDateTime() {
+    private func updateCurrentDateTime(_ test: Bool) {
         // Si un seul param et que c'est une closure pas besoin de () apres l'appel
         print("App is back in the foreground, fetching current date and time\n\n")
         fetchCurrentDate { date in
             if let date = date {
                 DispatchQueue.main.async {
                     self.currentDate = date
+                    let calendar = Calendar.current
+                    if test {
+                        self.currentDate = calendar.date(byAdding: .hour, value: 11, to: self.currentDate)!
+                        print("\nTest mode activated, current date and time updated: \(self.currentDate)\n")
+                    }
                     self.test = date.description
+                    
+                    let savedDate = smokerModel.lastOpening
+                    
+                    let timeZone = TimeZone(secondsFromGMT: 0)
+                    var calendarWithTimeZone = calendar
+                    calendarWithTimeZone.timeZone = timeZone!
+                    
+                    let savedDateComponent = calendarWithTimeZone.dateComponents([.year, .month, .day], from: savedDate)
+                    let savedCurrentDateComponent = calendarWithTimeZone.dateComponents([.year, .month, .day], from: self.currentDate)
+                    
+                    guard let startOfSavedDate = calendarWithTimeZone.date(from: savedDateComponent),
+                          let startOfCurrentDate = calendarWithTimeZone.date(from: savedCurrentDateComponent) else {
+                        print("error guard")
+                        return
+                    }
+                    
+                    let isNextDay = startOfCurrentDate >= calendarWithTimeZone.date(byAdding: .day, value: 1, to: startOfSavedDate)!
+                    
+                    
+                    
+                    let hourComponent = calendarWithTimeZone.component(.hour, from: self.currentDate)
+                    let isPastFourAm = hourComponent >= 4
+                    print("✅Last opening date and time: \(savedDate)")
+                    print("✅Current date and time: \(self.currentDate)")
+                    
+                    print("\n🔥 isNextDay: \(isNextDay)")
+                    print("🔥 isPastFourAm: \(isPastFourAm)")
+                    print("🔥 hourComponent: \(hourComponent)")
+                    
+                    
+                    if isNextDay && isPastFourAm {
+                        self.needToReset = true
+                        print("Resetting values")
+                    }
+                    else {
+                        print("Ca reset pas")
+                    }
                     smokerModel.lastOpening = currentDate
                     saveInSmokerDb(modelContext)
                     print("App is back in the foreground, current date and time updated: \(self.currentDate)")
@@ -181,8 +240,8 @@ struct ContentView: View {
             }
             
             if let jsonString = String(data: data, encoding: .utf8) {
-                    print("JSON reçu : \(jsonString)")
-                }
+                print("JSON reçu : \(jsonString)")
+            }
             
             if let httpResponse = response as? HTTPURLResponse {
                 print("Status code : \(httpResponse.statusCode)")
@@ -212,7 +271,6 @@ struct ContentView: View {
             }
         }.resume() // Fonctionne comme un .start() pour lancer la requete les lignes au dessus sont la config avant de start
     }
-    
 }
     
     #Preview {
