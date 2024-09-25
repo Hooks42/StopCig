@@ -24,7 +24,7 @@ struct HelloView: View {
                     .padding(.top, 100)
             }
             if showText {
-                Text("Cette application est la pour t'aider à arrêter de fumer\nElle sera ton compagnon dans cette quette difficile qu'est le combat contre l'addiction")
+                Text("Cette application est la pour t'aider à arrêter de fumer\nElle sera ton compagnon dans cette quête difficile qu'est le combat contre l'addiction")
                     .foregroundColor(.white)
                     .font(.custom("Quicksand-Light", size:20))
                     .multilineTextAlignment(.center)

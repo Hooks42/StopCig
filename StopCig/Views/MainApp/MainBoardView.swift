@@ -10,6 +10,7 @@ import SwiftUI
 struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
+    @Binding var needToReset: Bool
     @Environment(\.modelContext) private var modelContext
     
     @State private var timer: Timer?
@@ -20,17 +21,17 @@ struct MainBoardView: View {
     @State var gain : Double = 0
     @State var totalCigForThisDay = 0
     @State var cigaretSmokedThisDay = 0
-    @State var currentPage = 0
     @State var showSettings = false
     @State var CigPerDay = 0
     @State var packPrice = 0.0
     private let cigPrice : Double
     
-    init(smokerModel: Binding<SmokerModel?>) {
+    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>) {
         self._smokerModel = smokerModel
+        self._needToReset = needToReset
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
-        self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[Date()]?.cigaretSmoked ?? 0)
+        self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[getOnlyDate(from: smokerModel.wrappedValue?.lastOpening ?? Date())]?.cigaretSmoked ?? 0)
         
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         self.cigPrice = Double(cigPackPrice) / 20
@@ -86,15 +87,19 @@ struct MainBoardView: View {
                         Button(action: {
                             print("xmark nextstep : \(nextStep)")
                             if self.cigaretSmokedThisDay > 0 {
-                                print("CigaretSmokedThisDay --> \(cigaretSmokedThisDay)")
                                 self.nextStep -= 1 / CGFloat(totalCigForThisDay)
                                 self.cigaretSmokedThisDay -= 1
                                 withAnimation(.spring()) {
                                     self.gain += cigPrice
                                 }
                                 if smokerModel != nil {
-                                    smokerModel!.cigaretTotalCount.gain = gain
-                                    smokerModel!.cigaretCountThisDayMap[Date()]?.cigaretSmoked = cigaretSmokedThisDay
+                                    smokerModel!.cigaretTotalCount.gain = self.gain
+                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
+                                    
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked -= 1
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved += 1
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
+                                    smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
                                     saveInSmokerDb(modelContext)
                                 }
                             }
@@ -113,7 +118,12 @@ struct MainBoardView: View {
                                 }
                                 if smokerModel != nil {
                                     smokerModel!.cigaretTotalCount.gain = gain
-                                    smokerModel!.cigaretCountThisDayMap[Date()]?.cigaretSmoked = cigaretSmokedThisDay
+                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
+                                    
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+                                    smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
                                     saveInSmokerDb(modelContext)
                                 }
                             }
@@ -126,6 +136,9 @@ struct MainBoardView: View {
                     .padding(.top, geo.size.height * 0.5)
             }
             .onAppear() {
+                if smokerModel?.firstOpeningDate != nil {
+                    print("✅ La date d'aujourd'hui est : \(String(describing: smokerModel?.firstOpeningDate!))")
+                }
                 let i = self.nextStep
                 if nextStep != 0 {
                     withAnimation {
@@ -134,10 +147,19 @@ struct MainBoardView: View {
                     }
                 }
             }
+            .onChange(of: needToReset) {
+                if needToReset == true {
+                    self.nextStep = 0
+                    self.cigaretSmokedThisDay = 0
+                    self.gain += self.cigPrice * Double(self.totalCigForThisDay)
+                    needToReset = false
+                    
+                }
+            }
         }
     }
 }
     
     #Preview {
-        MainBoardView(smokerModel: .constant(nil))
+        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false))
     }
