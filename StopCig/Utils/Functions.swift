@@ -37,6 +37,15 @@ func getDecimalPartAsInt(from number: Double) -> Int {
     return Int(decimalPart)
 }
 
+func getOnlyDate(from date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    return dateFormatter.string(from: date)
+}
+
+
+
 extension UIApplication {
     func quit() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -44,3 +53,4 @@ extension UIApplication {
         }
     }
 }
+

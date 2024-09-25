@@ -5,6 +5,7 @@ struct HowManyCigaretsSmokedView: View {
     @Environment(\.modelContext) private var modelContext
     @Binding var smokerModel: SmokerModel?
     @Binding var isRoutineSet: Bool
+    @Binding var currentDate: Date
     
     @State private var questionForRoutine = false
     @State private var pickerForRoutine = false
@@ -108,10 +109,11 @@ struct HowManyCigaretsSmokedView: View {
             smokerModel!.firstOpening = true
             smokerModel!.numberOfCigaretProgrammedThisDay = Int(Double(numberOfCigaretsSmoked[selectedRoutine] ?? 0) - Double((numberOfCigaretsSmoked[selectedRoutine] ?? 0)) * 0.2)
             smokerModel!.cigaretTotalCount.gain = smokerModel!.cigaretInfo.priceOfCigaret / 20 * Double(smokerModel!.numberOfCigaretProgrammedThisDay)
+            smokerModel!.cigaretCountThisDayMap[getOnlyDate(from: currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
         }
     }
 }
 
 #Preview {
-    HowManyCigaretsSmokedView(smokerModel: .constant(nil), isRoutineSet: .constant(false))
+    HowManyCigaretsSmokedView(smokerModel: .constant(nil), isRoutineSet: .constant(false), currentDate: .constant(Date()))
 }

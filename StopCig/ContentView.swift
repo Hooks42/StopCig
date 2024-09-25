@@ -34,10 +34,11 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @State private var isAcceptPressed = false
+    @State private var isAcceptPressed = true
     @State private var isKindOfCigaretSelected = false
     @State private var isRoutineSet = false
     
+    private var startTest = true
     
     @Query private var smokerModels: [SmokerModel]
     @State private var smokerModel: SmokerModel!
@@ -50,24 +51,34 @@ struct ContentView: View {
     @StateObject private var networkMonitor = NetworkMonitor()
     @State private var showAlert = false
     
-    @State private var needToReset = false
+    @State var needToReset = false
     
     
     var body: some View {
         ZStack {
             if smokerModel != nil && smokerModel.firstOpening {
                 
-                MainBoardView(smokerModel: $smokerModel)
-                Text(test)
-                    .foregroundColor(.white)
-                    .font(.system(size: 40))
-                Button(action: {
-                    self.updateCurrentDateTime(true)
-                }) {
-                    Text("TEST")
-                        .foregroundColor(.white)
-                        .font(.system(size: 40))
-                        .padding(.top, 300)
+                MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
+                if startTest {
+                    HStack {
+                        Button(action: {
+                            self.updateCurrentDateTime(true)
+                            print("\(String(describing: smokerModel.cigaretCountThisDayMap["2024-09-25"]?.cigaretSmoked))")
+                        }) {
+                            Text("TEST")
+                                .foregroundColor(.white)
+                                .font(.system(size: 40))
+                                .padding(.top, 300)
+                        }
+                        Button(action: {
+                            self.updateCurrentDateTime(true, test2: true)
+                        }) {
+                            Text("Test2")
+                                .foregroundColor(.white)
+                                .font(.system(size: 40))
+                                .padding(.top, 300)
+                        }
+                    }
                 }
             }
             if smokerModel != nil && !smokerModel!.firstOpening {
@@ -88,10 +99,10 @@ struct ContentView: View {
                 }
                 VStack {
                     if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
-                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet)
+                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
                     }
                     if isRoutineSet {
-                        MainBoardView(smokerModel: $smokerModel)
+                        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
                     }
                 }
             }
@@ -113,7 +124,7 @@ struct ContentView: View {
         .onChange(of: needToReset) {
             if needToReset == true {
                 print("CA MARCHE PUTAIN DE MERDE")
-                needToReset = false
+                smokerModel.cigaretCountThisDayMap[getOnlyDate(from: currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
             }
         }
         .alert(isPresented: $showAlert) {
@@ -144,7 +155,7 @@ struct ContentView: View {
                 daySinceFirstOpening: 0,
                 needToReset: false,
                 lastOpening: Date(),
-                firstOpeningDate: Date()
+                firstOpeningDate: nil
             )
             modelContext.insert(newSmokerModel)
             do {
@@ -162,16 +173,23 @@ struct ContentView: View {
         }
     }
     
-    private func updateCurrentDateTime(_ test: Bool) {
+    private func updateCurrentDateTime(_ test: Bool, test2: Bool = false) {
         // Si un seul param et que c'est une closure pas besoin de () apres l'appel
         print("App is back in the foreground, fetching current date and time\n\n")
         fetchCurrentDate { date in
             if let date = date {
                 DispatchQueue.main.async {
-                    self.currentDate = date
+                    if !test2 {
+                        self.currentDate = date
+                    }
+                    if smokerModel.firstOpeningDate == nil {
+                        smokerModel.firstOpeningDate = getOnlyDate(from: self.currentDate)
+                        saveInSmokerDb(modelContext)
+                        return
+                    }
                     let calendar = Calendar.current
                     if test {
-                        self.currentDate = calendar.date(byAdding: .hour, value: 11, to: self.currentDate)!
+                        self.currentDate = calendar.date(byAdding: .hour, value: 24, to: self.currentDate)!
                         print("\nTest mode activated, current date and time updated: \(self.currentDate)\n")
                     }
                     self.test = date.description
