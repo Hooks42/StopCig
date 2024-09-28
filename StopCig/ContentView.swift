@@ -65,15 +65,7 @@ struct ContentView: View {
                             self.updateCurrentDateTime(true)
                             print("\(String(describing: smokerModel.cigaretCountThisDayMap["2024-09-25"]?.cigaretSmoked))")
                         }) {
-                            Text("TEST")
-                                .foregroundColor(.white)
-                                .font(.system(size: 40))
-                                .padding(.top, 300)
-                        }
-                        Button(action: {
-                            self.updateCurrentDateTime(true, test2: true)
-                        }) {
-                            Text("Test2")
+                            Text("+1 Day")
                                 .foregroundColor(.white)
                                 .font(.system(size: 40))
                                 .padding(.top, 300)
@@ -173,13 +165,13 @@ struct ContentView: View {
         }
     }
     
-    private func updateCurrentDateTime(_ test: Bool, test2: Bool = false) {
+    private func updateCurrentDateTime(_ test: Bool) {
         // Si un seul param et que c'est une closure pas besoin de () apres l'appel
         print("App is back in the foreground, fetching current date and time\n\n")
         fetchCurrentDate { date in
             if let date = date {
                 DispatchQueue.main.async {
-                    if !test2 {
+                    if !test {
                         self.currentDate = date
                     }
                     if smokerModel.firstOpeningDate == nil {

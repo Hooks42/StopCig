@@ -47,14 +47,15 @@ struct MainBoardView: View {
             ZStack {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
-                    VStack {
-                        Text("Wallet: ")
-                            .font(.custom("Quicksand-SemiBold", size: 28))
-                            .foregroundColor(.white)
+                HStack {
+                        Image("money")
+                            .resizable()
+                            .frame(width: geo.size.width * 0.09, height: geo.size.width * 0.09)
+                            .padding(.leading, geo.size.height * 0.04)
                         //                    RectangleSelecterView(currentPage: $currentPage)
                         Text(String(format: "%.2f", gain) + " €")
                             .font(.custom("Quicksand-SemiBold", size: 28))
-                            .padding(.leading, geo.size.width * 0.025)
+                            //.padding(.leading, geo.size.width * 0.025)
                             .foregroundColor(.white)
                     }
                     .padding(.bottom, geo.size.height * 0.85)
@@ -81,59 +82,58 @@ struct MainBoardView: View {
                     VStack {
                         CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay)
                     }
-                    .padding(.bottom, geo.size.height * 0.05)
-                    
-                    HStack (spacing: 20) {
-                        Button(action: {
-                            print("xmark nextstep : \(nextStep)")
-                            if self.cigaretSmokedThisDay > 0 {
-                                self.nextStep -= 1 / CGFloat(totalCigForThisDay)
-                                self.cigaretSmokedThisDay -= 1
-                                withAnimation(.spring()) {
-                                    self.gain += cigPrice
-                                }
-                                if smokerModel != nil {
-                                    smokerModel!.cigaretTotalCount.gain = self.gain
-                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
-                                    
-                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked -= 1
-                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved += 1
-                                    smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
-                                    smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
-                                    saveInSmokerDb(modelContext)
-                                }
-                            }
-                        })
-                        {
-                            Image("xmark")
-                                .resizable()
-                                .frame(width: 45, height: 45)
-                        }
-                        Button(action: {
-                            if self.cigaretSmokedThisDay < totalCigForThisDay {
-                                self.nextStep += 1 / CGFloat(totalCigForThisDay)
-                                self.cigaretSmokedThisDay += 1
-                                withAnimation(.easeInOut(duration: 1)) {
-                                    self.gain -= cigPrice
-                                }
-                                if smokerModel != nil {
-                                    smokerModel!.cigaretTotalCount.gain = gain
-                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
-                                    
-                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
-                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
-                                    smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
-                                    smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
-                                    saveInSmokerDb(modelContext)
-                                }
-                            }
-                        }) {
-                            Image("checkmark")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                        }
-                    }
-                    .padding(.top, geo.size.height * 0.5)
+                    .padding(.top, geo.size.height * 0.08)
+//                    HStack (spacing: 20) {
+//                        Button(action: {
+//                            print("xmark nextstep : \(nextStep)")
+//                            if self.cigaretSmokedThisDay > 0 {
+//                                self.nextStep -= 1 / CGFloat(totalCigForThisDay)
+//                                self.cigaretSmokedThisDay -= 1
+//                                withAnimation(.spring()) {
+//                                    self.gain += cigPrice
+//                                }
+//                                if smokerModel != nil {
+//                                    smokerModel!.cigaretTotalCount.gain = self.gain
+//                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
+//                                    
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked -= 1
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved += 1
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
+//                                    saveInSmokerDb(modelContext)
+//                                }
+//                            }
+//                        })
+//                        {
+//                            Image("Xmark")
+//                                .resizable()
+//                                .frame(width: 45, height: 45)
+//                        }
+//                        Button(action: {
+//                            if self.cigaretSmokedThisDay < totalCigForThisDay {
+//                                self.nextStep += 1 / CGFloat(totalCigForThisDay)
+//                                self.cigaretSmokedThisDay += 1
+//                                withAnimation(.easeInOut(duration: 1)) {
+//                                    self.gain -= cigPrice
+//                                }
+//                                if smokerModel != nil {
+//                                    smokerModel!.cigaretTotalCount.gain = gain
+//                                    let date = getOnlyDate(from: smokerModel!.lastOpening)
+//                                    
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+//                                    smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
+//                                    saveInSmokerDb(modelContext)
+//                                }
+//                            }
+//                        }) {
+//                            Image("checkmark")
+//                                .resizable()
+//                                .frame(width: 40, height: 40)
+//                        }
+//                    }
+//                    .padding(.top, geo.size.height * 0.5)
             }
             .onAppear() {
                 if smokerModel?.firstOpeningDate != nil {
