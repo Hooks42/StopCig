@@ -15,6 +15,10 @@ struct MainBoardView: View {
     
     @State private var timer: Timer?
     
+    //@State var circleAnimation = false
+    @State var circleScale: CGFloat = 1.0
+    @State var resistance: CGFloat = 1.0
+    
     
     
     @State var nextStep: CGFloat = 0
@@ -81,8 +85,10 @@ struct MainBoardView: View {
                 .padding(.bottom, geo.size.height * 0.85)
                 .padding(.trailing, geo.size.width * 0.1)
                 VStack {
-                    CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay)
-                    }
+                    CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay, circleScale: $circleScale, resistance: $resistance)
+                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.5)
+                        .padding(.top, geo.size.height * 0.1)
+                }
                 .padding(.top, geo.size.height * 0.08)
                 Circle()
                     .fill(Color.white.opacity(0))
@@ -104,6 +110,14 @@ struct MainBoardView: View {
                                 smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
                                 saveInSmokerDb(modelContext)
                             }
+                            withAnimation(.easeInOut(duration: 0.7)) {
+                                self.circleScale = max(0.7, self.circleScale - 0.05)
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                                withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
+                                    self.circleScale = 1.0
+                                }
+                            }
                         }
                     }
                     .onTapGesture {
@@ -122,6 +136,14 @@ struct MainBoardView: View {
                                 smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
                                 smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
                                 saveInSmokerDb(modelContext)
+                            }
+                            withAnimation(.easeInOut(duration: 0.1)) {
+                                self.circleScale = max(0.7, self.circleScale - 0.05)
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
+                                    self.circleScale = 1.0
+                                }
                             }
                         }
                     }
