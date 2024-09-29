@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "piggy-bank.png",
+      "filename" : "save-money-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "piggy-bank 1.png",
+      "filename" : "save-money-1 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "piggy-bank 2.png",
+      "filename" : "save-money-1 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -38,7 +38,7 @@ struct ContentView: View {
     @State private var isKindOfCigaretSelected = false
     @State private var isRoutineSet = false
     
-    private var startTest = true
+    private var startTest = false
     
     @Query private var smokerModels: [SmokerModel]
     @State private var smokerModel: SmokerModel!

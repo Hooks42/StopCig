@@ -44,6 +44,15 @@ func getOnlyDate(from date: Date) -> String {
     return dateFormatter.string(from: date)
 }
 
+func truncateText(_ text: String, maxLength: Int) -> String {
+    if text.count > maxLength {
+        let index = text.index(text.startIndex, offsetBy: maxLength)
+        return String(text[..<index] + "...")
+    } else {
+        return text
+    }
+}
+
 
 
 extension UIApplication {
