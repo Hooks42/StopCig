@@ -87,7 +87,6 @@ struct MainBoardView: View {
                 VStack {
                     CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay, circleScale: $circleScale, resistance: $resistance)
                         .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.5)
-                        .padding(.top, geo.size.height * 0.1)
                 }
                 .padding(.top, geo.size.height * 0.08)
                 Circle()
