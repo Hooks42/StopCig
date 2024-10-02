@@ -64,78 +64,89 @@ struct ContentView: View {
     
     
     var body: some View {
-        ZStack {
-            if smokerModel != nil && smokerModel.firstOpening {
-                TabView
-                {
-                    MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, indexTabView: $indexTabView, updateCurrentDateTime: updateCurrentDateTime)
-                        .tabItem { Text("Menu 1") }
-                    
-                    ToDayStatsView(indexTabView: $indexTabView)
-                        .tabItem { Text("Menu 2") }
+        GeometryReader { geo in
+            ZStack {
+                if smokerModel != nil && smokerModel.firstOpening {
+                    TabView(selection: $indexTabView)
+                    {
+                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, indexTabView: $indexTabView, updateCurrentDateTime: updateCurrentDateTime)
+                            .tabItem { Text("Menu 1") }
+                            .tag(0)
+                        
+                        ToDayStatsView(indexTabView: $indexTabView)
+                            .tabItem { Text("Menu 2") }
+                            .tag(1)
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .ignoresSafeArea()
+                    .onChange(of: self.indexTabView) {
+                        print("IndexTabView : \(self.indexTabView)")
+                    }
+                    ZStack {
+                        DotView(indexTabView: $indexTabView)
+                            .padding(.top, geo.size.height * 0.8)
+                    }
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                .ignoresSafeArea()
+                if smokerModel != nil && !smokerModel!.firstOpening {
+                    PlayerView(videoName: "Smoke")
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        if !isAcceptPressed {
+                            HelloView(isAcceptPressed: $isAcceptPressed)
+                        }
+                    }
+                    VStack {
+                        if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
+                            WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
+                        }
+                        if isKindOfCigaretSelected {
+                            //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
+                        }
+                    }
+                    VStack {
+                        if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
+                            HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
+                        }
+                        if isRoutineSet {
+                            MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
+                        }
+                    }
+                }
             }
-            if smokerModel != nil && !smokerModel!.firstOpening {
-                PlayerView(videoName: "Smoke")
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    if !isAcceptPressed {
-                        HelloView(isAcceptPressed: $isAcceptPressed)
-                    }
-                }
-                VStack {
-                    if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
-                        WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
-                    }
-                    if isKindOfCigaretSelected {
-                        //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
-                    }
-                }
-                VStack {
-                    if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
-                        HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
-                    }
-                    if isRoutineSet {
-                        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
-                    }
-                }
-            }
-        }
-        .onAppear() {
-            initializeSmokerModel()
-            print("firstOpening : \(smokerModel.firstOpening)")
-            cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-                .sink { _ in
-                    self.updateCurrentDateTime(false)
-                }
-            self.updateCurrentDateTime(false)
-        }
-        .onChange(of: networkMonitor.isConnected) {
-            if !networkMonitor.isConnected {
-                showAlert = true
-            }
-        }
-        .onChange(of: needToReset) {
-            if needToReset == true {
-                print("CA MARCHE PUTAIN DE MERDE")
-                smokerModel.cigaretCountThisDayMap[getOnlyDate(from: currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
-            }
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Une connexion Internet est requise"),
-                message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
-                dismissButton: .default(Text("OK"), action: {
-                    if !networkMonitor.checkConnection() {
-                        UIApplication.shared.quit()
-                    } else {
-                        showAlert = false
+            .onAppear() {
+                initializeSmokerModel()
+                print("firstOpening : \(smokerModel.firstOpening)")
+                cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+                    .sink { _ in
                         self.updateCurrentDateTime(false)
                     }
-                })
-            )
+                self.updateCurrentDateTime(false)
+            }
+            .onChange(of: networkMonitor.isConnected) {
+                if !networkMonitor.isConnected {
+                    showAlert = true
+                }
+            }
+            .onChange(of: needToReset) {
+                if needToReset == true {
+                    print("CA MARCHE PUTAIN DE MERDE")
+                    smokerModel.cigaretCountThisDayMap[getOnlyDate(from: currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("Une connexion Internet est requise"),
+                    message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
+                    dismissButton: .default(Text("OK"), action: {
+                        if !networkMonitor.checkConnection() {
+                            UIApplication.shared.quit()
+                        } else {
+                            showAlert = false
+                            self.updateCurrentDateTime(false)
+                        }
+                    })
+                )
+            }
         }
     }
         
@@ -318,15 +329,7 @@ struct ToDayStatsView : View {
     @Binding var indexTabView: Int
     
     var body: some View {
-        ZStack {
-            Color(.nightBlue)
-                .edgesIgnoringSafeArea(.all)
-            Text("ICI ON FAIT LES STATS MON GAAARS")
-        }
-        .onAppear() {
-            self.indexTabView = 1
-            print("🔥 INDEX TAB VIEW: \(indexTabView)")
-        }
+        DayStatsView(indexTabView: $indexTabView)
     }
 }
     

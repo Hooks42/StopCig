@@ -13,60 +13,84 @@ struct DotView: View {
     
     var body: some View {
         ZStack {
-            Color(.nightBlue)
-                .edgesIgnoringSafeArea(.all)
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(.myYellow))
                 .frame(width: 100, height:20)
             switch self.indexTabView {
             case 0:
                 Circle()
-                    .fill(Color(.white))
+                    .fill(Color(.black))
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 60)
+                    .onTapGesture {
+                        self.indexTabView = 0
+                    }
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        self.indexTabView = 1
+                    }
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                     .padding(.leading, 60)
+                    .onTapGesture {
+                        self.indexTabView = 2
+                    }
             case 1:
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 60)
+                    .onTapGesture {
+                        self.indexTabView = 0
+                    }
+                Circle()
+                    .fill(Color(.black))
+                    .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        self.indexTabView = 1
+                    }
                 Circle()
                     .fill(Color(.white))
                     .frame(width: 10, height: 10)
-                Circle()
-                    .fill(Color(.gray))
-                    .frame(width: 10, height: 10)
                     .padding(.leading, 60)
-
+                    .onTapGesture {
+                        self.indexTabView = 2
+                    }
             case 2:
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 60)
-                Circle()
-                    .fill(Color(.gray))
-                    .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        self.indexTabView = 0
+                    }
                 Circle()
                     .fill(Color(.white))
                     .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        self.indexTabView = 1
+                    }
+                Circle()
+                    .fill(Color(.black))
+                    .frame(width: 10, height: 10)
                     .padding(.leading, 60)
-            
+                    .onTapGesture {
+                        self.indexTabView = 2
+                    }
+                
             default:
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 60)
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                 Circle()
-                    .fill(Color(.gray))
+                    .fill(Color(.white))
                     .frame(width: 10, height: 10)
                     .padding(.leading, 60)
             }

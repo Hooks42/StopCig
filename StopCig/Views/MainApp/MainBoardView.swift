@@ -148,8 +148,6 @@ struct MainBoardView: View {
                     }
             }
             .onAppear() {
-                self.indexTabView = 0
-                print("🔥 INDEX = 0")
                 if smokerModel?.firstOpeningDate != nil {
                     print("✅ La date d'aujourd'hui est : \(String(describing: smokerModel?.firstOpeningDate!))")
                 }
