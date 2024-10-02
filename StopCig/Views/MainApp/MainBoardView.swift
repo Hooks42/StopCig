@@ -11,6 +11,7 @@ struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
     @Binding var needToReset: Bool
+    @Binding var indexTabView: Int
     @Environment(\.modelContext) private var modelContext
     
     @State private var timer: Timer?
@@ -30,9 +31,10 @@ struct MainBoardView: View {
     @State var packPrice = 0.0
     private let cigPrice : Double
     
-    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>) {
+    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, indexTabView: Binding<Int>) {
         self._smokerModel = smokerModel
         self._needToReset = needToReset
+        self._indexTabView = indexTabView
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
         self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[getOnlyDate(from: smokerModel.wrappedValue?.lastOpening ?? Date())]?.cigaretSmoked ?? 0)
@@ -120,34 +122,34 @@ struct MainBoardView: View {
                         }
                     }
                     .onTapGesture {
-                        if self.cigaretSmokedThisDay < totalCigForThisDay {
-                            self.nextStep += 1 / CGFloat(totalCigForThisDay)
-                            self.cigaretSmokedThisDay += 1
-                            withAnimation(.easeInOut(duration: 1)) {
-                                self.gain -= cigPrice
-                            }
-                            if smokerModel != nil {
-                                smokerModel!.cigaretTotalCount.gain = gain
-                                let date = getOnlyDate(from: smokerModel!.lastOpening)
-                                
-                                smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
-                                smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
-                                smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
-                                smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
-                                saveInSmokerDb(modelContext)
-                            }
-                            withAnimation(.easeInOut(duration: 0.1)) {
-                                self.circleScale = max(0.7, self.circleScale - 0.05)
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
-                                    self.circleScale = 1.0
-                                }
+                        self.nextStep += 1 / CGFloat(totalCigForThisDay)
+                        self.cigaretSmokedThisDay += 1
+                        withAnimation(.easeInOut(duration: 1)) {
+                            self.gain -= cigPrice
+                        }
+                        if smokerModel != nil {
+                            smokerModel!.cigaretTotalCount.gain = gain
+                            let date = getOnlyDate(from: smokerModel!.lastOpening)
+                            
+                            smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
+                            smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
+                            smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+                            smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
+                            saveInSmokerDb(modelContext)
+                        }
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.circleScale = max(0.7, self.circleScale - 0.05)
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
+                                self.circleScale = 1.0
                             }
                         }
                     }
             }
             .onAppear() {
+                self.indexTabView = 0
+                print("🔥 INDEX = 0")
                 if smokerModel?.firstOpeningDate != nil {
                     print("✅ La date d'aujourd'hui est : \(String(describing: smokerModel?.firstOpeningDate!))")
                 }
@@ -173,5 +175,5 @@ struct MainBoardView: View {
 }
     
     #Preview {
-        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false))
+        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false), indexTabView: .constant(0))
     }

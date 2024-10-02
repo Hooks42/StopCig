@@ -34,44 +34,48 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @State private var isAcceptPressed = true
+    // Var pour les vues de démarage de l'app
+    @State private var isAcceptPressed = false
     @State private var isKindOfCigaretSelected = false
     @State private var isRoutineSet = false
     
-    private var startTest = false
+    // Var pour les tests
+    @State private var startTest = false
+    @State private var test = ""
     
+    // Var pour le model SwiftData
     @Query private var smokerModels: [SmokerModel]
     @State private var smokerModel: SmokerModel!
     
+    // Var pour la mise a jour des variables sur le fetch du temps
     @State private var currentDate: Date = Date()
     @State private var cancellable: AnyCancellable?
+    @State var needToReset = false
     
-    @State private var test = ""
+    // Var pour check si l'utilisateur est connecté a internet
+    @StateObject private var networkMonitor = NetworkMonitor() // un StateObject sert a creer un object persistant dans toute l'application
     
-    @StateObject private var networkMonitor = NetworkMonitor()
+    // Var pour les settings
     @State private var showAlert = false
     
-    @State var needToReset = false
+    // Var pour l'index du tabView
+    @State private var indexTabView = 0
+    
     
     
     var body: some View {
         ZStack {
             if smokerModel != nil && smokerModel.firstOpening {
-                
-                MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
-                if startTest {
-                    HStack {
-                        Button(action: {
-                            self.updateCurrentDateTime(true)
-                            print("\(String(describing: smokerModel.cigaretCountThisDayMap["2024-09-25"]?.cigaretSmoked))")
-                        }) {
-                            Text("+1 Day")
-                                .foregroundColor(.white)
-                                .font(.system(size: 40))
-                                .padding(.top, 300)
-                        }
-                    }
+                TabView
+                {
+                    MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, indexTabView: $indexTabView, updateCurrentDateTime: updateCurrentDateTime)
+                        .tabItem { Text("Menu 1") }
+                    
+                    ToDayStatsView(indexTabView: $indexTabView)
+                        .tabItem { Text("Menu 2") }
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                .ignoresSafeArea()
             }
             if smokerModel != nil && !smokerModel!.firstOpening {
                 PlayerView(videoName: "Smoke")
@@ -94,7 +98,7 @@ struct ContentView: View {
                         HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
                     }
                     if isRoutineSet {
-                        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
+                        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
                     }
                 }
             }
@@ -280,6 +284,49 @@ struct ContentView: View {
                 completion(nil)
             }
         }.resume() // Fonctionne comme un .start() pour lancer la requete les lignes au dessus sont la config avant de start
+    }
+}
+
+struct MainMenuView: View {
+    
+    @Binding var smokerModel: SmokerModel?
+    @Binding var needToReset: Bool
+    @Binding var startTest: Bool
+    @Binding var indexTabView: Int
+    
+    let updateCurrentDateTime: (Bool) -> Void
+    
+    var body: some View {
+        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
+        if self.startTest {
+            HStack {
+                Button(action: {
+                    self.updateCurrentDateTime(true)
+                    print("\(String(describing: smokerModel?.cigaretCountThisDayMap["2024-09-25"]?.cigaretSmoked))")
+                }) {
+                    Text("+1 Day")
+                        .foregroundColor(.white)
+                        .font(.system(size: 40))
+                        .padding(.top, 300)
+                }
+            }
+        }
+    }
+}
+
+struct ToDayStatsView : View {
+    @Binding var indexTabView: Int
+    
+    var body: some View {
+        ZStack {
+            Color(.nightBlue)
+                .edgesIgnoringSafeArea(.all)
+            Text("ICI ON FAIT LES STATS MON GAAARS")
+        }
+        .onAppear() {
+            self.indexTabView = 1
+            print("🔥 INDEX TAB VIEW: \(indexTabView)")
+        }
     }
 }
     
