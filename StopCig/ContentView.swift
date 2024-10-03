@@ -66,7 +66,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                if smokerModel != nil && smokerModel.firstOpening {
+                if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
                     TabView(selection: $indexTabView)
                     {
                         MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, indexTabView: $indexTabView, updateCurrentDateTime: updateCurrentDateTime)
@@ -76,6 +76,11 @@ struct ContentView: View {
                         ToDayStatsView(indexTabView: $indexTabView)
                             .tabItem { Text("Menu 2") }
                             .tag(1)
+                        
+                        TabWeekStatsView()
+                            .tabItem { Text("Menu 3") }
+                            .tag(2)
+                        
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     .ignoresSafeArea()
@@ -106,9 +111,6 @@ struct ContentView: View {
                     VStack {
                         if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
                             HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
-                        }
-                        if isRoutineSet {
-                            MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
                         }
                     }
                 }
@@ -330,6 +332,12 @@ struct ToDayStatsView : View {
     
     var body: some View {
         DayStatsView(indexTabView: $indexTabView)
+    }
+}
+
+struct TabWeekStatsView : View {
+    var body: some View {
+        WeekStatsView()
     }
 }
     

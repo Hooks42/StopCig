@@ -23,6 +23,7 @@
 		FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB8AB142C5FC84C00141E4E /* Structs.swift */; };
 		FBCF03B62CAD8955001B0A37 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCF03B52CAD8955001B0A37 /* DotView.swift */; };
 		FBCF03B82CADB058001B0A37 /* DayStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCF03B72CADB058001B0A37 /* DayStatsView.swift */; };
+		FBCF03BA2CAE8F51001B0A37 /* WeekStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCF03B92CAE8F51001B0A37 /* WeekStatsView.swift */; };
 		FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */; };
 		FBE09E952C50E4F800BC80F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE09E942C50E4F800BC80F6 /* ContentView.swift */; };
 		FBE09E992C50E4FA00BC80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBE09E982C50E4FA00BC80F6 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		FBB8AB142C5FC84C00141E4E /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		FBCF03B52CAD8955001B0A37 /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
 		FBCF03B72CADB058001B0A37 /* DayStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatsView.swift; sourceTree = "<group>"; };
+		FBCF03B92CAE8F51001B0A37 /* WeekStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStatsView.swift; sourceTree = "<group>"; };
 		FBE09E8F2C50E4F800BC80F6 /* StopCig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopCig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE09E922C50E4F800BC80F6 /* StopCigApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopCigApp.swift; sourceTree = "<group>"; };
 		FBE09E942C50E4F800BC80F6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				FB0333BB2C78C87100D0679B /* SettingsView.swift */,
 				FBCF03B52CAD8955001B0A37 /* DotView.swift */,
 				FBCF03B72CADB058001B0A37 /* DayStatsView.swift */,
+				FBCF03B92CAE8F51001B0A37 /* WeekStatsView.swift */,
 			);
 			path = MainApp;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				FBCF03B62CAD8955001B0A37 /* DotView.swift in Sources */,
 				FB0403E52C66630400DFA078 /* CircleView.swift in Sources */,
 				FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */,
+				FBCF03BA2CAE8F51001B0A37 /* WeekStatsView.swift in Sources */,
 				FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */,
 				FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */,
 				FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */,
