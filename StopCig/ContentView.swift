@@ -325,12 +325,6 @@ struct ToDayStatsView : View {
         DayStatsView( weekStats: $weekStats)
     }
 }
-
-struct TabWeekStatsView : View {
-    var body: some View {
-        WeekStatsView()
-    }
-}
     
     #Preview {
         ContentView()
