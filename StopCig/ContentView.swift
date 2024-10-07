@@ -35,7 +35,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     
     // Var pour les vues de démarage de l'app
-    @State private var isAcceptPressed = false
+    @State private var isAcceptPressed = true
     @State private var isKindOfCigaretSelected = false
     @State private var isRoutineSet = false
     
@@ -60,7 +60,7 @@ struct ContentView: View {
     
     // Var pour l'index du tabView
     @State private var indexTabView = 0
-    
+    @State private var weekStats = false
     
     
     var body: some View {
@@ -69,26 +69,18 @@ struct ContentView: View {
                 if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
                     TabView(selection: $indexTabView)
                     {
-                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, indexTabView: $indexTabView, updateCurrentDateTime: updateCurrentDateTime)
+                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, updateCurrentDateTime: updateCurrentDateTime)
                             .tabItem { Text("Menu 1") }
                             .tag(0)
                         
-                        ToDayStatsView(indexTabView: $indexTabView)
+                        ToDayStatsView(weekStats: $weekStats)
                             .tabItem { Text("Menu 2") }
                             .tag(1)
-                        
-                        TabWeekStatsView()
-                            .tabItem { Text("Menu 3") }
-                            .tag(2)
-                        
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     .ignoresSafeArea()
-                    .onChange(of: self.indexTabView) {
-                        print("IndexTabView : \(self.indexTabView)")
-                    }
                     ZStack {
-                        DotView(indexTabView: $indexTabView)
+                        DotView(indexTabView: $indexTabView, weekStats: $weekStats)
                             .padding(.top, geo.size.height * 0.8)
                     }
                 }
@@ -305,12 +297,11 @@ struct MainMenuView: View {
     @Binding var smokerModel: SmokerModel?
     @Binding var needToReset: Bool
     @Binding var startTest: Bool
-    @Binding var indexTabView: Int
     
     let updateCurrentDateTime: (Bool) -> Void
     
     var body: some View {
-        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, indexTabView: $indexTabView)
+        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
         if self.startTest {
             HStack {
                 Button(action: {
@@ -328,10 +319,10 @@ struct MainMenuView: View {
 }
 
 struct ToDayStatsView : View {
-    @Binding var indexTabView: Int
+    @Binding var weekStats: Bool
     
     var body: some View {
-        DayStatsView(indexTabView: $indexTabView)
+        DayStatsView( weekStats: $weekStats)
     }
 }
 

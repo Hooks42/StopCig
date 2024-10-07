@@ -4,3 +4,7 @@ xmark <div> Icons made by <a href="https://www.flaticon.com/authors/pixel-perfec
 checkmark <div> Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry"> Kiranshastry </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
 settings <div> Icons made by <a href="https://www.flaticon.com/authors/pavel-kozlov" title="Pavel Kozlov"> Pavel Kozlov </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
 <div> Icons made by <a href="https://www.flaticon.com/authors/iconic-artisan" title="Iconic Artisan"> Iconic Artisan </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+<div> Icons made by <a href="https://www.flaticon.com/authors/awicon" title="Awicon"> Awicon </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+<div> Icons made by <a href="https://www.flaticon.com/authors/irfansusanto20" title="Irfansusanto20"> Irfansusanto20 </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+<div> Icons made by <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+<div> Icons made by <a href="" title="Icons_Field"> Icons_Field </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>

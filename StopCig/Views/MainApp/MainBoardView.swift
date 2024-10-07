@@ -11,7 +11,6 @@ struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
     @Binding var needToReset: Bool
-    @Binding var indexTabView: Int
     @Environment(\.modelContext) private var modelContext
     
     @State private var timer: Timer?
@@ -31,10 +30,9 @@ struct MainBoardView: View {
     @State var packPrice = 0.0
     private let cigPrice : Double
     
-    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, indexTabView: Binding<Int>) {
+    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>) {
         self._smokerModel = smokerModel
         self._needToReset = needToReset
-        self._indexTabView = indexTabView
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
         self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[getOnlyDate(from: smokerModel.wrappedValue?.lastOpening ?? Date())]?.cigaretSmoked ?? 0)
@@ -173,5 +171,5 @@ struct MainBoardView: View {
 }
     
     #Preview {
-        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false), indexTabView: .constant(0))
+        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false))
     }
