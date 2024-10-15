@@ -107,11 +107,34 @@ struct MainBoardView: View {
                             if smokerModel != nil {
                                 smokerModel!.cigaretTotalCount.gain = self.gain
                                 let date = getOnlyDate(from: smokerModel!.lastOpening)
-                                
                                 smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked -= 1
                                 smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
-                                smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
+                                if let stats = smokerModel!.cigaretCountThisDayMap[date] {
+                                    if stats.lost - self.cigPrice > 0 {
+                                        smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+                                    } else {
+                                        smokerModel!.cigaretCountThisDayMap[date]?.gain = 0
+                                    }
+                                }
+                                
                                 saveInSmokerDb(modelContext)
+                                let cigSave = self.totalCigForThisDay - smokerModel!.cigaretCountThisDayMap[date]!.cigaretSmoked
+                                if cigSave > 0 {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = cigSave
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain = self.cigPrice * Double(cigSave)
+                                } else {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = 0
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain = 0
+                                }
+                                
+                                let cigSmoked = smokerModel!.cigaretCountThisDayMap[date]!.cigaretSmoked
+                                if cigSmoked > 0 {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.lost = self.cigPrice * Double(cigSmoked)
+                                } else {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.lost = 0
+                                }
+                                saveInSmokerDb(modelContext)
+                                
                             }
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 self.circleScale = max(0.95, self.circleScale - 0.05)
@@ -134,16 +157,33 @@ struct MainBoardView: View {
                             let date = getOnlyDate(from: smokerModel!.lastOpening)
                             
                             smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
-                            smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
-                            smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
+                            if let stats = smokerModel!.cigaretCountThisDayMap[date] {
+                                if stats.gain - self.cigPrice > 0 {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+                                } else {
+                                    smokerModel!.cigaretCountThisDayMap[date]?.gain = 0
+                                }
+                            }
                             saveInSmokerDb(modelContext)
+                            
                             let cigSave = self.totalCigForThisDay - smokerModel!.cigaretCountThisDayMap[date]!.cigaretSmoked
                             if cigSave > 0 {
                                 smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = cigSave
+                                smokerModel!.cigaretCountThisDayMap[date]?.gain = self.cigPrice * Double(cigSave)
                             } else {
                                 smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = 0
+                                smokerModel!.cigaretCountThisDayMap[date]?.gain = 0
+                            }
+                            
+                            let cigSmoked = smokerModel!.cigaretCountThisDayMap[date]!.cigaretSmoked
+                            if cigSmoked > 0 {
+                                smokerModel!.cigaretCountThisDayMap[date]?.lost = self.cigPrice * Double(cigSmoked)
+                            } else {
+                                smokerModel!.cigaretCountThisDayMap[date]?.lost = 0
                             }
                             saveInSmokerDb(modelContext)
+                            
+                            
                         }
                         withAnimation(.easeInOut(duration: 0.1)) {
                             self.circleScale = max(0.7, self.circleScale - 0.05)

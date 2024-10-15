@@ -138,6 +138,9 @@ struct ContentView: View {
                     print("🔱 stats d'hier : \(String(describing: smokerModel.cigaretCountThisDayMap[getYesterdayDate(from: self.currentDate)]))")
                     print("\n")
                     print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Argent économisé"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Argent perdu"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Cigarettes sauvées"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Cigarettes fumées"]?.last))")
                 }
             }
             .alert(isPresented: $showAlert) {
