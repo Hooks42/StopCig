@@ -28,6 +28,11 @@ struct CigaretTotalCount : Codable {
     var lost : Double
 }
 
+struct graphDataStruct : Codable {
+    var index: String
+    var value: Double
+}
+
 
 @Model
 final class SmokerModel {
@@ -39,11 +44,12 @@ final class SmokerModel {
     var daySinceFirstOpening: Int
     var needToReset: Bool
     var lastOpening: Date
-    var firstOpeningDate: String?
+    var firstOpeningDate: String? = nil
+    var graphData: [String : [graphDataStruct]]
     
     init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDayMap: [String:CigaretCountThisDay],
          cigaretTotalCount: CigaretTotalCount, numberOfCigaretProgrammedThisDay: Int,
-         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date, firstOpeningDate: String?) {
+         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date, firstOpeningDate: String?, graphData: [String : [graphDataStruct]]) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
         self.cigaretCountThisDayMap = cigaretCountThisDayMap
@@ -53,5 +59,6 @@ final class SmokerModel {
         self.needToReset = needToReset
         self.lastOpening = lastOpening
         self.firstOpeningDate = firstOpeningDate
+        self.graphData = graphData
     }
 }

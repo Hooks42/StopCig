@@ -44,6 +44,14 @@ func getOnlyDate(from date: Date) -> String {
     return dateFormatter.string(from: date)
 }
 
+func getYesterdayDate(from date: Date) -> String {
+    let calendar = Calendar.current
+    guard let previousDate = calendar.date(byAdding: .day, value: -1, to: date) else { return ""}
+    return getOnlyDate(from: previousDate)
+}
+
+
+
 func truncateText(_ text: String, maxLength: Int) -> String {
     if text.count > maxLength {
         let index = text.index(text.startIndex, offsetBy: maxLength)

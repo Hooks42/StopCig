@@ -11,6 +11,9 @@ struct MainBoardView: View {
     
     @Binding var smokerModel: SmokerModel?
     @Binding var needToReset: Bool
+    @Binding var addDay: Bool
+    @Binding var startTest: Bool
+    
     @Environment(\.modelContext) private var modelContext
     
     @State private var timer: Timer?
@@ -30,9 +33,11 @@ struct MainBoardView: View {
     @State var packPrice = 0.0
     private let cigPrice : Double
     
-    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>) {
+    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, addDay: Binding<Bool>, startTest: Binding<Bool>) {
         self._smokerModel = smokerModel
         self._needToReset = needToReset
+        self._addDay = addDay
+        self._startTest = startTest
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
         self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[getOnlyDate(from: smokerModel.wrappedValue?.lastOpening ?? Date())]?.cigaretSmoked ?? 0)
@@ -104,15 +109,14 @@ struct MainBoardView: View {
                                 let date = getOnlyDate(from: smokerModel!.lastOpening)
                                 
                                 smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked -= 1
-                                smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved += 1
                                 smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
                                 smokerModel!.cigaretCountThisDayMap[date]?.lost -= self.cigPrice
                                 saveInSmokerDb(modelContext)
                             }
-                            withAnimation(.easeInOut(duration: 0.7)) {
-                                self.circleScale = max(0.7, self.circleScale - 0.05)
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                self.circleScale = max(0.95, self.circleScale - 0.05)
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
                                     self.circleScale = 1.0
                                 }
@@ -130,9 +134,15 @@ struct MainBoardView: View {
                             let date = getOnlyDate(from: smokerModel!.lastOpening)
                             
                             smokerModel!.cigaretCountThisDayMap[date]?.cigaretSmoked += 1
-                            smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved -= 1
-                            smokerModel!.cigaretCountThisDayMap[date]?.gain -= self.cigPrice
+                            smokerModel!.cigaretCountThisDayMap[date]?.gain += self.cigPrice
                             smokerModel!.cigaretCountThisDayMap[date]?.lost += self.cigPrice
+                            saveInSmokerDb(modelContext)
+                            let cigSave = self.totalCigForThisDay - smokerModel!.cigaretCountThisDayMap[date]!.cigaretSmoked
+                            if cigSave > 0 {
+                                smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = cigSave
+                            } else {
+                                smokerModel!.cigaretCountThisDayMap[date]?.cigaretSaved = 0
+                            }
                             saveInSmokerDb(modelContext)
                         }
                         withAnimation(.easeInOut(duration: 0.1)) {
@@ -144,6 +154,20 @@ struct MainBoardView: View {
                             }
                         }
                     }
+                if self.startTest {
+                    Button(action: {
+                        self.addDay = true
+                    }) {
+                        Text("+1 Day")
+                            .font(.custom("Quicksand-SemiBold", size: 20))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color(.myYellow))
+                            .cornerRadius(15)
+                    }
+                    .padding(.top, geo.size.height * 0.6)
+                }
             }
             .onAppear() {
                 if smokerModel?.firstOpeningDate != nil {
@@ -171,5 +195,5 @@ struct MainBoardView: View {
 }
     
     #Preview {
-        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false))
+        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false), addDay: .constant(false), startTest: .constant(true))
     }

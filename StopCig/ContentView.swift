@@ -35,12 +35,12 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     
     // Var pour les vues de démarage de l'app
-    @State private var isAcceptPressed = true
+    @State private var isAcceptPressed = false
     @State private var isKindOfCigaretSelected = false
     @State private var isRoutineSet = false
     
     // Var pour les tests
-    @State private var startTest = false
+    @State private var startTest = true
     @State private var test = ""
     
     // Var pour le model SwiftData
@@ -62,6 +62,8 @@ struct ContentView: View {
     @State private var indexTabView = 0
     @State private var weekStats = false
     
+    @State private var addDay = false
+    
     
     var body: some View {
         GeometryReader { geo in
@@ -69,7 +71,7 @@ struct ContentView: View {
                 if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
                     TabView(selection: $indexTabView)
                     {
-                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, updateCurrentDateTime: updateCurrentDateTime)
+                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
                             .tabItem { Text("Menu 1") }
                             .tag(0)
                         
@@ -124,7 +126,18 @@ struct ContentView: View {
             .onChange(of: needToReset) {
                 if needToReset == true {
                     print("CA MARCHE PUTAIN DE MERDE")
-                    smokerModel.cigaretCountThisDayMap[getOnlyDate(from: currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                    smokerModel.daySinceFirstOpening += 1
+                    smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                    fillGraphData(date: getYesterdayDate(from: self.currentDate))
+                    saveInSmokerDb(modelContext)
+                    print("\n---------------------------------------------------------------\n")
+                    print("🌿 jour depuis le debut : \(smokerModel.daySinceFirstOpening)")
+                    print("🌿 date du jour : \(getOnlyDate(from: self.currentDate))")
+                    print("🌿 date d'hier : \(getYesterdayDate(from: self.currentDate))")
+                    print("\n---------------------------------------------------------------\n")
+                    print("🔱 stats d'hier : \(String(describing: smokerModel.cigaretCountThisDayMap[getYesterdayDate(from: self.currentDate)]))")
+                    print("\n")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Argent économisé"]?.last))")
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -143,7 +156,7 @@ struct ContentView: View {
             }
         }
     }
-        
+    
     private func initializeSmokerModel(){
         if smokerModels.isEmpty {
             
@@ -156,7 +169,8 @@ struct ContentView: View {
                 daySinceFirstOpening: 0,
                 needToReset: false,
                 lastOpening: Date(),
-                firstOpeningDate: nil
+                firstOpeningDate: nil,
+                graphData: [:]
             )
             modelContext.insert(newSmokerModel)
             do {
@@ -290,41 +304,61 @@ struct ContentView: View {
             }
         }.resume() // Fonctionne comme un .start() pour lancer la requete les lignes au dessus sont la config avant de start
     }
-}
-
-struct MainMenuView: View {
     
-    @Binding var smokerModel: SmokerModel?
-    @Binding var needToReset: Bool
-    @Binding var startTest: Bool
+    //let options = ["Argent économisé", "Argent perdu", "Cigarettes sauvées", "Cigarettes fumées"]
+    private func fillGraphData(date: String) {
+        if let cigaretData = self.smokerModel.cigaretCountThisDayMap[date] {
+            let cigaretSmoked = cigaretData.cigaretSmoked
+            let cigaretSaved = cigaretData.cigaretSaved
+            let moneyEarned = cigaretData.gain
+            let moneyLost = cigaretData.lost
+            let daySinceFirstOpening = smokerModel.daySinceFirstOpening
+            
+            if daySinceFirstOpening == 1 {
+                
+                smokerModel.graphData["Argent économisé"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphData["Argent perdu"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphData["Cigarettes sauvées"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphData["Cigarettes fumées"] = [graphDataStruct(index: "0", value: 0.0)]
+                saveInSmokerDb(modelContext)
+            }
+            
+            smokerModel.graphData["Argent économisé"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyEarned))
+            smokerModel.graphData["Argent perdu"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyLost))
+            smokerModel.graphData["Cigarettes sauvées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSaved)))
+            smokerModel.graphData["Cigarettes fumées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSmoked)))
+        }
+    }
     
-    let updateCurrentDateTime: (Bool) -> Void
-    
-    var body: some View {
-        MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset)
-        if self.startTest {
-            HStack {
-                Button(action: {
-                    self.updateCurrentDateTime(true)
-                    print("\(String(describing: smokerModel?.cigaretCountThisDayMap["2024-09-25"]?.cigaretSmoked))")
-                }) {
-                    Text("+1 Day")
-                        .foregroundColor(.white)
-                        .font(.system(size: 40))
-                        .padding(.top, 300)
+    struct MainMenuView: View {
+        
+        @Binding var smokerModel: SmokerModel?
+        @Binding var needToReset: Bool
+        @Binding var startTest: Bool
+        @Binding var addDay: Bool
+        
+        let updateCurrentDateTime: (Bool) -> Void
+        
+        var body: some View {
+                MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, addDay: $addDay, startTest: $startTest)
+                .onChange(of: addDay) {
+                    if addDay {
+                        updateCurrentDateTime(true)
+                        addDay = false
+                    }
                 }
+                
             }
         }
     }
-}
-
-struct ToDayStatsView : View {
-    @Binding var weekStats: Bool
     
-    var body: some View {
-        DayStatsView( weekStats: $weekStats)
+    struct ToDayStatsView : View {
+        @Binding var weekStats: Bool
+        
+        var body: some View {
+            DayStatsView( weekStats: $weekStats)
+        }
     }
-}
     
     #Preview {
         ContentView()
