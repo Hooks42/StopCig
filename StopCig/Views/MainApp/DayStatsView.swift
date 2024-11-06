@@ -10,8 +10,10 @@ import Charts
 
 struct DayStatsView: View {
     
+    @Binding var smokerModel: SmokerModel?
     @Binding var weekStats : Bool
-    @State var indexTabView = 0
+    
+    @State private var indexTabView = 0
     @State private var viewTitle = "Jours"
     @State private var selectedOption = "Argent économisé"
     let options = ["Argent économisé", "Argent perdu", "Cigarettes sauvées", "Cigarettes fumées"]
@@ -135,7 +137,8 @@ struct DayStatsView: View {
         ("5", 30),
     ]
     
-    @State var graphData : [String : [(String, Int)]] = [:]
+    @State private var graphData : [String : [(String, Int)]] = [:]
+    @State private var pickedValue = ""
     
     
     var body: some View {
@@ -146,20 +149,40 @@ struct DayStatsView: View {
                         .edgesIgnoringSafeArea(.all)
                     VStack {
                         Chart {
-                            if let data = graphData[selectedOption] {
-                                ForEach(data, id: \.0) { item in
+                            if let data = smokerModel?.graphData[selectedOption] {
+                                let newdata = data.dropFirst()
+                                ForEach(newdata, id: \.index) { item in
                                     BarMark (
-                                        x: .value("Jour", item.0),
-                                        y: .value("Valeur", item.1)
+                                        x: .value("Jour", item.index),
+                                        y: .value("Valeur", item.value)
                                     )
                                     .foregroundStyle(.myYellow)
-                                    
                                 }
                             }
                         }
                         .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
                         .chartYAxis {
                             AxisMarks(position: .leading)
+                        }
+                        .chartOverlay { proxy in
+                            GeometryReader { geoChart in
+                                Rectangle().fill(.clear).contentShape(Rectangle())
+                                .gesture(
+                                    DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        guard let plotFrameValue = proxy.plotFrame else { return }
+                                        let frame = geoChart[plotFrameValue]
+                                        let origin = frame.origin
+                                        let location = CGPoint(
+                                            x: value.location.x - origin.x,
+                                            y: value.location.y - origin.y
+                                        )
+                                        if let (index, _) = proxy.value(at: location, as: (String, Int).self) {
+                                            self.pickedValue = getInfosByIndexInGraphData(model: smokerModel, index: index, selectedOption: self.selectedOption)
+                                        }
+                                    }
+                                )
+                            }
                         }
                     }
                     .padding(.bottom, geo.size.height * 0.01)
@@ -202,7 +225,7 @@ struct DayStatsView: View {
                     }
                     .padding(.top, geo.size.height * 0.02)
                     .padding(.leading, geo.size.width * 0.1)
-                    VStack {
+                    VStack (spacing: 35){
                         Menu {
                             ForEach(options, id: \.self) { option in
                                 Button(action: {
@@ -225,6 +248,20 @@ struct DayStatsView: View {
                                 )
                             
                         }
+                        Text(self.pickedValue)
+                            .font(.custom("Quicksand-SemiBold", size: 18))
+                            .animation(.easeInOut(duration: 0.5), value: self.pickedValue)
+                            .onChange(of: self.pickedValue) {
+                                if !self.pickedValue.isEmpty {
+                                    let haptic = UIImpactFeedbackGenerator(style: .soft)
+                                    haptic.impactOccurred()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            self.pickedValue = ""
+                                        }
+                                    }
+                                }
+                            }
                     }
                     .padding(.top, geo.size.height * 0.05)
                 }
@@ -240,4 +277,8 @@ struct TabWeekStatsView : View {
     var body: some View {
         WeekStatsView(selectedOption: $selectedOption, graphData: $graphData)
     }
+}
+
+#Preview {
+    DayStatsView(smokerModel: .constant(nil), weekStats: .constant(false))
 }

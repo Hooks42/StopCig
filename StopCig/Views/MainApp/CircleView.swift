@@ -10,8 +10,6 @@ import SwiftUI
 struct CircleView: View {
     
     @Binding var nextStep: CGFloat
-    @Binding var totalCigForThisDay: Int
-    @Binding var cigaretSmokedThisDay: Int
     //@Binding var circleAnimation: Bool
     @Binding var circleScale: CGFloat
     @Binding var resistance: CGFloat
@@ -30,11 +28,6 @@ struct CircleView: View {
                     .frame(width: geo.size.width * 0.90 * circleScale, height: geo.size.height * 0.90 * circleScale) // Taille intermédiaire entre les deux cercles
                     .rotationEffect(.degrees(-90))
                     .animation(.linear(duration: 1), value: nextStep)
-                VStack {
-                    Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
-                        .font(.custom("Quicksand-Light", size:30))
-                        .foregroundColor(Color(.myYellow))
-                }
             }
             .padding(.leading, geo.size.width * 0.05)
         }

@@ -61,6 +61,22 @@ func truncateText(_ text: String, maxLength: Int) -> String {
     }
 }
 
+func getInfosByIndexInGraphData(model: SmokerModel?, index: String, selectedOption: String) -> String
+{
+    let ERROR = ""
+    
+    let smokerModel = model
+    if smokerModel == nil { return ERROR}
+    
+    guard let graphData = smokerModel?.graphData else { return ERROR}
+    let itemFound = graphData[selectedOption]?.filter{$0.index == index} ?? []
+    if !itemFound.isEmpty {
+        return String(format: "%.2f", itemFound[0].value)
+    }
+    
+    return ERROR
+}
+
 
 
 extension UIApplication {

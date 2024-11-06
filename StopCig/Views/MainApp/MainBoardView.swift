@@ -90,7 +90,14 @@ struct MainBoardView: View {
                 .padding(.bottom, geo.size.height * 0.85)
                 .padding(.trailing, geo.size.width * 0.1)
                 VStack {
-                    CircleView(nextStep: $nextStep, totalCigForThisDay: $totalCigForThisDay, cigaretSmokedThisDay: $cigaretSmokedThisDay, circleScale: $circleScale, resistance: $resistance)
+                    Text("Objectif \(cigaretSmokedThisDay) / \(totalCigForThisDay)")
+                        .font(.custom("Quicksand-Light", size:30))
+                        .foregroundColor(Color(.myYellow))
+                        .animation(nil, value: cigaretSmokedThisDay)
+                }
+                .padding(.top, geo.size.height * 0.04)
+                VStack {
+                    CircleView(nextStep: $nextStep, circleScale: $circleScale, resistance: $resistance)
                         .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.5)
                 }
                 .padding(.top, geo.size.height * 0.08)
@@ -99,6 +106,8 @@ struct MainBoardView: View {
                     .contentShape(Circle())
                     .onLongPressGesture(minimumDuration: 0.4) {
                         if self.cigaretSmokedThisDay > 0 {
+                            let haptic = UIImpactFeedbackGenerator(style: .heavy)
+                            haptic.impactOccurred()
                             self.nextStep -= 1 / CGFloat(totalCigForThisDay)
                             self.cigaretSmokedThisDay -= 1
                             withAnimation(.spring()) {
@@ -140,6 +149,8 @@ struct MainBoardView: View {
                                 self.circleScale = max(0.95, self.circleScale - 0.05)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                let haptic = UIImpactFeedbackGenerator(style: .light)
+                                haptic.impactOccurred()
                                 withAnimation(.interpolatingSpring(stiffness: 50, damping: 5, initialVelocity: 10)) {
                                     self.circleScale = 1.0
                                 }
@@ -147,6 +158,8 @@ struct MainBoardView: View {
                         }
                     }
                     .onTapGesture {
+                        let haptic = UIImpactFeedbackGenerator(style: .light)
+                        haptic.impactOccurred()
                         self.nextStep += 1 / CGFloat(totalCigForThisDay)
                         self.cigaretSmokedThisDay += 1
                         withAnimation(.easeInOut(duration: 1)) {

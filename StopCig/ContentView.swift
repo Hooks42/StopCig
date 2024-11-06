@@ -75,7 +75,7 @@ struct ContentView: View {
                             .tabItem { Text("Menu 1") }
                             .tag(0)
                         
-                        ToDayStatsView(weekStats: $weekStats)
+                        ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
                             .tabItem { Text("Menu 2") }
                             .tag(1)
                     }
@@ -207,7 +207,7 @@ struct ContentView: View {
                     }
                     let calendar = Calendar.current
                     if test {
-                        self.currentDate = calendar.date(byAdding: .hour, value: 24, to: self.currentDate)!
+                        self.currentDate = calendar.date(byAdding: .hour, value: 26, to: self.currentDate)!
                         print("\nTest mode activated, current date and time updated: \(self.currentDate)\n")
                     }
                     self.test = date.description
@@ -356,10 +356,11 @@ struct ContentView: View {
     }
     
     struct ToDayStatsView : View {
+        @Binding var smokerModel: SmokerModel?
         @Binding var weekStats: Bool
         
         var body: some View {
-            DayStatsView( weekStats: $weekStats)
+            DayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
         }
     }
     
