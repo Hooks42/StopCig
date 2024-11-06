@@ -45,7 +45,7 @@ struct MainBoardView: View {
         let cigPackPrice = smokerModel.wrappedValue?.cigaretInfo.priceOfCigaret ?? 0
         self.cigPrice = Double(cigPackPrice) / 20
         
-        self._nextStep = State(initialValue: 1 / CGFloat(totalCigForThisDay) * CGFloat(cigaretSmokedThisDay))
+        //self._nextStep = State(initialValue: 1 / CGFloat(totalCigForThisDay) * CGFloat(cigaretSmokedThisDay))
         
         self._gain = State(initialValue: smokerModel.wrappedValue?.cigaretTotalCount.gain ?? 0)
     }
@@ -146,7 +146,7 @@ struct MainBoardView: View {
                                 
                             }
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                self.circleScale = max(0.95, self.circleScale - 0.05)
+                                self.circleScale = max(0.7, self.circleScale - 0.1)
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 let haptic = UIImpactFeedbackGenerator(style: .light)

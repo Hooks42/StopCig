@@ -19,21 +19,22 @@ struct CircleView: View {
             ZStack {
                 Circle()
                     .stroke(Color(.gray), lineWidth: 3)
-                    .frame(width: geo.size.width * 0.90 * circleScale, height: geo.size.height * 0.90 * circleScale)
+                    .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.90)
+                    .scaleEffect(circleScale)
                 
                 Circle()
                     .trim(from: 0.0, to: nextStep)
                     .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
                     .foregroundColor(Color(.myYellow))
-                    .frame(width: geo.size.width * 0.90 * circleScale, height: geo.size.height * 0.90 * circleScale) // Taille intermédiaire entre les deux cercles
+                    .frame(width: geo.size.width * 0.90, height: geo.size.height * 0.90) // Taille intermédiaire entre les deux cercles
                     .rotationEffect(.degrees(-90))
-                    .animation(.linear(duration: 1), value: nextStep)
+                    .scaleEffect(circleScale)
             }
             .padding(.leading, geo.size.width * 0.05)
         }
     }
 }
 
-//#Preview {
-//    CircleView(nextStep: .constant(1), totalCigForThisDay: .constant(0), cigaretSmokedThisDay: .constant(0), circleScale: .constant(1), resistance: .constant(1))
-//}
+#Preview {
+    CircleView(nextStep: .constant(1), circleScale: .constant(1), resistance: .constant(1))
+}
