@@ -71,6 +71,9 @@ func getInfosByIndexInGraphData(model: SmokerModel?, index: String, selectedOpti
     guard let graphDataDay = smokerModel?.graphDataDay else { return ERROR}
     let itemFound = graphDataDay[selectedOption]?.filter{$0.index == index} ?? []
     if !itemFound.isEmpty {
+        if itemFound[0].value.truncatingRemainder(dividingBy: 1) == 0 {
+            return String(Int(itemFound[0].value))
+        }
         return String(format: "%.2f", itemFound[0].value)
     }
     
