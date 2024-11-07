@@ -127,7 +127,7 @@ struct ContentView: View {
                 if needToReset == true {
                     print("CA MARCHE PUTAIN DE MERDE")
                     smokerModel.daySinceFirstOpening += 1
-                    smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                    print("\n♥️Get Only Date : \(getOnlyDate(from: self.currentDate))")
                     fillGraphData(date: getYesterdayDate(from: self.currentDate))
                     saveInSmokerDb(modelContext)
                     print("\n---------------------------------------------------------------\n")
@@ -137,10 +137,10 @@ struct ContentView: View {
                     print("\n---------------------------------------------------------------\n")
                     print("🔱 stats d'hier : \(String(describing: smokerModel.cigaretCountThisDayMap[getYesterdayDate(from: self.currentDate)]))")
                     print("\n")
-                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Argent économisé"]?.last))")
-                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Argent perdu"]?.last))")
-                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Cigarettes sauvées"]?.last))")
-                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphData["Cigarettes fumées"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphDataDay["Argent économisé"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphDataDay["Argent perdu"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphDataDay["Cigarettes sauvées"]?.last))")
+                    print ("🔥 Stats enregistré : \(String(describing: smokerModel.graphDataDay["Cigarettes fumées"]?.last))")
                 }
             }
             .alert(isPresented: $showAlert) {
@@ -173,7 +173,8 @@ struct ContentView: View {
                 needToReset: false,
                 lastOpening: Date(),
                 firstOpeningDate: nil,
-                graphData: [:]
+                graphDataDay: [:],
+                graphDataWeek: [:]
             )
             modelContext.insert(newSmokerModel)
             do {
@@ -189,6 +190,7 @@ struct ContentView: View {
         } else {
             print("smokerModel is not nil")
         }
+        updateCurrentDateTime(false)
     }
     
     private func updateCurrentDateTime(_ test: Bool) {
@@ -207,7 +209,7 @@ struct ContentView: View {
                     }
                     let calendar = Calendar.current
                     if test {
-                        self.currentDate = calendar.date(byAdding: .hour, value: 26, to: self.currentDate)!
+                        self.currentDate = calendar.date(byAdding: .hour, value: 28, to: self.currentDate)!
                         print("\nTest mode activated, current date and time updated: \(self.currentDate)\n")
                     }
                     self.test = date.description
@@ -233,7 +235,6 @@ struct ContentView: View {
                     
                     let hourComponent = calendarWithTimeZone.component(.hour, from: self.currentDate)
                     let isPastFourAm = hourComponent >= 4
-                    print("✅Last opening date and time: \(savedDate)")
                     print("✅Current date and time: \(self.currentDate)")
                     
                     print("\n🔥 isNextDay: \(isNextDay)")
@@ -249,7 +250,11 @@ struct ContentView: View {
                         print("Ca reset pas")
                     }
                     smokerModel.lastOpening = currentDate
+                    if smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] == nil {
+                        smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                    }
                     saveInSmokerDb(modelContext)
+                    print("✅Last opening date and time: \(smokerModel.lastOpening)")
                     print("App is back in the foreground, current date and time updated: \(self.currentDate)")
                     print("Date in DB is --> \(smokerModel.lastOpening)")
                 }
@@ -319,17 +324,20 @@ struct ContentView: View {
             
             if daySinceFirstOpening == 1 {
                 
-                smokerModel.graphData["Argent économisé"] = [graphDataStruct(index: "0", value: 0.0)]
-                smokerModel.graphData["Argent perdu"] = [graphDataStruct(index: "0", value: 0.0)]
-                smokerModel.graphData["Cigarettes sauvées"] = [graphDataStruct(index: "0", value: 0.0)]
-                smokerModel.graphData["Cigarettes fumées"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphDataDay["Argent économisé"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphDataDay["Argent perdu"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphDataDay["Cigarettes sauvées"] = [graphDataStruct(index: "0", value: 0.0)]
+                smokerModel.graphDataDay["Cigarettes fumées"] = [graphDataStruct(index: "0", value: 0.0)]
                 saveInSmokerDb(modelContext)
             }
             
-            smokerModel.graphData["Argent économisé"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyEarned))
-            smokerModel.graphData["Argent perdu"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyLost))
-            smokerModel.graphData["Cigarettes sauvées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSaved)))
-            smokerModel.graphData["Cigarettes fumées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSmoked)))
+            smokerModel.graphDataDay["Argent économisé"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyEarned))
+            smokerModel.graphDataDay["Argent perdu"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: moneyLost))
+            smokerModel.graphDataDay["Cigarettes sauvées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSaved)))
+            smokerModel.graphDataDay["Cigarettes fumées"]?.append(graphDataStruct(index: String(daySinceFirstOpening), value: Double(cigaretSmoked)))
+        }
+        else {
+            print("doesn't exist bro")
         }
     }
     

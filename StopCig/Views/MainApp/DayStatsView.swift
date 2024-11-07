@@ -137,7 +137,7 @@ struct DayStatsView: View {
         ("5", 30),
     ]
     
-    @State private var graphData : [String : [(String, Int)]] = [:]
+    @State private var graphDataDay : [String : [(String, Int)]] = [:]
     @State private var pickedValue = ""
     
     
@@ -149,7 +149,7 @@ struct DayStatsView: View {
                         .edgesIgnoringSafeArea(.all)
                     VStack {
                         Chart {
-                            if let data = smokerModel?.graphData[selectedOption] {
+                            if let data = smokerModel?.graphDataDay[selectedOption] {
                                 let newdata = data.dropFirst()
                                 ForEach(newdata, id: \.index) { item in
                                     BarMark (
@@ -189,7 +189,7 @@ struct DayStatsView: View {
                 }
                 .tag(0)
                 
-                TabWeekStatsView(selectedOption: $selectedOption, graphData: $graphData)
+                TabWeekStatsView(selectedOption: $selectedOption, graphDataDay: $graphDataDay)
                     .tag(1)
             }
             .edgesIgnoringSafeArea(.all)
@@ -203,7 +203,7 @@ struct DayStatsView: View {
                 }
             }
             .onAppear {
-                self.graphData = [
+                self.graphDataDay = [
                     "Argent économisé" : moneyEarned,
                     "Argent perdu" : moneyLost,
                     "Cigarettes sauvées" : cigaretSaved,
@@ -272,10 +272,10 @@ struct DayStatsView: View {
 
 struct TabWeekStatsView : View {
     @Binding var selectedOption : String
-    @Binding var graphData : [String : [(String, Int)]]
+    @Binding var graphDataDay : [String : [(String, Int)]]
     
     var body: some View {
-        WeekStatsView(selectedOption: $selectedOption, graphData: $graphData)
+        WeekStatsView(selectedOption: $selectedOption, graphData: $graphDataDay)
     }
 }
 

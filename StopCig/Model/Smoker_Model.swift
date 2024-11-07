@@ -45,11 +45,12 @@ final class SmokerModel {
     var needToReset: Bool
     var lastOpening: Date
     var firstOpeningDate: String? = nil
-    var graphData: [String : [graphDataStruct]]
+    var graphDataDay: [String : [graphDataStruct]]
+    var graphDataWeek: [String : [graphDataStruct]]
     
     init(firstOpening: Bool, cigaretInfo: CigaretInfos, cigaretCountThisDayMap: [String:CigaretCountThisDay],
          cigaretTotalCount: CigaretTotalCount, numberOfCigaretProgrammedThisDay: Int,
-         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date, firstOpeningDate: String?, graphData: [String : [graphDataStruct]]) {
+         daySinceFirstOpening: Int, needToReset: Bool, lastOpening: Date, firstOpeningDate: String?, graphDataDay: [String : [graphDataStruct]], graphDataWeek : [String : [graphDataStruct]]) {
         self.firstOpening = firstOpening
         self.cigaretInfo = cigaretInfo
         self.cigaretCountThisDayMap = cigaretCountThisDayMap
@@ -59,6 +60,7 @@ final class SmokerModel {
         self.needToReset = needToReset
         self.lastOpening = lastOpening
         self.firstOpeningDate = firstOpeningDate
-        self.graphData = graphData
+        self.graphDataDay = graphDataDay
+        self.graphDataWeek = graphDataWeek
     }
 }

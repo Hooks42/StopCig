@@ -213,7 +213,7 @@ struct MainBoardView: View {
                     }) {
                         Text("+1 Day")
                             .font(.custom("Quicksand-SemiBold", size: 20))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 10)
                             .background(Color(.myYellow))
