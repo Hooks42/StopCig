@@ -20,6 +20,7 @@ struct DayStatsView: View {
     
     @State private var graphDataDay : [String : [(String, Int)]] = [:]
     @State private var pickedValue = ""
+    @State private var noData = false
     
     
     var body: some View {
@@ -39,6 +40,9 @@ struct DayStatsView: View {
                                     )
                                     .foregroundStyle(.myYellow)
                                 }
+                            }
+                            .onAppear() {
+                                self.noData = false
                             }
                             .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
                             .chartXAxis {
@@ -77,16 +81,17 @@ struct DayStatsView: View {
                                 }
                             }
                         } else {
-                            Text("Aucune donnée pour le moment !")
-                                .font(.custom("Quicksand-SemiBold", size: 20))
-                                .foregroundColor(.white)
+                            Text("")
+                                .onAppear() {
+                                    self.noData = true
+                                }
                         }
                     }
                     .padding(.bottom, geo.size.height * 0.01)
                 }
                 .tag(0)
                 
-                TabWeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, prepareData: prepareData)
+                TabWeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, noData: $noData, prepareData: prepareData)
                     .tag(1)
             }
             .edgesIgnoringSafeArea(.all)
@@ -146,6 +151,12 @@ struct DayStatsView: View {
                                     }
                                 }
                             }
+                        if self.noData {
+                            Text("Aucune donnée disponible !")
+                                .font(.custom("Quicksand-SemiBold", size: 20))
+                                .foregroundColor(.white)
+                                .padding(.top, geo.size.height * 0.13)
+                        }
                     }
                     .padding(.top, geo.size.height * 0.05)
                 }
@@ -172,15 +183,18 @@ struct DayStatsView: View {
     }
 }
 
+
+
 struct TabWeekStatsView : View {
     @Binding var selectedOption : String
-    @Binding var smokerModel: SmokerModel?
+    @Binding var smokerModel : SmokerModel?
     @Binding var pickedValue : String
+    @Binding var noData : Bool
     
     var prepareData : (Bool) -> [graphDataStruct]
     
     var body: some View {
-        WeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, prepareDataFunction: prepareData)
+        WeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, noData: $noData, prepareDataFunction: prepareData)
     }
 }
 

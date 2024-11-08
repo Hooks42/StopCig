@@ -12,6 +12,7 @@ struct WeekStatsView: View {
     @Binding var selectedOption : String
     @Binding var smokerModel : SmokerModel?
     @Binding var pickedValue : String
+    @Binding var noData: Bool
 
     var prepareDataFunction : (Bool) -> [graphDataStruct]
     
@@ -68,6 +69,12 @@ struct WeekStatsView: View {
                                             }
                                     )
                             }
+                        }
+                    } else {
+                        if !self.noData {
+                            Text("Aucune Donnée disponible !")
+                                .foregroundColor(.white)
+                                .font(.custom("Quicksand-SemiBold", size: 20))
                         }
                     }
                 }
