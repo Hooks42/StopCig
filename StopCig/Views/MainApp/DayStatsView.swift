@@ -18,125 +18,6 @@ struct DayStatsView: View {
     @State private var selectedOption = "Argent économisé"
     let options = ["Argent économisé", "Argent perdu", "Cigarettes sauvées", "Cigarettes fumées"]
     
-    let moneyEarned = [
-        ("1", 10),
-        ("2", 13),
-        ("3", 09),
-        ("4", 11),
-        ("5", 13),
-        ("6", 9),
-        ("7", 8),
-        ("8", 11),
-        ("9", 12),
-        ("10", 12),
-        ("11", 09),
-        ("12", 12),
-        ("13", 14),
-        ("14", 16),
-        ("15", 12),
-        ("16", 13),
-        ("17", 6),
-        ("18", 7),
-        ("19", 9),
-        ("20", 11),
-    ]
-    let moneyLost = [
-        ("1", 2),
-        ("2", 3),
-        ("3", 1),
-        ("4", 2),
-        ("5", 3),
-        ("6", 2),
-        ("7", 2),
-        ("8", 3),
-        ("9", 3),
-        ("10", 3),
-        ("11", 1),
-        ("12", 3),
-        ("13", 4),
-        ("14", 5),
-        ("15", 3),
-        ("16", 3),
-        ("17", 1),
-        ("18", 1),
-        ("19", 2),
-        ("20", 2),
-    ]
-    let cigaretSaved = [
-        ("1", 1),
-        ("2", 2),
-        ("3", 1),
-        ("4", 2),
-        ("5", 2),
-        ("6", 1),
-        ("7", 1),
-        ("8", 2),
-        ("9", 2),
-        ("10", 2),
-        ("11", 1),
-        ("12", 2),
-        ("13", 3),
-        ("14", 3),
-        ("15", 2),
-        ("16", 2),
-        ("17", 1),
-        ("18", 1),
-        ("19", 1),
-        ("20", 2),
-    ]
-    let cigaretSmoked = [
-        ("1", 11),
-        ("2", 12),
-        ("3", 10),
-        ("4", 11),
-        ("5", 12),
-        ("6", 10),
-        ("7", 10),
-        ("8", 12),
-        ("9", 12),
-        ("10", 12),
-        ("11", 10),
-        ("12", 12),
-        ("13", 13),
-        ("14", 14),
-        ("15", 12),
-        ("16", 12),
-        ("17", 9),
-        ("18", 10),
-        ("19", 10),
-        ("20", 11),
-    ]
-    
-    let WmoneyEarned = [
-        ("1", 18),
-        ("2", 23),
-        ("3", 15),
-        ("4", 22),
-        ("5", 23),
-    ]
-    let WmoneyLost = [
-        ("1", 7),
-        ("2", 10),
-        ("3", 4),
-        ("4", 7),
-        ("5", 10),
-        
-    ]
-    let WcigaretSaved = [
-        ("1", 7),
-        ("2", 6),
-        ("3", 5),
-        ("4", 6),
-        ("5", 7),
-    ]
-    let WcigaretSmoked = [
-        ("1", 25),
-        ("2", 30),
-        ("3", 20),
-        ("4", 25),
-        ("5", 30),
-    ]
-    
     @State private var graphDataDay : [String : [(String, Int)]] = [:]
     @State private var pickedValue = ""
     
@@ -148,10 +29,10 @@ struct DayStatsView: View {
                     Color(.nightBlue)
                         .edgesIgnoringSafeArea(.all)
                     VStack {
-                        Chart {
-                            if let data = smokerModel?.graphDataDay[selectedOption] {
-                                let newdata = data.dropFirst()
-                                ForEach(newdata, id: \.index) { item in
+                        let data = prepareData(isDay: true)
+                        if !data.isEmpty {
+                            Chart {
+                                ForEach(data, id: \.index) { item in
                                     BarMark (
                                         x: .value("Jour", item.index),
                                         y: .value("Valeur", item.value)
@@ -159,37 +40,53 @@ struct DayStatsView: View {
                                     .foregroundStyle(.myYellow)
                                 }
                             }
-                        }
-                        .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
-                        .chartYAxis {
-                            AxisMarks(position: .leading)
-                        }
-                        .chartOverlay { proxy in
-                            GeometryReader { geoChart in
-                                Rectangle().fill(.clear).contentShape(Rectangle())
-                                .gesture(
-                                    DragGesture(minimumDistance: 0)
-                                    .onChanged { value in
-                                        guard let plotFrameValue = proxy.plotFrame else { return }
-                                        let frame = geoChart[plotFrameValue]
-                                        let origin = frame.origin
-                                        let location = CGPoint(
-                                            x: value.location.x - origin.x,
-                                            y: value.location.y - origin.y
-                                        )
-                                        if let (index, _) = proxy.value(at: location, as: (String, Int).self) {
-                                            self.pickedValue = getInfosByIndexInGraphData(model: smokerModel, index: index, selectedOption: self.selectedOption)
-                                        }
-                                    }
-                                )
+                            .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
+                            .chartXAxis {
+                                AxisMarks(values: .automatic) { _ in
+                                    AxisTick()
+                                    
+                                }
                             }
+                            .chartYAxis {
+                                AxisMarks(position: .leading, values: .automatic) { _ in
+                                    AxisTick()
+                                    AxisValueLabel()
+                                }
+                            }
+                            .chartOverlay { proxy in
+                                GeometryReader { geoChart in
+                                    Rectangle().fill(.clear).contentShape(Rectangle())
+                                        .gesture(
+                                            DragGesture(minimumDistance: 0)
+                                                .onChanged { value in
+                                                    guard let plotFrameValue = proxy.plotFrame else { return }
+                                                    let frame = geoChart[plotFrameValue]
+                                                    let origin = frame.origin
+                                                    let location = CGPoint(
+                                                        x: value.location.x - origin.x,
+                                                        y: value.location.y - origin.y
+                                                    )
+                                                    if let (index, _) = proxy.value(at: location, as: (String, Int).self) {
+                                                        let newValue = getInfosByIndexInGraphData(model: smokerModel, index: index, selectedOption: self.selectedOption, isDay: true)
+                                                        if (newValue != self.pickedValue) {
+                                                            self.pickedValue = newValue
+                                                        }
+                                                    }
+                                                }
+                                        )
+                                }
+                            }
+                        } else {
+                            Text("Aucune donnée pour le moment !")
+                                .font(.custom("Quicksand-SemiBold", size: 20))
+                                .foregroundColor(.white)
                         }
                     }
                     .padding(.bottom, geo.size.height * 0.01)
                 }
                 .tag(0)
                 
-                TabWeekStatsView(selectedOption: $selectedOption, graphDataDay: $graphDataDay)
+                TabWeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, prepareData: prepareData)
                     .tag(1)
             }
             .edgesIgnoringSafeArea(.all)
@@ -201,18 +98,6 @@ struct DayStatsView: View {
                     self.viewTitle = "Semaines"
                     self.weekStats = true
                 }
-            }
-            .onAppear {
-                self.graphDataDay = [
-                    "Argent économisé" : moneyEarned,
-                    "Argent perdu" : moneyLost,
-                    "Cigarettes sauvées" : cigaretSaved,
-                    "Cigarettes fumées" : cigaretSmoked,
-                    "WArgent économisé" : WmoneyEarned,
-                    "WArgent perdu" : WmoneyLost,
-                    "WCigarettes sauvées" : WcigaretSaved,
-                    "WCigarettes fumées" : WcigaretSmoked
-                    ]
             }
             
             ZStack {
@@ -250,13 +135,12 @@ struct DayStatsView: View {
                         }
                         Text(self.pickedValue)
                             .font(.custom("Quicksand-SemiBold", size: 18))
-                            .animation(.easeInOut(duration: 0.5), value: self.pickedValue)
                             .onChange(of: self.pickedValue) {
                                 if !self.pickedValue.isEmpty {
                                     let haptic = UIImpactFeedbackGenerator(style: .soft)
                                     haptic.impactOccurred()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                        withAnimation(.easeInOut(duration: 0.2)) {
                                             self.pickedValue = ""
                                         }
                                     }
@@ -268,14 +152,35 @@ struct DayStatsView: View {
             }
         }
     }
+    
+    func prepareData(isDay: Bool) ->  [graphDataStruct] {
+        
+        let data : [graphDataStruct]?
+        if isDay {
+            data = (smokerModel?.graphDataDay[selectedOption])
+        } else {
+            data = (smokerModel?.graphDataWeek[selectedOption])
+        }
+        if data == nil { return [] }
+        
+        var newData = Array(data!.dropFirst())
+        
+        while (newData.count < 7) {
+            newData.append(graphDataStruct(index: String(newData.count + 1), value: 0.0))
+        }
+        return newData
+    }
 }
 
 struct TabWeekStatsView : View {
     @Binding var selectedOption : String
-    @Binding var graphDataDay : [String : [(String, Int)]]
+    @Binding var smokerModel: SmokerModel?
+    @Binding var pickedValue : String
+    
+    var prepareData : (Bool) -> [graphDataStruct]
     
     var body: some View {
-        WeekStatsView(selectedOption: $selectedOption, graphData: $graphDataDay)
+        WeekStatsView(selectedOption: $selectedOption, smokerModel: $smokerModel, pickedValue: $pickedValue, prepareDataFunction: prepareData)
     }
 }
 

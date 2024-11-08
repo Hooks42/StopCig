@@ -10,7 +10,10 @@ import Charts
 
 struct WeekStatsView: View {
     @Binding var selectedOption : String
-    @Binding var graphData : [String : [(String, Int)]]
+    @Binding var smokerModel : SmokerModel?
+    @Binding var pickedValue : String
+
+    var prepareDataFunction : (Bool) -> [graphDataStruct]
     
     var body: some View {
         GeometryReader { geo in
@@ -18,21 +21,54 @@ struct WeekStatsView: View {
                 Color(.nightBlue)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Chart {
-                        if let data = graphData["W" + selectedOption] {
-                            ForEach(data, id: \.0) { item in
+                    let data = prepareDataFunction(false)
+                    if !data.isEmpty {
+                        Chart {
+                            ForEach(data, id: \.index) { item in
                                 BarMark (
-                                    x: .value("Jour", item.0),
-                                    y: .value("Valeur", item.1)
+                                    x: .value("Index", item.index),
+                                    y: .value("Valeur", item.value)
                                 )
                                 .foregroundStyle(.myYellow)
+                            }
+                        }
+                        .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
+                        .chartXAxis {
+                            AxisMarks(values: .automatic) { _ in
+                                AxisTick()
+                                AxisValueLabel()
                                 
                             }
                         }
-                    }
-                    .frame(width: geo.size.width * 0.965, height: geo.size.height * 0.30)
-                    .chartYAxis {
-                        AxisMarks(position: .leading)
+                        .chartYAxis {
+                            AxisMarks(position: .leading, values: .automatic) { _ in
+                                AxisTick()
+                                AxisValueLabel()
+                            }
+                        }
+                        .chartOverlay { proxy in
+                            GeometryReader { geoChart in
+                                Rectangle().fill(.clear).contentShape(Rectangle())
+                                    .gesture(
+                                        DragGesture(minimumDistance: 0)
+                                            .onChanged { value in
+                                                guard let plotFrameValue = proxy.plotFrame else { return }
+                                                let frame = geoChart[plotFrameValue]
+                                                let origin = frame.origin
+                                                let location = CGPoint(
+                                                    x: value.location.x - origin.x,
+                                                    y: value.location.y - origin.y
+                                                )
+                                                if let (index, _) = proxy.value(at: location, as: (String, Int).self) {
+                                                    let newValue = getInfosByIndexInGraphData(model: smokerModel, index: index, selectedOption: self.selectedOption, isDay: false)
+                                                    if (newValue != self.pickedValue) {
+                                                        self.pickedValue = newValue
+                                                    }
+                                                }
+                                            }
+                                    )
+                            }
+                        }
                     }
                 }
                 .padding(.bottom, geo.size.height * 0.01)
