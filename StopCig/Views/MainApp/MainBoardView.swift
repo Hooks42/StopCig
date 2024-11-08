@@ -223,6 +223,7 @@ struct MainBoardView: View {
                 }
             }
             .onAppear() {
+                self.nextStep = 1 / CGFloat(totalCigForThisDay) * CGFloat(cigaretSmokedThisDay)
                 if smokerModel?.firstOpeningDate != nil {
                     print("✅ La date d'aujourd'hui est : \(String(describing: smokerModel?.firstOpeningDate!))")
                 }
