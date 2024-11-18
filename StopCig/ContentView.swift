@@ -65,90 +65,96 @@ struct ContentView: View {
     
     @State private var addDay = false
     
+    @State private var testView = true
+    
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
-                    TabView(selection: $indexTabView)
-                    {
-                        MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
-                            .tabItem { Text("Menu 1") }
-                            .tag(0)
-                        
-                        ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
-                            .tabItem { Text("Menu 2") }
-                            .tag(1)
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    .ignoresSafeArea()
-                    ZStack {
-                        DotView(indexTabView: $indexTabView, weekStats: $weekStats)
-                            .padding(.top, geo.size.height * 0.8)
-                    }
-                }
-                if smokerModel != nil && !smokerModel!.firstOpening {
-                    PlayerView(videoName: "Smoke")
-                        .edgesIgnoringSafeArea(.all)
-                    VStack {
-                        if !isAcceptPressed {
-                            HelloView(isAcceptPressed: $isAcceptPressed)
+                if self.testView {
+                    WeekFeelingsView()
+                } else {
+                    if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
+                        TabView(selection: $indexTabView)
+                        {
+                            MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
+                                .tabItem { Text("Menu 1") }
+                                .tag(0)
+                            
+                            ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
+                                .tabItem { Text("Menu 2") }
+                                .tag(1)
+                        }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        .ignoresSafeArea()
+                        ZStack {
+                            DotView(indexTabView: $indexTabView, weekStats: $weekStats)
+                                .padding(.top, geo.size.height * 0.8)
                         }
                     }
-                    VStack {
-                        if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
-                            WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
+                    if smokerModel != nil && !smokerModel!.firstOpening {
+                        PlayerView(videoName: "Smoke")
+                            .edgesIgnoringSafeArea(.all)
+                        VStack {
+                            if !isAcceptPressed {
+                                HelloView(isAcceptPressed: $isAcceptPressed)
+                            }
                         }
-                        if isKindOfCigaretSelected {
-                            //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
+                        VStack {
+                            if isAcceptPressed && smokerModel != nil && !isKindOfCigaretSelected {
+                                WhatKindOfCigaretsView(smokerModel: $smokerModel, isKindOfCigaretSelected: $isKindOfCigaretSelected)
+                            }
+                            if isKindOfCigaretSelected {
+                                //Text("\(smokerModel!.cigaretInfo.kindOfCigaret) sélectionnée avec pour prix : \(smokerModel!.cigaretInfo.priceOfCigaret) €")
+                            }
                         }
-                    }
-                    VStack {
-                        if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
-                            HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
+                        VStack {
+                            if isAcceptPressed && isKindOfCigaretSelected && !isRoutineSet && smokerModel != nil {
+                                HowManyCigaretsSmokedView(smokerModel: $smokerModel, isRoutineSet: $isRoutineSet, currentDate: $currentDate)
+                            }
                         }
                     }
                 }
             }
-            .onAppear() {
-                initializeSmokerModel()
-                print("firstOpening : \(smokerModel.firstOpening)")
-                cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-                    .sink { _ in
+                    .onAppear() {
+                        initializeSmokerModel()
+                        print("firstOpening : \(smokerModel.firstOpening)")
+                        cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+                            .sink { _ in
+                                self.updateCurrentDateTime(false)
+                            }
                         self.updateCurrentDateTime(false)
                     }
-                self.updateCurrentDateTime(false)
-            }
-            .onChange(of: networkMonitor.isConnected) {
-                if !networkMonitor.isConnected {
-                    showAlert = true
-                }
-            }
-            .onChange(of: needToReset) {
-                if needToReset == true {
-                    print("CA MARCHE PUTAIN DE MERDE")
-                    smokerModel.daySinceFirstOpening += 1
-                    print("\n♥️Get Only Date : \(getOnlyDate(from: self.currentDate))")
-                    fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: true, modelContext: modelContext)
-                    if smokerModel.daySinceFirstOpening % 7 == 0 {
-                        fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: false, modelContext: modelContext)
-                    }
-                    printLogsForReset()
-                }
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(
-                    title: Text("Une connexion Internet est requise"),
-                    message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
-                    dismissButton: .default(Text("OK"), action: {
-                        if !networkMonitor.checkConnection() {
-                            UIApplication.shared.quit()
-                        } else {
-                            showAlert = false
-                            self.updateCurrentDateTime(false)
+                    .onChange(of: networkMonitor.isConnected) {
+                        if !networkMonitor.isConnected {
+                            showAlert = true
                         }
-                    })
-                )
+                    }
+                    .onChange(of: needToReset) {
+                        if needToReset == true {
+                            print("CA MARCHE PUTAIN DE MERDE")
+                            smokerModel.daySinceFirstOpening += 1
+                            print("\n♥️Get Only Date : \(getOnlyDate(from: self.currentDate))")
+                            fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: true, modelContext: modelContext)
+                            if smokerModel.daySinceFirstOpening % 7 == 0 {
+                                fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: false, modelContext: modelContext)
+                            }
+                            printLogsForReset()
+                        }
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Une connexion Internet est requise"),
+                            message: Text("Une connexion Internet est nécessaire pour utiliser cette application"),
+                            dismissButton: .default(Text("OK"), action: {
+                                if !networkMonitor.checkConnection() {
+                                    UIApplication.shared.quit()
+                                } else {
+                                    showAlert = false
+                                    self.updateCurrentDateTime(false)
+                                }
+                            })
+                        )
             }
         }
     }
