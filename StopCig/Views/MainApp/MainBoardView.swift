@@ -14,6 +14,7 @@ struct MainBoardView: View {
     @Binding var addDay: Bool
     @Binding var startTest: Bool
     
+    
     @Environment(\.modelContext) private var modelContext
     
     @State private var timer: Timer?

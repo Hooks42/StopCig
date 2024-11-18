@@ -65,31 +65,38 @@ struct ContentView: View {
     
     @State private var addDay = false
     
-    @State private var testView = true
+    @State private var testView = false
+    
+    @State private var showWeekFeelingsView = false
     
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 if self.testView {
-                    WeekFeelingsView()
+                    WeekFeelingsView(smokerModel: $smokerModel)
                 } else {
                     if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
-                        TabView(selection: $indexTabView)
-                        {
-                            MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
-                                .tabItem { Text("Menu 1") }
-                                .tag(0)
+                        if self.showWeekFeelingsView {
+                            WeekFeelingsView(smokerModel: $smokerModel)
+                        } else {
+                            TabView(selection: $indexTabView)
+                            {
+                                MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
+                                    .tabItem { Text("Menu 1") }
+                                    .tag(0)
+                                
+                                ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
+                                    .tabItem { Text("Menu 2") }
+                                    .tag(1)
+                            }
+                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                            .ignoresSafeArea()
                             
-                            ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
-                                .tabItem { Text("Menu 2") }
-                                .tag(1)
-                        }
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        .ignoresSafeArea()
-                        ZStack {
-                            DotView(indexTabView: $indexTabView, weekStats: $weekStats)
-                                .padding(.top, geo.size.height * 0.8)
+                            ZStack {
+                                DotView(indexTabView: $indexTabView, weekStats: $weekStats)
+                                    .padding(.top, geo.size.height * 0.8)
+                            }
                         }
                     }
                     if smokerModel != nil && !smokerModel!.firstOpening {
@@ -138,6 +145,7 @@ struct ContentView: View {
                             fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: true, modelContext: modelContext)
                             if smokerModel.daySinceFirstOpening % 7 == 0 {
                                 fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: false, modelContext: modelContext)
+                                self.showWeekFeelingsView = true
                             }
                             printLogsForReset()
                         }

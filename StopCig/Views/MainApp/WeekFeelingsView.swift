@@ -2,6 +2,8 @@ import SwiftUI
 
 struct WeekFeelingsView: View {
     
+    @Binding var smokerModel : SmokerModel?
+    
     @State var initCircleX: CGFloat = 0
     @State var initCircleY: CGFloat = 0
     
@@ -133,7 +135,7 @@ struct WeekFeelingsView: View {
                 self.circleY = geo.size.height * 0.6
             }
             .sheet(isPresented: $isSheetPresented) {
-                WeekFeelingValidation()
+                SuperViewValidation(smokerModel: $smokerModel)
             }
         }
     }
@@ -176,11 +178,5 @@ struct WeekFeelingsView: View {
             }
             
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        WeekFeelingsView()
     }
 }
