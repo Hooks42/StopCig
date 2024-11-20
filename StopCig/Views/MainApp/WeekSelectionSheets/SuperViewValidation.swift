@@ -10,24 +10,30 @@ import SwiftUI
 struct SuperViewValidation: View {
     
     @Binding    var smokerModel : SmokerModel?
+    @Binding    var isSheetPresented : Bool
     @State      var oldCigaretsPerDay = 0
     @State      var newCigaretsPerDay = 0
+    
+    @State      var maxWidth : CGFloat = 0
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Color.nightBlue
                     .edgesIgnoringSafeArea(.all)
-                Text("Félicitation !")
+                Text("Félicitations !")
                     .font(.custom("Quicksand-SemiBold", size: 40))
                     .foregroundColor(.white)
                     .position(x: geo.size.width / 2, y: geo.size.height * 0.08)
-                Text("Tu peux être fier de toi, tu progresses dans ton objectif d'arrêter de fumer !\nNous savons tous à quel point c'est dur, mais toi au moins tu agis peu importe la difficulté bravo pour ça !")
-                    .font(.custom("Quicksand-Light", size: 20))
+                Text("Tu peux être fier de toi, tu progresses dans ton objectif d'arrêter de fumer !\nNous savons tous à quel point c'est dur.\nMais toi au moins tu agis peu importe la difficulté bravo pour ça !")
+                    .font(.custom("Quicksand-Light", size: 18))
+                    .frame(width: geo.size.width * 0.93)
                     .foregroundColor(.white)
                     .position(x: geo.size.width / 2, y: geo.size.height * 0.25)
                 Text("Cette semaine tes objectifs seront :")
                     .font(.custom("Quicksand-SemiBold", size: 18))
+                    .foregroundColor(.white)
+                    .offset(y: -(geo.size.height * 0.05))
                 VStack {
                     HStack {
                         Image("checkBullet")
@@ -37,8 +43,10 @@ struct SuperViewValidation: View {
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .offset(x: geo.size.width * 0.05, y: geo.size.height * 0.08)
+                    .frame(maxWidth: geo.size.width * 0.94, alignment: .leading)
+                    .offset(x: geo.size.width * 0.02, y: geo.size.height * 0.08)
+                    
+                    
                     HStack {
                         Image("checkBullet")
                             .resizable()
@@ -47,8 +55,10 @@ struct SuperViewValidation: View {
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .offset(x: geo.size.width * 0.05, y: geo.size.height * 0.11)
+                    .frame(maxWidth: geo.size.width * 0.94, alignment: .leading)
+                    .offset(x: geo.size.width * 0.02, y: geo.size.height * 0.11)
+                    
+                    
                     HStack {
                         Image("checkBullet")
                             .resizable()
@@ -57,10 +67,14 @@ struct SuperViewValidation: View {
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .offset(x: geo.size.width * 0.05, y: geo.size.height * 0.14)
+                    .frame(maxWidth: geo.size.width * 0.94, alignment: .leading)
+                    .offset(x: geo.size.width * 0.02, y: geo.size.height * 0.14)
+                    
+                    SlideToAcceptView(isSheetPresented: $isSheetPresented)
+                        .offset(y: geo.size.height * 0.29)
+                    
                 }
-                .offset(y: geo.size.height * 0.05)
+                .offset(y: geo.size.height * 0.45)
             }
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
@@ -71,5 +85,5 @@ struct SuperViewValidation: View {
 }
 
 #Preview {
-    SuperViewValidation(smokerModel: .constant(nil))
+    SuperViewValidation(smokerModel: .constant(nil), isSheetPresented: .constant(true))
 }

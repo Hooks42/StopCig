@@ -12,6 +12,7 @@
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
 		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
 		FB1B09C32CEB633700FF95BA /* SuperViewValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */; };
+		FB1B09D72CED117C00FF95BA /* SlideToAcceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */; };
 		FB1F24F82C6171DB00735E06 /* HowManyCigaretsSmokedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */; };
 		FB3C29D92CE70C3500A9AE09 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C29D82CE70C3500A9AE09 /* TextView.swift */; };
 		FB4CBB152CDDEDCA001DD3D2 /* WeekFeelingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CBB142CDDEDCA001DD3D2 /* WeekFeelingsView.swift */; };
@@ -43,6 +44,7 @@
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
 		FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperViewValidation.swift; sourceTree = "<group>"; };
+		FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideToAcceptView.swift; sourceTree = "<group>"; };
 		FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowManyCigaretsSmokedView.swift; sourceTree = "<group>"; };
 		FB3C29D82CE70C3500A9AE09 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		FB4CBB142CDDEDCA001DD3D2 /* WeekFeelingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekFeelingsView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */,
+				FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */,
 			);
 			path = WeekSelectionSheets;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				FBA99FD32C8F22D200F04582 /* Class.swift in Sources */,
 				FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */,
 				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
+				FB1B09D72CED117C00FF95BA /* SlideToAcceptView.swift in Sources */,
 				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

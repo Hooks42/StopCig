@@ -135,7 +135,7 @@ struct WeekFeelingsView: View {
                 self.circleY = geo.size.height * 0.6
             }
             .sheet(isPresented: $isSheetPresented) {
-                SuperViewValidation(smokerModel: $smokerModel)
+                SuperViewValidation(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented)
             }
         }
     }
