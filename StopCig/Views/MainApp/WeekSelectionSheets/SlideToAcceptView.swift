@@ -54,7 +54,9 @@ struct SlideToAcceptView: View {
                                         if self.offset >= self.maxWidth - 20 {
                                             withAnimation {
                                                 self.offset = self.maxWidth
-                                                self.unlocked = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                    self.unlocked = true
+                                                }
                                             }
                                         } else {
                                             withAnimation {
@@ -86,5 +88,6 @@ struct SlideToAcceptView: View {
         Color(.nightBlue)
             .edgesIgnoringSafeArea(.all)
         SlideToAcceptView(isSheetPresented: .constant(true))
+            .offset(y: 500)
     }
 }

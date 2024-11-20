@@ -1,31 +1,28 @@
 //
-//  SuperViewValidation.swift
+//  DurValidationView.swift
 //  StopCig
 //
-//  Created by Hook on 18/11/2024.
+//  Created by Hook on 20/11/2024.
 //
 
 import SwiftUI
 
-struct SuperViewValidation: View {
-    
+struct DurValidationView: View {
     @Binding    var smokerModel : SmokerModel?
     @Binding    var isSheetPresented : Bool
     @State      var oldCigaretsPerDay = 0
     @State      var newCigaretsPerDay = 0
-    
-    @State      var maxWidth : CGFloat = 0
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Color.nightBlue
                     .edgesIgnoringSafeArea(.all)
-                Text("Félicitations !")
+                Text("Tout va bien !")
                     .font(.custom("Quicksand-SemiBold", size: 40))
                     .foregroundColor(.white)
                     .position(x: geo.size.width / 2, y: geo.size.height * 0.08)
-                Text("Tu peux être fier de toi, tu progresses dans ton objectif d'arrêter de fumer !\nNous savons tous à quel point c'est dur.\nMais toi au moins tu agis peu importe la difficulté bravo pour ça !")
+                Text("Les moments compliqués sont temporaires, mais tes victoires sans tabac resteront. Tu es sur le bon chemin !\nPrends soin de toi, sois indulgent : tu avances, et c’est ce qui compte !")
                     .font(.custom("Quicksand-Light", size: 18))
                     .frame(width: geo.size.width * 0.93)
                     .foregroundColor(.white)
@@ -39,7 +36,7 @@ struct SuperViewValidation: View {
                         Image("checkBullet")
                             .resizable()
                             .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
-                        Text("Fumer 20 % de moins que la semaine précédente")
+                        Text("Si cette semaine était dure peut être que l'objectif était trop haut nous allons l'augmenter un peu")
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
@@ -74,16 +71,16 @@ struct SuperViewValidation: View {
                         .offset(y: geo.size.height * 0.29)
                     
                 }
-                .offset(y: geo.size.height * 0.45)
+                .offset(y: geo.size.height * 0.42)
             }
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
-                self.newCigaretsPerDay = Int(Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) * 0.8)
+                self.newCigaretsPerDay = Int(Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) + Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) * 0.1)
             }
         }
     }
 }
 
 #Preview {
-    SuperViewValidation(smokerModel: .constant(nil), isSheetPresented: .constant(true))
+    DurValidationView(smokerModel: .constant(nil), isSheetPresented: .constant(true))
 }

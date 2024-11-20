@@ -11,9 +11,12 @@
 		FB0333BC2C78C87100D0679B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0333BB2C78C87100D0679B /* SettingsView.swift */; };
 		FB0403E52C66630400DFA078 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E42C66630400DFA078 /* CircleView.swift */; };
 		FB0403E72C666A4D00DFA078 /* MainBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0403E62C666A4D00DFA078 /* MainBoardView.swift */; };
-		FB1B09C32CEB633700FF95BA /* SuperViewValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */; };
+		FB1B09C32CEB633700FF95BA /* SuperValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B09C22CEB633700FF95BA /* SuperValidationView.swift */; };
 		FB1B09D72CED117C00FF95BA /* SlideToAcceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */; };
 		FB1F24F82C6171DB00735E06 /* HowManyCigaretsSmokedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */; };
+		FB2EC7DC2CEE233800F96556 /* BofValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2EC7DB2CEE233800F96556 /* BofValidationView.swift */; };
+		FB2EC7DE2CEE2A0800F96556 /* DurValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2EC7DD2CEE2A0800F96556 /* DurValidationView.swift */; };
+		FB2EC7E02CEE2D5C00F96556 /* ImpossibleValidationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2EC7DF2CEE2D5C00F96556 /* ImpossibleValidationView.swift */; };
 		FB3C29D92CE70C3500A9AE09 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3C29D82CE70C3500A9AE09 /* TextView.swift */; };
 		FB4CBB152CDDEDCA001DD3D2 /* WeekFeelingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4CBB142CDDEDCA001DD3D2 /* WeekFeelingsView.swift */; };
 		FB4F6F962C58B4DB000DDD59 /* OtherKindOfCigaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */; };
@@ -43,9 +46,12 @@
 		FB0333BB2C78C87100D0679B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FB0403E42C66630400DFA078 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FB0403E62C666A4D00DFA078 /* MainBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardView.swift; sourceTree = "<group>"; };
-		FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperViewValidation.swift; sourceTree = "<group>"; };
+		FB1B09C22CEB633700FF95BA /* SuperValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperValidationView.swift; sourceTree = "<group>"; };
 		FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideToAcceptView.swift; sourceTree = "<group>"; };
 		FB1F24F72C6171DB00735E06 /* HowManyCigaretsSmokedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowManyCigaretsSmokedView.swift; sourceTree = "<group>"; };
+		FB2EC7DB2CEE233800F96556 /* BofValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BofValidationView.swift; sourceTree = "<group>"; };
+		FB2EC7DD2CEE2A0800F96556 /* DurValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurValidationView.swift; sourceTree = "<group>"; };
+		FB2EC7DF2CEE2D5C00F96556 /* ImpossibleValidationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpossibleValidationView.swift; sourceTree = "<group>"; };
 		FB3C29D82CE70C3500A9AE09 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		FB4CBB142CDDEDCA001DD3D2 /* WeekFeelingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekFeelingsView.swift; sourceTree = "<group>"; };
 		FB4F6F952C58B4DB000DDD59 /* OtherKindOfCigaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherKindOfCigaretView.swift; sourceTree = "<group>"; };
@@ -115,8 +121,11 @@
 		FB1B09C12CEB628E00FF95BA /* WeekSelectionSheets */ = {
 			isa = PBXGroup;
 			children = (
-				FB1B09C22CEB633700FF95BA /* SuperViewValidation.swift */,
+				FB1B09C22CEB633700FF95BA /* SuperValidationView.swift */,
 				FB1B09D62CED117C00FF95BA /* SlideToAcceptView.swift */,
+				FB2EC7DB2CEE233800F96556 /* BofValidationView.swift */,
+				FB2EC7DD2CEE2A0800F96556 /* DurValidationView.swift */,
+				FB2EC7DF2CEE2D5C00F96556 /* ImpossibleValidationView.swift */,
 			);
 			path = WeekSelectionSheets;
 			sourceTree = "<group>";
@@ -281,10 +290,12 @@
 				FBCF03B82CADB058001B0A37 /* DayStatsView.swift in Sources */,
 				FB52D8DF2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift in Sources */,
 				FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */,
+				FB2EC7DE2CEE2A0800F96556 /* DurValidationView.swift in Sources */,
 				FBB8AB132C5E279400141E4E /* Functions.swift in Sources */,
 				FBCF03B62CAD8955001B0A37 /* DotView.swift in Sources */,
-				FB1B09C32CEB633700FF95BA /* SuperViewValidation.swift in Sources */,
+				FB1B09C32CEB633700FF95BA /* SuperValidationView.swift in Sources */,
 				FB0403E52C66630400DFA078 /* CircleView.swift in Sources */,
+				FB2EC7E02CEE2D5C00F96556 /* ImpossibleValidationView.swift in Sources */,
 				FBE09EA32C50E5CB00BC80F6 /* Plus tard.swift in Sources */,
 				FBCF03BA2CAE8F51001B0A37 /* WeekStatsView.swift in Sources */,
 				FBE09EA52C50E63400BC80F6 /* VideoBackgroundView.swift in Sources */,
@@ -297,6 +308,7 @@
 				FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */,
 				FB1B09D72CED117C00FF95BA /* SlideToAcceptView.swift in Sources */,
 				FBE09E932C50E4F800BC80F6 /* StopCigApp.swift in Sources */,
+				FB2EC7DC2CEE233800F96556 /* BofValidationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

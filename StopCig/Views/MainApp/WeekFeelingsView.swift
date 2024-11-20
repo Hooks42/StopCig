@@ -10,21 +10,9 @@ struct WeekFeelingsView: View {
     @State var circleX: CGFloat = 0
     @State var circleY: CGFloat = 0
         
-    @State private var optionFrame: [CGRect] =
-    [
-        .zero,
-        .zero,
-        .zero,
-        .zero,
-    ]
+    @State private var optionFrame: [CGRect] = [.zero, .zero, .zero, .zero]
     
-    @State private var optionPoliceLength: [CGFloat] =
-    [
-        20,
-        20,
-        20,
-        20,
-    ]
+    @State private var optionPoliceLength: [CGFloat] = [20, 20, 20, 20]
     
     @State private var lastIndexReturned: Int = -1
     
@@ -35,7 +23,8 @@ struct WeekFeelingsView: View {
     @State private var isDragged = false
     
     @State private var choice = -1
-    @State private var isSheetPresented = false
+    //@State private var isSheetPresented = false
+    @State private var isSheetPresented : [Bool] = [false, false, false, false]
     
         
     var body: some View {
@@ -125,7 +114,19 @@ struct WeekFeelingsView: View {
             }
             .onChange(of: isDragged) {
                 if self.choice >= 0 && self.choice < 4  && !isDragged {
-                    isSheetPresented = true
+                    switch self.choice {
+                    case 0:
+                        isSheetPresented[0] = true
+                    case 1:
+                        isSheetPresented[1] = true
+                    case 2:
+                        isSheetPresented[2] = true
+                    case 3:
+                        isSheetPresented[3] = true
+                    default:
+                        break
+                    }
+                    print(isSheetPresented)
                 }
             }
             .onAppear() {
@@ -134,8 +135,17 @@ struct WeekFeelingsView: View {
                 self.circleX = geo.size.width / 2
                 self.circleY = geo.size.height * 0.6
             }
-            .sheet(isPresented: $isSheetPresented) {
-                SuperViewValidation(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented)
+            .sheet(isPresented: $isSheetPresented[0]) {
+                BofValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[0])
+            }
+            .sheet(isPresented: $isSheetPresented[1]) {
+                SuperValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[1])
+            }
+            .sheet(isPresented: $isSheetPresented[2]) {
+                DurValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[2])
+            }
+            .sheet(isPresented: $isSheetPresented[3]) {
+                ImpossibleValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[3])
             }
         }
     }
@@ -179,4 +189,8 @@ struct WeekFeelingsView: View {
             
         }
     }
+}
+
+#Preview {
+    WeekFeelingsView(smokerModel: .constant(nil))
 }
