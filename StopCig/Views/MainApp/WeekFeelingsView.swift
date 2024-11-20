@@ -79,15 +79,19 @@ struct WeekFeelingsView: View {
                             })
                             .onEnded({ value in
                                 withAnimation(.easeInOut) {
-                                    self.circleX = self.initCircleX
-                                    self.circleY = self.initCircleY
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        self.isDragged = false
+                                    self.isDragged = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        self.lastIndexReturned = self.checkColision()
                                     }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        self.circleX = self.initCircleX
+                                        self.circleY = self.initCircleY
+                                    }
+                                    
+                                    
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    self.lastIndexReturned = self.checkColision()
-                                }
+                                
                             })
                     )
                 
@@ -126,7 +130,11 @@ struct WeekFeelingsView: View {
                     default:
                         break
                     }
-                    print(isSheetPresented)
+                }
+            }
+            .onChange(of: isSheetPresented) {
+                if !(isSheetPresented[0] && isSheetPresented[1] && isSheetPresented[2] && isSheetPresented[3]) {
+                    self.lastIndexReturned = -1
                 }
             }
             .onAppear() {

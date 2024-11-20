@@ -32,6 +32,16 @@ struct SuperValidationView: View {
                     .font(.custom("Quicksand-SemiBold", size: 18))
                     .foregroundColor(.white)
                     .offset(y: -(geo.size.height * 0.05))
+                
+                Button(action: {
+                    print("hey")
+                }) {
+                    Image("settingsIcon")
+                        .resizable()
+                        .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
+                }
+                .offset(x: geo.size.width * 0.42, y: geo.size.height * 0.18)
+                
                 VStack {
                     HStack {
                         Image("checkBullet")
