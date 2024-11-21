@@ -12,6 +12,7 @@ struct ImpossibleValidationView: View {
     @Binding    var isSheetPresented : Bool
     @State      var oldCigaretsPerDay = 0
     @State      var newCigaretsPerDay = 0
+    @State      var weekAdvice = "le paquet"
     
     var body: some View {
         GeometryReader { geo in
@@ -60,7 +61,7 @@ struct ImpossibleValidationView: View {
                         Image("checkBullet")
                             .resizable()
                             .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
-                        Text("Mettre tes \(self.newCigaretsPerDay) cigarettes directement dans le paquet pour ne pas être tenté")
+                        Text("Mettre uniquement tes \(self.newCigaretsPerDay) cigarettes directement dans \(self.weekAdvice) pour ne pas être tenté")
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
@@ -76,6 +77,9 @@ struct ImpossibleValidationView: View {
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
                 self.newCigaretsPerDay = Int(Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) + Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) * 0.15)
+                if self.newCigaretsPerDay > 20 {
+                    self.weekAdvice = "les paquets"
+                }
             }
         }
     }

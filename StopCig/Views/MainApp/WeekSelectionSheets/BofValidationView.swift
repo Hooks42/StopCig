@@ -11,6 +11,7 @@ struct BofValidationView: View {
     @Binding    var smokerModel : SmokerModel?
     @Binding    var isSheetPresented : Bool
     @State      var oldCigaretsPerDay = 0
+    @State      var weekAdvice = "le paquet"
     
     var body: some View {
         GeometryReader { geo in
@@ -59,7 +60,7 @@ struct BofValidationView: View {
                         Image("checkBullet")
                             .resizable()
                             .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
-                        Text("Mettre tes \(self.oldCigaretsPerDay) cigarettes directement dans le paquet pour ne pas être tenté")
+                        Text("Mettre uniquement tes \(self.oldCigaretsPerDay) cigarettes directement dans \(self.weekAdvice) pour ne pas être tenté")
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
@@ -74,6 +75,9 @@ struct BofValidationView: View {
             }
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
+                if (self.oldCigaretsPerDay > 20) {
+                    self.weekAdvice = "les paquets"
+                }
             }
         }
     }

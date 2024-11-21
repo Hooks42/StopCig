@@ -15,6 +15,7 @@ struct SuperValidationView: View {
     @State      var newCigaretsPerDay = 0
     @State      var newCigaretsPercent = 20
     @State      var isOptionSheetPresented = false
+    @State      var weekAdvice = "le paquet"
     
     var body: some View {
         GeometryReader { geo in
@@ -73,7 +74,7 @@ struct SuperValidationView: View {
                         Image("checkBullet")
                             .resizable()
                             .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
-                        Text("Mettre tes \(self.newCigaretsPerDay) cigarettes directement dans le paquet pour ne pas être tenté")
+                        Text("Mettre uniquement tes \(self.newCigaretsPerDay) cigarettes directement dans \(self.weekAdvice) pour ne pas être tenté")
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
@@ -89,6 +90,9 @@ struct SuperValidationView: View {
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
                 self.newCigaretsPerDay = Int(Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) * 0.8)
+                if self.newCigaretsPerDay > 20 {
+                    self.weekAdvice = "les paquets"
+                }
             }
             .sheet(isPresented: $isOptionSheetPresented) {
                 NextWeekSmokingChoiceView(oldCigaretsPerDay: self.$oldCigaretsPerDay, newCigaretsPerDay: self.$newCigaretsPerDay, isPresented: self.$isOptionSheetPresented, newCigaretsPercent: self.$newCigaretsPercent)
