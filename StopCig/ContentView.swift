@@ -74,25 +74,25 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack {
                 if self.testView {
-                    WeekFeelingsView(smokerModel: $smokerModel)
+                    WeekFeelingsView(smokerModel: $smokerModel, showWeekFeelingsView: $showWeekFeelingsView)
                 } else {
                     if smokerModel != nil && smokerModel.firstOpening ||  isRoutineSet {
-                        if self.showWeekFeelingsView {
-                            WeekFeelingsView(smokerModel: $smokerModel)
-                        } else {
-                            TabView(selection: $indexTabView)
-                            {
-                                MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, updateCurrentDateTime: updateCurrentDateTime)
-                                    .tabItem { Text("Menu 1") }
-                                    .tag(0)
-                                
-                                ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
-                                    .tabItem { Text("Menu 2") }
-                                    .tag(1)
-                            }
-                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                            .ignoresSafeArea()
+                        TabView(selection: $indexTabView)
+                        {
+                            MainMenuView(smokerModel: $smokerModel, needToReset: $needToReset, startTest: $startTest, addDay: $addDay, showWeekFeelingsView: $showWeekFeelingsView, updateCurrentDateTime: updateCurrentDateTime)
+                                .tabItem { Text("Menu 1") }
+                                .tag(0)
                             
+                            ToDayStatsView(smokerModel: $smokerModel, weekStats: $weekStats)
+                                .tabItem { Text("Menu 2") }
+                                .tag(1)
+                        }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        .ignoresSafeArea()
+                        .fullScreenCover(isPresented: $showWeekFeelingsView) {
+                            WeekFeelingsView(smokerModel: $smokerModel, showWeekFeelingsView: $showWeekFeelingsView)
+                        }
+                        if !showWeekFeelingsView {
                             ZStack {
                                 DotView(indexTabView: $indexTabView, weekStats: $weekStats)
                                     .padding(.top, geo.size.height * 0.8)
@@ -126,11 +126,11 @@ struct ContentView: View {
                     .onAppear() {
                         initializeSmokerModel()
                         print("firstOpening : \(smokerModel.firstOpening)")
-                        cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-                            .sink { _ in
-                                self.updateCurrentDateTime(false)
-                            }
-                        self.updateCurrentDateTime(false)
+//                        cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+//                            .sink { _ in
+//                                self.updateCurrentDateTime(false)
+//                            }
+//                        self.updateCurrentDateTime(false)
                     }
                     .onChange(of: networkMonitor.isConnected) {
                         if !networkMonitor.isConnected {
@@ -345,11 +345,12 @@ struct ContentView: View {
         @Binding var needToReset: Bool
         @Binding var startTest: Bool
         @Binding var addDay: Bool
+        @Binding var showWeekFeelingsView: Bool
         
         let updateCurrentDateTime: (Bool) -> Void
         
         var body: some View {
-                MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, addDay: $addDay, startTest: $startTest)
+            MainBoardView(smokerModel: $smokerModel, needToReset: $needToReset, addDay: $addDay, startTest: $startTest, showWeekFeelingsView: $showWeekFeelingsView)
                 .onChange(of: addDay) {
                     if addDay {
                         updateCurrentDateTime(true)

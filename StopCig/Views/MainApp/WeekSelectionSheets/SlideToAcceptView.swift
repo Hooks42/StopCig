@@ -10,10 +10,14 @@ import SwiftUI
 struct SlideToAcceptView: View {
     
     @Binding    var isSheetPresented : Bool
+    @Binding    var showWeekFeelingsView: Bool
+    @Binding    var newCigaretsPerDay : Int
+    @Binding    var smokerModel : SmokerModel?
     
     @State      var maxWidth : CGFloat = 0
     @State      var unlocked = false
     @State      var offset : CGFloat = 0
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         GeometryReader { geo in
@@ -48,7 +52,6 @@ struct SlideToAcceptView: View {
                                         if gesture.translation.width > 0 && gesture.translation.width <= self.maxWidth {
                                             self.offset = gesture.translation.width
                                         }
-                                        print("gesture.translation.width : \(gesture.translation.width)")
                                     }
                                     .onEnded { _ in
                                         if self.offset >= self.maxWidth - 20 {
@@ -73,6 +76,9 @@ struct SlideToAcceptView: View {
                 if unlocked {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         self.isSheetPresented = false
+                        self.showWeekFeelingsView = false
+                        self.smokerModel?.numberOfCigaretProgrammedThisDay = self.newCigaretsPerDay
+                        saveInSmokerDb(modelContext)
                     }
                 }
             }
@@ -87,7 +93,7 @@ struct SlideToAcceptView: View {
     ZStack {
         Color(.nightBlue)
             .edgesIgnoringSafeArea(.all)
-        SlideToAcceptView(isSheetPresented: .constant(true))
+        SlideToAcceptView(isSheetPresented: .constant(true), showWeekFeelingsView: .constant(true), newCigaretsPerDay: .constant(0), smokerModel: .constant(nil))
             .offset(y: 500)
     }
 }

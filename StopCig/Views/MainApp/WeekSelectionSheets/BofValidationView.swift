@@ -10,6 +10,7 @@ import SwiftUI
 struct BofValidationView: View {
     @Binding    var smokerModel : SmokerModel?
     @Binding    var isSheetPresented : Bool
+    @Binding    var showWeekFeelingsView: Bool
     @State      var oldCigaretsPerDay = 0
     @State      var weekAdvice = "le paquet"
     
@@ -67,7 +68,7 @@ struct BofValidationView: View {
                     .frame(maxWidth: geo.size.width * 0.94, alignment: .leading)
                     .offset(x: geo.size.width * 0.02, y: geo.size.height * 0.14)
                     
-                    SlideToAcceptView(isSheetPresented: $isSheetPresented)
+                    SlideToAcceptView(isSheetPresented: $isSheetPresented, showWeekFeelingsView: $showWeekFeelingsView, newCigaretsPerDay: $oldCigaretsPerDay, smokerModel: $smokerModel)
                         .offset(y: geo.size.height * 0.27)
                     
                 }
@@ -84,5 +85,5 @@ struct BofValidationView: View {
 }
 
 #Preview {
-    BofValidationView(smokerModel: .constant(nil), isSheetPresented: .constant(true))
+    BofValidationView(smokerModel: .constant(nil), isSheetPresented: .constant(true), showWeekFeelingsView: .constant(true))
 }

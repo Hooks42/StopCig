@@ -3,6 +3,7 @@ import SwiftUI
 struct WeekFeelingsView: View {
     
     @Binding var smokerModel : SmokerModel?
+    @Binding var showWeekFeelingsView : Bool
     
     @State var initCircleX: CGFloat = 0
     @State var initCircleY: CGFloat = 0
@@ -144,16 +145,16 @@ struct WeekFeelingsView: View {
                 self.circleY = geo.size.height * 0.6
             }
             .sheet(isPresented: $isSheetPresented[0]) {
-                BofValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[0])
+                BofValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[0], showWeekFeelingsView: $showWeekFeelingsView)
             }
             .sheet(isPresented: $isSheetPresented[1]) {
-                SuperValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[1])
+                SuperValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[1], showWeekFeelingsView: $showWeekFeelingsView)
             }
             .sheet(isPresented: $isSheetPresented[2]) {
-                DurValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[2])
+                DurValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[2], showWeekFeelingsView: $showWeekFeelingsView)
             }
             .sheet(isPresented: $isSheetPresented[3]) {
-                ImpossibleValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[3])
+                ImpossibleValidationView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented[3], showWeekFeelingsView: $showWeekFeelingsView)
             }
         }
     }
@@ -200,5 +201,5 @@ struct WeekFeelingsView: View {
 }
 
 #Preview {
-    WeekFeelingsView(smokerModel: .constant(nil))
+    WeekFeelingsView(smokerModel: .constant(nil), showWeekFeelingsView: .constant(true))
 }

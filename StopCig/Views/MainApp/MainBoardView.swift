@@ -13,7 +13,7 @@ struct MainBoardView: View {
     @Binding var needToReset: Bool
     @Binding var addDay: Bool
     @Binding var startTest: Bool
-    
+    @Binding var showWeekFeelingsView : Bool
     
     @Environment(\.modelContext) private var modelContext
     
@@ -34,11 +34,12 @@ struct MainBoardView: View {
     @State var packPrice = 0.0
     private let cigPrice : Double
     
-    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, addDay: Binding<Bool>, startTest: Binding<Bool>) {
+    init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, addDay: Binding<Bool>, startTest: Binding<Bool>, showWeekFeelingsView: Binding<Bool>) {
         self._smokerModel = smokerModel
         self._needToReset = needToReset
         self._addDay = addDay
         self._startTest = startTest
+        self._showWeekFeelingsView = showWeekFeelingsView
         
         self._totalCigForThisDay = State(initialValue: smokerModel.wrappedValue?.numberOfCigaretProgrammedThisDay ?? 0)
         self._cigaretSmokedThisDay = State(initialValue: smokerModel.wrappedValue?.cigaretCountThisDayMap[getOnlyDate(from: smokerModel.wrappedValue?.lastOpening ?? Date())]?.cigaretSmoked ?? 0)
@@ -225,9 +226,6 @@ struct MainBoardView: View {
             }
             .onAppear() {
                 self.nextStep = 1 / CGFloat(totalCigForThisDay) * CGFloat(cigaretSmokedThisDay)
-                if smokerModel?.firstOpeningDate != nil {
-                    print("✅ La date d'aujourd'hui est : \(String(describing: smokerModel?.firstOpeningDate!))")
-                }
                 let i = self.nextStep
                 if nextStep != 0 {
                     withAnimation {
@@ -238,11 +236,16 @@ struct MainBoardView: View {
             }
             .onChange(of: needToReset) {
                 if needToReset == true {
+                    print("\nJE RESET NEED TO RESET A FALSE :D\n")
                     self.nextStep = 0
                     self.cigaretSmokedThisDay = 0
                     self.gain += self.cigPrice * Double(self.totalCigForThisDay)
                     needToReset = false
-                    
+                }
+            }
+            .onChange(of: showWeekFeelingsView) {
+                if showWeekFeelingsView == false {
+                    self.totalCigForThisDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
                 }
             }
         }
@@ -250,5 +253,5 @@ struct MainBoardView: View {
 }
     
     #Preview {
-        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false), addDay: .constant(false), startTest: .constant(true))
+        MainBoardView(smokerModel: .constant(nil), needToReset: .constant(false), addDay: .constant(false), startTest: .constant(true), showWeekFeelingsView: .constant(false))
     }

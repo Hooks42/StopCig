@@ -11,6 +11,8 @@ struct SuperValidationView: View {
     
     @Binding    var smokerModel : SmokerModel?
     @Binding    var isSheetPresented : Bool
+    @Binding    var showWeekFeelingsView: Bool
+
     @State      var oldCigaretsPerDay = 0
     @State      var newCigaretsPerDay = 0
     @State      var newCigaretsPercent = 20
@@ -81,7 +83,7 @@ struct SuperValidationView: View {
                     .frame(maxWidth: geo.size.width * 0.94, alignment: .leading)
                     .offset(x: geo.size.width * 0.02, y: geo.size.height * 0.14)
                     
-                    SlideToAcceptView(isSheetPresented: $isSheetPresented)
+                    SlideToAcceptView(isSheetPresented: $isSheetPresented, showWeekFeelingsView: $showWeekFeelingsView, newCigaretsPerDay : $newCigaretsPerDay, smokerModel : $smokerModel)
                         .offset(y: geo.size.height * 0.29)
                     
                 }
@@ -104,5 +106,5 @@ struct SuperValidationView: View {
 }
 
 #Preview {
-    SuperValidationView(smokerModel: .constant(nil), isSheetPresented: .constant(true))
+    SuperValidationView(smokerModel: .constant(nil), isSheetPresented: .constant(true), showWeekFeelingsView: .constant(true))
 }
