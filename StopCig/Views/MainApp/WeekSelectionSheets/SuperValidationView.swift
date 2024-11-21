@@ -13,6 +13,8 @@ struct SuperValidationView: View {
     @Binding    var isSheetPresented : Bool
     @State      var oldCigaretsPerDay = 0
     @State      var newCigaretsPerDay = 0
+    @State      var newCigaretsPercent = 20
+    @State      var isOptionSheetPresented = false
     
     var body: some View {
         GeometryReader { geo in
@@ -34,20 +36,20 @@ struct SuperValidationView: View {
                     .offset(y: -(geo.size.height * 0.05))
                 
                 Button(action: {
-                    print("hey")
+                    self.isOptionSheetPresented = true
                 }) {
                     Image("settingsIcon")
                         .resizable()
                         .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
                 }
-                .offset(x: geo.size.width * 0.42, y: geo.size.height * 0.18)
+                .offset(x: geo.size.width * 0.39, y: -(geo.size.height * 0.46))
                 
                 VStack {
                     HStack {
                         Image("checkBullet")
                             .resizable()
                             .frame(width: geo.size.width * 0.05, height: geo.size.width * 0.05)
-                        Text("Fumer 20 % de moins que la semaine précédente")
+                        Text("Fumer \(self.newCigaretsPercent) % de moins que la semaine précédente")
                             .font(.custom("Quicksand-Light", size: 15))
                             .foregroundColor(.white)
                     }
@@ -87,6 +89,11 @@ struct SuperValidationView: View {
             .onAppear() {
                 self.oldCigaretsPerDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
                 self.newCigaretsPerDay = Int(Double(smokerModel?.numberOfCigaretProgrammedThisDay ?? 0) * 0.8)
+            }
+            .sheet(isPresented: $isOptionSheetPresented) {
+                NextWeekSmokingChoiceView(oldCigaretsPerDay: self.$oldCigaretsPerDay, newCigaretsPerDay: self.$newCigaretsPerDay, isPresented: self.$isOptionSheetPresented, newCigaretsPercent: self.$newCigaretsPercent)
+                    .presentationDetents([.fraction(0.5)])
+                
             }
         }
     }
