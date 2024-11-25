@@ -143,6 +143,8 @@ func fillGraphData(smokerModel: SmokerModel?, date: String, isDay: Bool, modelCo
         }
         
         if isDay {
+            print("\n\n---------------------------------------------------------------\n\n")
+            print("🌿 DAYSTATS : \(cigaretSavedDay) \(cigaretSmokedDay) \(moneyEarnedDay) \(moneyLostDay)\n\n")
             smokerModelVar?.graphDataDay["Argent économisé"]?.append(graphDataStruct(index: String(daySinceFirstOpening!), value: moneyEarnedDay))
             smokerModelVar?.graphDataDay["Argent perdu"]?.append(graphDataStruct(index: String(daySinceFirstOpening!), value: moneyLostDay))
             smokerModelVar?.graphDataDay["Cigarettes sauvées"]?.append(graphDataStruct(index: String(daySinceFirstOpening!), value: Double(cigaretSavedDay)))

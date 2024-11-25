@@ -139,7 +139,6 @@ struct ContentView: View {
                     }
                     .onChange(of: needToReset) {
                         if needToReset == true {
-                            print("CA MARCHE PUTAIN DE MERDE")
                             smokerModel.daySinceFirstOpening += 1
                             print("\n♥️Get Only Date : \(getOnlyDate(from: self.currentDate))")
                             fillGraphData(smokerModel: smokerModel,date: getYesterdayDate(from: self.currentDate), isDay: true, modelContext: modelContext)
@@ -260,7 +259,7 @@ struct ContentView: View {
                     }
                     smokerModel.lastOpening = currentDate
                     if smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] == nil {
-                        smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: 0, gain: 0, lost: 0)
+                        smokerModel.cigaretCountThisDayMap[getOnlyDate(from: self.currentDate)] = CigaretCountThisDay(cigaretSmoked: 0, cigaretSaved: smokerModel.numberOfCigaretProgrammedThisDay, gain: (smokerModel.cigaretInfo.priceOfCigaret / 20) * Double(smokerModel.numberOfCigaretProgrammedThisDay), lost: 0)
                     }
                     saveInSmokerDb(modelContext)
                     print("✅Last opening date and time: \(smokerModel.lastOpening)")

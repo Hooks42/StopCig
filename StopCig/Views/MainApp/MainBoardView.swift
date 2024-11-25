@@ -239,13 +239,16 @@ struct MainBoardView: View {
                     print("\nJE RESET NEED TO RESET A FALSE :D\n")
                     self.nextStep = 0
                     self.cigaretSmokedThisDay = 0
-                    self.gain += self.cigPrice * Double(self.totalCigForThisDay)
+                    if smokerModel?.daySinceFirstOpening ?? 0 % 7 != 0 {
+                        self.gain += self.cigPrice * Double(self.totalCigForThisDay)
+                    }
                     needToReset = false
                 }
             }
             .onChange(of: showWeekFeelingsView) {
                 if showWeekFeelingsView == false {
                     self.totalCigForThisDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
+                    self.gain += self.cigPrice * Double(self.totalCigForThisDay)
                 }
             }
         }
