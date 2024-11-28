@@ -8,128 +8,131 @@
 import SwiftUI
 
 struct SettingsView: View {
-     
-    let pickerUnit :[Int] = SettingsView.fillPickerUnit()
-    let pickerDec :[Int] = SettingsView.fillPickerDec()
-    let pickerCigPerDay :[String:Int] = SettingsView.fillCigPerDay()
-    
-    @State var selectedOptionUnit = 0
-    @State var selectedOptionDec = 0
-    @State var selectedOptionCigPerDay : String?
     
     @Binding var smokerModel: SmokerModel?
-    @Environment(\.modelContext) private var modelContext
+    @Binding var isSheetPresented: Bool
     
+    @State var packPriceUnit : Int = 0
+    @State var packPriceDecimal : Int = 0
+    @State var pickerUnit : [Int] = Array(0...30)
+    @State var pickerDecimal : [Int] = []
+    @State var pickerWeekObjective : [Int]  = []
+    @State var pickerUnitChoice : Int = 0
+    @State var pickerDecimalChoice : Int = 0
+    @State var pickerObjectiveChoice : Int = 0
+    
+    @State var newPrice : Double = 0
+    @State var newObjective : Int = 0
+        
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                Color(.nightBlue)
+                    .edgesIgnoringSafeArea(.all)
                 Text("Réglages")
+                    .font(.custom("Quicksand-SemiBold", size: 40))
                     .foregroundColor(.white)
-                    .font(.title)
-                    .padding(.bottom, geo.size.height * 0.55)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                VStack (spacing: geo.size.height * 0.15) {
-                    HStack {
-                        Text("Prix du paquet")
+                    .offset(x: -(geo.size.width * 0.20), y: -(geo.size.height * 0.43))
+                VStack (spacing: geo.size.height * 0.1) {
+                    VStack {
+                        Text("Prix du paquet :")
+                            .font(.custom("Quicksand-SemiBold", size: 20))
                             .foregroundColor(.white)
-                            .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
-                        Picker(selection: $selectedOptionUnit, label: Text("Select an option")) {
-                            ForEach(0..<pickerUnit.count, id: \.self) { index in
-                                Text(String(self.pickerUnit[index])).tag(index)
-                                    .foregroundColor(.white)
+                        HStack {
+                            Picker(selection: $pickerUnitChoice, label: Text("Unité")) {
+                                ForEach(0..<self.pickerUnit.count, id:\.self) { index in
+                                    Text("\(pickerUnit[index])")
+                                }
                             }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(width: geo.size.width * 0.15, height: geo.size.height * 0.15)
-                        Text(".")
-                            .foregroundColor(.white)
-                            .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
-                            //.padding(.trailing, 50)
-                        Picker("Select an Option ", selection: Binding(
-                            get: { selectedOptionDec },
-                            set: { selectedOptionDec = $0 }))
-                        {
-                            ForEach(0..<pickerDec.count, id: \.self) { index in
-                                Text(String(self.pickerDec[index])).tag(index)
-                                    .foregroundColor(.white)
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: geo.size.width * 0.3, height: geo.size.height * 0.2)
+                            .onChange(of: pickerUnitChoice) {
+                                self.newPrice = Double(pickerUnitChoice) + Double(pickerDecimalChoice) / 100
                             }
+                            
+                            Text(".")
+                                .font(.custom("Quicksand-SemiBold", size: 20))
+                                .foregroundColor(.white)
+                            
+                            Picker(selection: $pickerDecimalChoice, label: Text("Décimal")) {
+                                ForEach(0..<self.pickerDecimal.count, id:\.self) { index in
+                                    Text("\(pickerDecimal[index])")
+                                }
+                            }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: geo.size.width * 0.3, height: geo.size.height * 0.2)
+                            .onChange(of: pickerDecimalChoice) {
+                                self.newPrice = Double(pickerUnitChoice) + Double(pickerDecimalChoice) / 100
+                            }
+                            
+                            Text("€")
+                                .font(.custom("Quicksand-SemiBold", size: 20))
+                                .foregroundColor(.white)
                         }
-                        .pickerStyle(.wheel)
-                        .frame(width: geo.size.width * 0.15, height: geo.size.height * 0.15)
-                        Text("€")
-                            .foregroundColor(.white)
-                            .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
                     }
-                    .padding(.top, geo.size.height * 0.15)
-                    HStack (spacing: geo.size.width * 0.01){
-                        Text("Conso")
+                    
+                    VStack {
+                        Text("Objectif de la semaine:")
+                            .font(.custom("Quicksand-SemiBold", size: 20))
                             .foregroundColor(.white)
-                            .font(.custom("Quicksand-SemiBold", size: geo.size.width * 0.046))
-                            .padding(.leading, geo.size.width * 0.025)
-                        Picker("Nombre de cigarettes", selection: Binding(
-                            get: { selectedOptionCigPerDay ?? "1 paquet" },
-                            set: { selectedOptionCigPerDay = $0 }
-                        )) {
-                            let sortedCigaretTypes = pickerCigPerDay.sorted { $0.value < $1.value }
-                            ForEach(sortedCigaretTypes, id: \.key) { key, value in
-                                Text(key)
-                                    .foregroundColor(.white)
-                                    .tag(key)
+                        HStack {
+                            Picker(selection: $pickerObjectiveChoice, label: Text("Objectif")) {
+                                ForEach(0..<self.pickerWeekObjective.count, id:\.self) { index in
+                                    Text("\(pickerWeekObjective[index])")
+                                }
                             }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: geo.size.width * 0.3, height: geo.size.height * 0.2)
+                            .onChange(of: pickerObjectiveChoice) {
+                                self.newObjective = pickerObjectiveChoice
+                            }
+                            
+                            Text("cigarettes")
+                                .font(.custom("Quicksand-SemiBold", size: 20))
+                                .foregroundColor(.white)
                         }
-                        .padding(.leading, geo.size.width * 0.09)
-                        .pickerStyle(.inline)
-                        .frame(width: geo.size.width * 0.6, height: geo.size.height * 0.12)
                     }
                 }
-                .padding(.top, geo.size.height * 0.15)
+                SlideToSaveSettingsView(smokerModel: $smokerModel, isSheetPresented: $isSheetPresented, newPrice: $newPrice, newObjective: $newObjective)
+                    .offset(y: geo.size.height * 0.9)
+            }
+            .onAppear() {
+                self.fillDecPicker()
+                self.fillWeekObjectivePicker()
+                let packPrice = smokerModel?.cigaretInfo.priceOfCigaret ?? 0
+                self.pickerUnitChoice = Int(packPrice)
+                self.pickerDecimalChoice = getDecimalPartAsInt(from: packPrice) / 5
+                self.pickerObjectiveChoice = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
+                self.newPrice = packPrice
+                self.newObjective = self.pickerObjectiveChoice
             }
         }
-        .onAppear() {
-            if let smokerModel = smokerModel {
-                selectedOptionUnit = Int(smokerModel.cigaretInfo.priceOfCigaret)
-                selectedOptionDec = pickerDec.firstIndex(of: getDecimalPartAsInt(from: smokerModel.cigaretInfo.priceOfCigaret)) ?? 0
-                selectedOptionCigPerDay = findKeyByVal(dictionnary: pickerCigPerDay, value: smokerModel.cigaretInfo.numberOfCigaretAnnounced)
-                print("Price of cigarets : \(selectedOptionUnit) DEC : \(selectedOptionDec) AND cig per day : \(selectedOptionCigPerDay ?? "0")")
-            }
-        }
-    }
-    private static func fillPickerUnit() -> [Int] {
-        var pickerUnit :[Int] = []
-        for i in 0...30 {
-            pickerUnit.append(i)
-        }
-        return pickerUnit
     }
     
-    private static func fillPickerDec() -> [Int] {
-        var pickerDec :[Int] = []
-        for i in 0...95 {
-            if i % 5 == 0 {
-                pickerDec.append(i)
-            }
+    private func fillDecPicker() {
+        var i = 0
+        while i <= 95 {
+            pickerDecimal.append(i)
+            i += 5
         }
-        return pickerDec
     }
     
-    private static func fillCigPerDay() -> [String : Int] {
-        
-        var numberOfCigaretsSmoked : [String : Int] = [:]
-        
-        for i in 10...60 {
-            switch i {
-            case 20: numberOfCigaretsSmoked["1 paquet"] = i
-            case 30: numberOfCigaretsSmoked["1 paquet et demi"] = i
-            case 40: numberOfCigaretsSmoked["2 paquets"] = i
-            case 50: numberOfCigaretsSmoked["2 paquets et demi"] = i
-            case 60: numberOfCigaretsSmoked["3 paquets"] = i
-            default: numberOfCigaretsSmoked["\(i) cigarettes"] = i
+    private func fillWeekObjectivePicker() {
+        let i = self.smokerModel?.cigaretInfo.numberOfCigaretAnnounced ?? 0
+        if i > 0 {
+            var index = 0
+            while index <= i {
+                self.pickerWeekObjective.append(index)
+                index += 1
             }
         }
-        return numberOfCigaretsSmoked
     }
 }
 
 #Preview {
-    SettingsView(smokerModel: .constant(nil))
+    ZStack {
+        Color(.nightBlue)
+            .edgesIgnoringSafeArea(.all)
+        SettingsView(smokerModel: .constant(nil), isSheetPresented: .constant(true))
+    }
 }

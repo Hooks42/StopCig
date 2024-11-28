@@ -32,7 +32,8 @@ struct MainBoardView: View {
     @State var showSettings = false
     @State var CigPerDay = 0
     @State var packPrice = 0.0
-    private let cigPrice : Double
+    @State private var cigPrice : Double
+    
     
     init(smokerModel: Binding<SmokerModel?>, needToReset: Binding<Bool>, addDay: Binding<Bool>, startTest: Binding<Bool>, showWeekFeelingsView: Binding<Bool>) {
         self._smokerModel = smokerModel
@@ -82,10 +83,8 @@ struct MainBoardView: View {
                             .sheet(isPresented: $showSettings) {
                                 ZStack {
                                     Color(.nightBlue)
-                                    SettingsView(smokerModel: $smokerModel)
+                                    SettingsView(smokerModel: $smokerModel, isSheetPresented: $showSettings)
                                 }
-                                .presentationDetents([.fraction(geo.size.height * 0.0005)])
-                                .edgesIgnoringSafeArea(.all)
                             }
                     }
                 }
@@ -249,6 +248,12 @@ struct MainBoardView: View {
                 if showWeekFeelingsView == false {
                     self.totalCigForThisDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
                     self.gain += self.cigPrice * Double(self.totalCigForThisDay)
+                }
+            }
+            .onChange(of: showSettings) {
+                if showSettings == false {
+                    self.totalCigForThisDay = smokerModel?.numberOfCigaretProgrammedThisDay ?? 0
+                    self.cigPrice = Double(smokerModel?.cigaretInfo.priceOfCigaret ?? 0) / 20
                 }
             }
         }

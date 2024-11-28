@@ -24,6 +24,7 @@
 		FB52D8DD2C53E87800B8B709 /* HelloView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DC2C53E87800B8B709 /* HelloView.swift */; };
 		FB52D8DF2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8DE2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift */; };
 		FB52D8E12C550BE100B8B709 /* Smoker_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */; };
+		FB57F6102CF7855500CED5DD /* SlideToSaveSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB57F60F2CF7855500CED5DD /* SlideToSaveSettingsView.swift */; };
 		FB6B7E0D2C5396BD001D9131 /* Quicksand-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */; };
 		FBA72D0F2C6F65C6006F5249 /* RectangleSelecterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */; };
 		FBA99FD32C8F22D200F04582 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA99FD22C8F22D200F04582 /* Class.swift */; };
@@ -60,6 +61,7 @@
 		FB52D8DC2C53E87800B8B709 /* HelloView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloView.swift; sourceTree = "<group>"; };
 		FB52D8DE2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatKindOfCigaretsView.swift; sourceTree = "<group>"; };
 		FB52D8E02C550BE100B8B709 /* Smoker_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smoker_Model.swift; sourceTree = "<group>"; };
+		FB57F60F2CF7855500CED5DD /* SlideToSaveSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideToSaveSettingsView.swift; sourceTree = "<group>"; };
 		FB6B7E0C2C5396BC001D9131 /* Quicksand-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Light.ttf"; sourceTree = "<group>"; };
 		FB6B7E0E2C5396E7001D9131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FBA72D0E2C6F65C6006F5249 /* RectangleSelecterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleSelecterView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				FBCF03B92CAE8F51001B0A37 /* WeekStatsView.swift */,
 				FB4CBB142CDDEDCA001DD3D2 /* WeekFeelingsView.swift */,
 				FB3C29D82CE70C3500A9AE09 /* TextView.swift */,
+				FB57F60F2CF7855500CED5DD /* SlideToSaveSettingsView.swift */,
 			);
 			path = MainApp;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				FBCF03B82CADB058001B0A37 /* DayStatsView.swift in Sources */,
 				FB52D8DF2C53EEF800B8B709 /* WhatKindOfCigaretsView.swift in Sources */,
 				FBB8AB152C5FC84C00141E4E /* Structs.swift in Sources */,
+				FB57F6102CF7855500CED5DD /* SlideToSaveSettingsView.swift in Sources */,
 				FB2EC7DE2CEE2A0800F96556 /* DurValidationView.swift in Sources */,
 				FBB8AB132C5E279400141E4E /* Functions.swift in Sources */,
 				FBCF03B62CAD8955001B0A37 /* DotView.swift in Sources */,
