@@ -40,7 +40,7 @@ struct ContentView: View {
     @State private var isRoutineSet = false
     
     // Var pour les tests
-    @State private var startTest = true
+    @State private var startTest = false
     @State private var test = ""
     
     // Var pour le model SwiftData
@@ -126,11 +126,11 @@ struct ContentView: View {
                     .onAppear() {
                         initializeSmokerModel()
                         print("firstOpening : \(smokerModel.firstOpening)")
-//                        cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-//                            .sink { _ in
-//                                self.updateCurrentDateTime(false)
-//                            }
-//                        self.updateCurrentDateTime(false)
+                        cancellable = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+                            .sink { _ in
+                                self.updateCurrentDateTime(false)
+                            }
+                        self.updateCurrentDateTime(false)
                     }
                     .onChange(of: networkMonitor.isConnected) {
                         if !networkMonitor.isConnected {
