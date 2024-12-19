@@ -63,7 +63,7 @@ struct SlideToAcceptView: View {
                                             }
                                         } else {
                                             withAnimation {
-                                                self.offset = 0
+                                                self.offset = geo.size.width * 0.055
                                             }
                                         }
                                     }
