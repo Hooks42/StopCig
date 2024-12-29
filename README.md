@@ -13,15 +13,8 @@
 3. **Commencez votre programme** L'application créer votre programme en fonction de vos habitude
 
 ## Aperçu visuel
-Voici quelques captures d'écran pour vous donner un aperçu de l'application en action (Cette Application est en cours de Développement) :
 
-![1er Pas](./ProjectImage/Hello.jpg)
-
-![Renseigner sa marque](./ProjectImage/Marque.jpg)
-
-![Renseigner sa routine](./ProjectImage/Routine.jpg)
-
-![Acceuil](./ProjectImage/Main.jpg)
+![Lancement de l'application](./ProjectImage/Startup.gif)
 
 ## Technologie utilisée
 - **Langage** : Swift
