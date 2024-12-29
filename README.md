@@ -14,7 +14,17 @@
 
 ## Aperçu visuel
 
+### 1er lancement de l'application
 ![Lancement de l'application](./ProjectImage/Startup.gif)
+
+### Gestion des objectifs journaliers avec un système de portefeuille
+![Gestion des objectifs journaliers](./ProjectImage/Objectif.gif)
+
+### Statistiques et suivi des progrès
+![Statistiques et suivi des progrès](./ProjectImage/Stats.gif)
+
+### Personnalisation des objectifs en fonction de si la semaine à été facile ou difficile
+![Personnalisation des objectifs](./ProjectImage/Feelings.gif)
 
 ## Technologie utilisée
 - **Langage** : Swift
